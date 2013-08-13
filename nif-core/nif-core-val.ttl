@@ -1,0 +1,73 @@
+@prefix nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix fise: <http://fise.iks-project.eu/ontology/> .
+
+###################
+# Imports
+###################  
+
+<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#val>  owl:imports <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/version-1.0/nif-core-inf.ttl> .
+<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#val>  owl:sameAs <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+
+
+nif:String 
+	owl:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty nif:referenceContext ;
+		owl:allValuesFrom nif:Context 
+	] . 
+
+#experimental
+nif:String 
+	owl:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty dcterms:created ;
+		owl:allValuesFrom xsd:datetime 
+	] . 
+	
+
+###################
+# Functional Properties
+###################    
+
+nif:referenceContext a owl:FunctionalProperty .
+nif:anchorOf a owl:FunctionalProperty .
+nif:isString a owl:FunctionalProperty .
+nif:beginIndex a owl:FunctionalProperty .
+nif:endIndex a owl:FunctionalProperty .
+nif:before a owl:FunctionalProperty .
+nif:after a owl:FunctionalProperty .
+nif:head a owl:FunctionalProperty .
+nif:tail a owl:FunctionalProperty .
+nif:contextAsLiteral a owl:FunctionalProperty .
+nif:confidence a owl:FunctionalProperty . 
+
+nif:nextWord a owl:FunctionalProperty .
+nif:previousWord a owl:FunctionalProperty .
+
+nif:nextSentence a owl:FunctionalProperty .
+nif:previousSentence a owl:FunctionalProperty .
+
+nif:firstWord a owl:FunctionalProperty .
+nif:previousWord a owl:FunctionalProperty .
+
+
+
+
+###################
+# Disjointness
+###################
+[] a owl:AllDisjointClasses ; 
+	owl:members nif:RFC5147String, nif:ContextHashBasedString , nif:OffsetBasedString ,  nif:ArbitraryString .
+
+	
+[] a owl:AllDisjointClasses ; 
+	owl:members nif:String, nif:EntityAnnotation, nif:TopicAnnotation .	
+	
+# experimental	
+[] a owl:AllDisjointClasses ; 
+	owl:members nif:String, nif:LabelString .

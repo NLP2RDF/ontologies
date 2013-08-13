@@ -1,0 +1,101 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sso: <http://nlp2rdf.lod2.eu/schema/sso/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix scms: <http://ns.aksw.org/scms/> .
+
+<http://nlp2rdf.lod2.eu/schema/string/>
+    a owl:Ontology ;
+    rdfs:comment "The String Ontology is a vocabluary to describe Strings and builds the foundation for the NLP Interchange Format http://nlp2rdf.org/NIF-1.0 . It has a class <String> and a property :anchorOf to anchor URIs in a given text and describe the relations between these String URIs." ;
+    rdfs:label "String Ontology" .
+
+<http://nlp2rdf.lod2.eu/schema/string/ContextHashBasedString>
+    a owl:Class ;
+    rdfs:comment "The URI of this String was created with the URI Recipe Context-Hash, see http://aksw.org/Projects/NIF#context-hash-nif-uri-recipe." ;
+    rdfs:subClassOf <http://nlp2rdf.lod2.eu/schema/string/String> .
+
+<http://nlp2rdf.lod2.eu/schema/string/Document>
+    a owl:Class ;
+    rdfs:comment "A document is a string that can be considered a closed unit content-wise. In NIF a document is given an URL that references the String of the document. Furthermore a document can have several sources. It can be a string, a HTML document, a PDF document, text file or any other arbitrary string. The uri denoting the actual document should be able to reproduce that document, i.e. either the string is directly included via the property sourceString or an url can be given that contains the string via the property sourceUrl. Depending on the feedback, this might also become the Graph URI or a subclass of owl:Ontology " ;
+    rdfs:subClassOf <http://nlp2rdf.lod2.eu/schema/string/String> .
+
+<http://nlp2rdf.lod2.eu/schema/string/OffsetBasedString>
+    a owl:Class ;
+    rdfs:comment "The URI of this String was created with the URI Recipe Context-Hash, see http://aksw.org/Projects/NIF#offset-nif-uri-recipe" ;
+    rdfs:subClassOf <http://nlp2rdf.lod2.eu/schema/string/String> .
+
+<http://nlp2rdf.lod2.eu/schema/string/String>
+    a owl:Class ;
+    rdfs:comment "A string is a set of characters. It basically can be anything: a whole text, a sentence, a phrase, several words or parts of words. Axiom subStringTrans some Self was not supported by reasoner. " ;
+    rdfs:label "String" ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:hasSelf true ;
+        owl:onProperty <http://nlp2rdf.lod2.eu/schema/string/subString>
+    ] .
+
+<http://nlp2rdf.lod2.eu/schema/string/anchorOf>
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "The string, which the uri is representing as an RDF Literal. This property is mandatory for every String." ;
+    rdfs:domain <http://nlp2rdf.lod2.eu/schema/string/String> .
+
+<http://nlp2rdf.lod2.eu/schema/string/beginIndex>
+    a owl:DatatypeProperty ;
+    rdfs:comment "The index of the first character of the String relative to the document. This should be identical with the first number used in the offset URI recipe. " ;
+    rdfs:domain <http://nlp2rdf.lod2.eu/schema/string/String> .
+
+<http://nlp2rdf.lod2.eu/schema/string/endIndex>
+    a owl:DatatypeProperty ;
+    rdfs:comment "The index of last character of the String relative to the document. This should be identical with the second number used in the offset URI recipe. " ;
+    rdfs:domain <http://nlp2rdf.lod2.eu/schema/string/String> .
+
+<http://nlp2rdf.lod2.eu/schema/string/leftContext>
+    a owl:DatatypeProperty ;
+    rdfs:comment "The left context of the string. The length of the context is undefined. To fix the length subProperties can be used: e.g. :leftContext20 rdfs:subPropertyOf :leftContext gives the 20 characters to the left of the string. Using this property can increase the size of the produced RDF immensely. " ;
+    rdfs:domain <http://nlp2rdf.lod2.eu/schema/string/String> .
+
+<http://nlp2rdf.lod2.eu/schema/string/rightContext>
+    a owl:DatatypeProperty ;
+    rdfs:comment "The right context of the string. The length of the context is undefined. To fix the length subProperties can be used: e.g. :rightContext20 rdfs:subPropertyOf :rightContext gives the 20 characters to the right of the string. Using this property can increase the size of the produced RDF immensely. " ;
+    rdfs:domain <http://nlp2rdf.lod2.eu/schema/string/String> .
+
+<http://nlp2rdf.lod2.eu/schema/string/sourceString>
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "The source string, which makes up the document. Used to reproduce the original text. Takes priority over :sourceUrl . Not to be confused with :anchorOf" ;
+    rdfs:domain <http://nlp2rdf.lod2.eu/schema/string/Document> ;
+    rdfs:subPropertyOf <http://nlp2rdf.lod2.eu/schema/string/anchorOf> .
+
+<http://nlp2rdf.lod2.eu/schema/string/sourceUrl>
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "The source url, which makes up the document. Annotators should ensure that the source text can be downloaded from the url and stays stable otherwise :sourceString should be used." ;
+    rdfs:domain <http://nlp2rdf.lod2.eu/schema/string/Document> .
+
+<http://nlp2rdf.lod2.eu/schema/string/subString>
+    a owl:ObjectProperty ;
+    rdfs:domain <http://nlp2rdf.lod2.eu/schema/string/String> ;
+    rdfs:range <http://nlp2rdf.lod2.eu/schema/string/String> ;
+    rdfs:subPropertyOf <http://nlp2rdf.lod2.eu/schema/string/subStringTrans> ;
+    owl:inverseOf <http://nlp2rdf.lod2.eu/schema/string/superString> .
+
+<http://nlp2rdf.lod2.eu/schema/string/subStringTrans>
+    a owl:TransitiveProperty ;
+    rdfs:domain <http://nlp2rdf.lod2.eu/schema/string/String> ;
+    rdfs:range <http://nlp2rdf.lod2.eu/schema/string/String> ;
+    owl:inverseOf <http://nlp2rdf.lod2.eu/schema/string/superStringTrans> .
+
+<http://nlp2rdf.lod2.eu/schema/string/superString>
+    a owl:ObjectProperty ;
+    rdfs:domain <http://nlp2rdf.lod2.eu/schema/string/String> ;
+    rdfs:range <http://nlp2rdf.lod2.eu/schema/string/String> ;
+    rdfs:subPropertyOf <http://nlp2rdf.lod2.eu/schema/string/superStringTrans> .
+
+<http://nlp2rdf.lod2.eu/schema/string/superStringTrans>
+    a owl:TransitiveProperty ;
+    rdfs:domain <http://nlp2rdf.lod2.eu/schema/string/String> ;
+    rdfs:range <http://nlp2rdf.lod2.eu/schema/string/String> .
+
+scms:means
+    a owl:ObjectProperty ;
+    rdfs:label "temporariliy added this declaration." .
+

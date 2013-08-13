@@ -1,0 +1,21 @@
+<http://nlp2rdf.lod2.eu/schema/topic/> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<http://nlp2rdf.lod2.eu/schema/topic/> <http://www.w3.org/2000/01/rdf-schema#label> "Topic Modelling Ontology" .
+<http://nlp2rdf.lod2.eu/schema/topic/> <http://www.w3.org/2000/01/rdf-schema#comment> "The Topic Modelling Ontology provides the vocabulary to express which latent topics occur in documents. To this end, topics are characterized by lemmata that are discriminative for their meaning." .
+<http://nlp2rdf.lod2.eu/schema/topic/> <http://www.w3.org/2002/07/owl#imports> <http://nlp2rdf.lod2.eu/schema/string/> .
+<http://nlp2rdf.lod2.eu/schema/topic/dominatingTopic> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
+<http://nlp2rdf.lod2.eu/schema/topic/dominatingTopic> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://nlp2rdf.lod2.eu/schema/topic/dominatingTopic> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://nlp2rdf.lod2.eu/schema/topic/hasTopic> .
+<http://nlp2rdf.lod2.eu/schema/topic/dominatingTopic> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/string/Document> .
+<http://nlp2rdf.lod2.eu/schema/topic/dominatingTopic> <http://www.w3.org/2000/01/rdf-schema#range> <http://nlp2rdf.lod2.eu/schema/topic/Topic> .
+<http://nlp2rdf.lod2.eu/schema/topic/hasTopic> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://nlp2rdf.lod2.eu/schema/topic/hasTopic> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/string/Document> .
+<http://nlp2rdf.lod2.eu/schema/topic/hasTopic> <http://www.w3.org/2000/01/rdf-schema#range> <http://nlp2rdf.lod2.eu/schema/topic/Topic> .
+<http://nlp2rdf.lod2.eu/schema/topic/occursIn> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://nlp2rdf.lod2.eu/schema/topic/occursIn> <http://www.w3.org/2000/01/rdf-schema#range> <http://nlp2rdf.lod2.eu/schema/string/Document> .
+<http://nlp2rdf.lod2.eu/schema/topic/occursIn> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/topic/Topic> .
+<http://nlp2rdf.lod2.eu/schema/topic/occursIn> <http://www.w3.org/2002/07/owl#inverseOf> <http://nlp2rdf.lod2.eu/schema/topic/hasTopic> .
+<http://nlp2rdf.lod2.eu/schema/topic/characteristicLemma> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://nlp2rdf.lod2.eu/schema/topic/characteristicLemma> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/topic/Topic> .
+<http://nlp2rdf.lod2.eu/schema/topic/Topic> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://nlp2rdf.lod2.eu/schema/topic/Topic> <http://www.w3.org/2000/01/rdf-schema#label> "Topic" .
+<http://nlp2rdf.lod2.eu/schema/topic/Topic> <http://www.w3.org/2000/01/rdf-schema#comment> "A  Topic is characterized by a set of lemmata that characterize its meaning" .

@@ -1,0 +1,51 @@
+# please honor the turtle syntax and either use turtle comments or gdoc comments
+@base <http://nlp2rdf.lod2.eu/schema/frag/fragment.ttl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://nlp2rdf.lod2.eu/schema/frag/fragment-inf.ttl> 
+	a owl:Ontology ;
+	owl:imports <http://nlp2rdf.lod2.eu/schema/frag/fragment.ttl> ;
+	rdfs:label "Fragment Ontology Axioms for Inference" ;
+rdfs:comment  """This ontology is responsible for inferring implicit triples. 
+There are three ontologies total about the same terms:
+http://nlp2rdf.lod2.eu/schema/frag/fragment.ttl
+http://nlp2rdf.lod2.eu/schema/frag/fragment-val.ttl
+http://nlp2rdf.lod2.eu/schema/frag/fragment-inf.ttl
+NOTE: current drafts are here: https://docs.google.com/folder/d/0B1Mk5ouIspH1N3QxMFFzVlZLbVk/edit
+""" .
+
+
+<Fragment> 
+# this will infer that each fragment has at least one context
+	owl:equivalentClass [
+		a owl:Restriction ;  
+		owl:onProperty <referenceContext> ;
+		owl:someValuesFrom owl:Thing 
+		] .
+
+ <TextFragment> 	
+# this will infer that each fragment has begin index, although it might be unknown
+	owl:equivalentClass [
+		a owl:Restriction ;  
+		owl:onProperty <beginIndex> ;
+		owl:someValuesFrom xsd:int  
+		] .
+
+<Text/PlainFragment> 
+# this will infer that each Text/PlainFragment has mediatype "text/plain" 
+	owl:equivalentClass [
+		a owl:Restriction ;  
+		owl:onProperty <mediatype> ;
+		owl:hasValue "text/plain" 
+		] .
+
+<Text/CSVFragment>
+	owl:equivalentClass [
+		a owl:Restriction ;  
+		owl:onProperty <mediatype> ;
+		owl:hasValue "text/csv" 
+		] .
+

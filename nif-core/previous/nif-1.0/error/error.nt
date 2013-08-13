@@ -1,0 +1,17 @@
+<http://nlp2rdf.lod2.eu/schema/error/> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<http://nlp2rdf.lod2.eu/schema/error/> <http://www.w3.org/2000/01/rdf-schema#label> "NIF Error Ontology" .
+<http://nlp2rdf.lod2.eu/schema/error/> <http://www.w3.org/2000/01/rdf-schema#comment> "A very simple error ontology. Hopefully it is possible to reuse a real error ontology. \nSo instead of extending this one the ontology might be replaced. Until then the ontology is underspecified, feel free to add any properties. " .
+<http://nlp2rdf.lod2.eu/schema/error/hasMessage> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://nlp2rdf.lod2.eu/schema/error/hasMessage> <http://www.w3.org/2000/01/rdf-schema#comment> "the message of the error" .
+<http://nlp2rdf.lod2.eu/schema/error/hasMessage> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/error/Error> .
+<http://nlp2rdf.lod2.eu/schema/error/source> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://nlp2rdf.lod2.eu/schema/error/source> <http://www.w3.org/2000/01/rdf-schema#comment> "the source of the error as rdf:Literal" .
+<http://nlp2rdf.lod2.eu/schema/error/source> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/error/Error> .
+<http://nlp2rdf.lod2.eu/schema/error/fatal> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://nlp2rdf.lod2.eu/schema/error/fatal> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
+<http://nlp2rdf.lod2.eu/schema/error/fatal> <http://www.w3.org/2000/01/rdf-schema#comment> " Whether the error is fatal. Fatal means, that no other sensible output could be produced. Use \"1\"^^xsd:boolean or \"0\"^^xsd:boolean " .
+<http://nlp2rdf.lod2.eu/schema/error/fatal> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#boolean> .
+<http://nlp2rdf.lod2.eu/schema/error/fatal> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/error/Error> .
+<http://nlp2rdf.lod2.eu/schema/error/Error> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://nlp2rdf.lod2.eu/schema/error/Error> <http://www.w3.org/2000/01/rdf-schema#label> "Error" .
+<http://nlp2rdf.lod2.eu/schema/error/Error> <http://www.w3.org/2000/01/rdf-schema#comment> "An error. " .

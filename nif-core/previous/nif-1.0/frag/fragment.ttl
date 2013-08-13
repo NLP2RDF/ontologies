@@ -1,0 +1,105 @@
+# please honor the turtle syntax and either use turtle comments or gdoc comments
+@base <http://nlp2rdf.lod2.eu/schema/frag/fragment.ttl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
+
+
+<> a owl:Ontology ;
+	rdfs:label "Fragment Ontology" ;
+	rdfs:comment """ This ontology just lists the available classes and properties and subclassof axioms. 
+There are three ontologies total about the same terms:
+http://nlp2rdf.lod2.eu/schema/frag/fragment.ttl
+http://nlp2rdf.lod2.eu/schema/frag/fragment-val.ttl
+http://nlp2rdf.lod2.eu/schema/frag/fragment-inf.ttl 
+NOTE: current drafts are here: https://docs.google.com/folder/d/0B1Mk5ouIspH1N3QxMFFzVlZLbVk/edit
+""" .
+
+<Fragment> a owl:Class ;
+	rdfs:label "A fragment of an information resource" .
+
+<TextFragment> a owl:Class ;
+	rdfs:subClassOf <Fragment> .
+	
+<Text/PlainFragment> a owl:Class ;
+	rdfs:subClassOf <TextFragment> .
+
+<Text/CSVFragment> a owl:Class ;
+	rdfs:subClassOf <TextFragment> .
+
+<rfc5147Selection> a owl:Class ;
+	rdfs:label "This class can be assigned to all URIs that have fragment id and use the RFC5147 syntax " ;
+	rdfs:subClassOf <Text/PlainFragment> ;
+	rdfs:seeAlso <http://tools.ietf.org/html/rfc5147> ;
+	rdfs:definedBy <> .
+	
+<rfc5147ExtendedSelection>  a owl:Class ;	
+	rdfs:label "This class contains some necessary extensions for NIF 2.0 " ;
+	rdfs:subClassOf <rfc5147Selection> ;
+	rdfs:seeAlso <http://nlp2rdf.org/nif-2-0-draft> ;
+	rdfs:definedBy <> .
+
+<http://nlp2rdf.lod2.eu/schema/string/OffsetBasedString>  a owl:Class ;	
+	rdfs:subClassOf <Text/PlainFragment> .
+<http://nlp2rdf.lod2.eu/schema/string/ContextHashBasedString>  a owl:Class ;	
+	rdfs:subClassOf <Text/PlainFragment> .
+
+<draft-hausenblas-csv-fragment-00Selection> a owl:Class ;
+	rdfs:subClassOf <Text/CSVFragment> ;
+	rdfs:seeAlso <http://tools.ietf.org/html/draft-hausenblas-csv-fragment-00> ;
+	rdfs:definedBy <> .
+
+#### Object properties
+<referenceContext> a owl:ObjectProperty ; 
+rdfs:comment "the context the selection is to be interpreted in" .
+<occursIn> a owl:ObjectProperty ;
+rdfs:comment "this links a fragment selection to the information resource it occurs in" .
+	
+#### Datatype properties
+<mediatype> a owl:DatatypeProperty ;
+rdfs:comment "an identifier for the media type" .
+<anchorOf> a owl:DatatypeProperty ;
+rdfs:comment "the mediatype fragment selected by the fragment identifier, note this can only be Literal, XMLLiteral, HTML5Literal, images are not included, yet" .
+<beginIndex> a owl:DatatypeProperty .
+<endIndex> a owl:DatatypeProperty .
+
+
+############
+#### example
+############
+
+##  this is the context for any subfragments
+<http://nlp2rdf.lod2.eu/usecases/plaintext.txt#char=0,> a <rfc5147Selection> ;
+	<beginIndex> "0"^^xsd:int ;
+	<endIndex> "1765"^^xsd:int ;
+	<occursIn> <http://nlp2rdf.lod2.eu/usecases/plaintext.txt> ;
+	<referenceContext> <http://nlp2rdf.lod2.eu/usecases/plaintext.txt#char=0,> .
+	
+## 
+<http://nlp2rdf.lod2.eu/usecases/plaintext.txt#char=0,6> a <rfc5147Selection> ;
+	<beginIndex> "0"^^xsd:int ;
+	<endIndex> "6"^^xsd:int ;
+	<anchorOf> "Mexico" ;
+	itsrdf:disambigIdentRef  <http://dbpedia.org/resource/Mexico> ;
+	# partofspeech tagging
+	<http://nlp2rdf.lod2.eu/schema/sso/oliaLink> <http://purl.org/olia/penn.owl#NNP> ;
+	<referenceContext> <http://nlp2rdf.lod2.eu/usecases/plaintext.txt#char=0,>  .
+
+## is this correct?
+<http://nlp2rdf.lod2.eu/usecases/plaintext.txt#char=0,> 
+owl:sameAs <http://nlp2rdf.lod2.eu/usecases/plaintext.txt#char=0,1765> .
+<http://nlp2rdf.lod2.eu/usecases/plaintext.txt#char=0,> 
+owl:sameAs <http://nlp2rdf.lod2.eu/usecases/plaintext.txt>  .
+
+# this is optional:
+<http://nlp2rdf.lod2.eu/usecases/plaintext.txt#char=0,> <anchorOf> """Mexico expects the U.S. to accelerate the disbursement of aid to strengthen its fight against drug gangs and put back on track a $1.4 billion program that has been hamstrung by delays in recent years, Foreign Affairs Minister Patricia Espinosa said.
+Espinosa, in an interview yesterday, said both U.S. President Barack Obama and Secretary of State Hillary Clinton promised to disburse $500 million this year in equipment and aid for police training as part of the bilateral Merida Initiative. Mexico expects to receive complete financing of the multi-year program by next year, she said.
+"We got off to a slow start in part because this is a completely new cooperation plan," Espinosa, 52, said at Bloomberg's offices in Mexico City. "We now see that it's advancing more quickly."
+(It would boring without special characters such as äöüßéèâ&auml;) .
+U.S. anti-narcotics aid to Mexico suffered delays even as the death toll from President Felipe Calderon's crackdown on drug gangs surged to over 35,000 victims since he took office in 2006. Mexico received at least $480 million in U.S. aid under the program since it was signed in 2008 by Calderon and former President George W. Bush, with $380 million arriving between 2008 and 2010, according to data from the Foreign Ministry.
+The shortfall in U.S. assistance has delayed the delivery of equipment including polygraph machines and Black Hawk helicopters needed to combat drug traffickers. It has also delayed the training of Mexican officials, according to the GAO report.
+Until a year ago the U.S. had delivered only about 9 percent of the promised aid to Mexico and Central America because agencies involved lacked staff and funding, the U.S. Government Accountability Office said in a report in 2010. """.
+
+

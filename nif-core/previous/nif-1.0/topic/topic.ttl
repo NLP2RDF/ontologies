@@ -1,0 +1,39 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix str: <http://nlp2rdf.lod2.eu/schema/string/> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://nlp2rdf.lod2.eu/schema/topic/>
+    a owl:Ontology ;
+    rdfs:comment "The Topic Modelling Ontology provides the vocabulary to express which latent topics occur in documents. To this end, topics are characterized by lemmata that are discriminative for their meaning." ;
+    rdfs:label "Topic Modelling Ontology" ;
+    owl:imports <http://nlp2rdf.lod2.eu/schema/string/> .
+
+<http://nlp2rdf.lod2.eu/schema/topic/Topic>
+    a owl:Class ;
+    rdfs:comment "A  Topic is characterized by a set of lemmata that characterize its meaning" ;
+    rdfs:label "Topic" .
+
+<http://nlp2rdf.lod2.eu/schema/topic/characteristicLemma>
+    a owl:DatatypeProperty ;
+    rdfs:domain <http://nlp2rdf.lod2.eu/schema/topic/Topic> .
+
+<http://nlp2rdf.lod2.eu/schema/topic/dominatingTopic>
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:domain str:Document ;
+    rdfs:range <http://nlp2rdf.lod2.eu/schema/topic/Topic> ;
+    rdfs:subPropertyOf <http://nlp2rdf.lod2.eu/schema/topic/hasTopic> .
+
+<http://nlp2rdf.lod2.eu/schema/topic/hasTopic>
+    a owl:ObjectProperty ;
+    rdfs:domain str:Document ;
+    rdfs:range <http://nlp2rdf.lod2.eu/schema/topic/Topic> .
+
+<http://nlp2rdf.lod2.eu/schema/topic/occursIn>
+    a owl:ObjectProperty ;
+    rdfs:domain <http://nlp2rdf.lod2.eu/schema/topic/Topic> ;
+    rdfs:range str:Document ;
+    owl:inverseOf <http://nlp2rdf.lod2.eu/schema/topic/hasTopic> .
+

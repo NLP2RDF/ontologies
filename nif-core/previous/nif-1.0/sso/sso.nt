@@ -1,0 +1,103 @@
+<http://nlp2rdf.lod2.eu/schema/sso/> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<http://nlp2rdf.lod2.eu/schema/sso/> <http://www.w3.org/2000/01/rdf-schema#label> "Structured Sentence Ontology" .
+<http://nlp2rdf.lod2.eu/schema/sso/> <http://www.w3.org/2000/01/rdf-schema#comment> "The Structured Sentence Ontology (SSO) is build upon the String Ontology and additionally provides classes for three basic units: Sentences, Phrases and Words. Properties such as nextWord and previousWord can be used to express the relations between these units. Furthermore several properties are provided for the most common annotations. 1. in the form of simple annotations for words, i.e. stem, lemma, statistics, which are all datatype properties. 2. In the form of properties, that link to other ontologies (olia, scms) " .
+<http://nlp2rdf.lod2.eu/schema/sso/> <http://www.w3.org/2002/07/owl#imports> <http://nlp2rdf.lod2.eu/schema/string/> .
+<http://nlp2rdf.lod2.eu/schema/sso/Sentence> <http://www.w3.org/2000/01/rdf-schema#label> "Sentence" .
+<http://nlp2rdf.lod2.eu/schema/sso/Sentence> <http://www.w3.org/2000/01/rdf-schema#comment> "A string that can be considered a sentence. Sentences with only one word are typed as Word and Sentence and have no disjointness." .
+<http://nlp2rdf.lod2.eu/schema/sso/Sentence> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://nlp2rdf.lod2.eu/schema/string/String> .
+<http://nlp2rdf.lod2.eu/schema/sso/Sentence> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://nlp2rdf.lod2.eu/schema/sso/Word> <http://www.w3.org/2000/01/rdf-schema#label> "Word" .
+<http://nlp2rdf.lod2.eu/schema/sso/Word> <http://www.w3.org/2000/01/rdf-schema#comment> "A string that can be considered a word or a punctuation mark, the sentence 'He enters the room.' for example  has 5 words. In general, the division into :Words is done by an NLP Tokenizer. Instances of this class should be a string, that is a 'meaningful' unit of characters. The class has not been named 'Token' as the NLP definition of 'Token' is more similar to our definition of :String .   " .
+<http://nlp2rdf.lod2.eu/schema/sso/Word> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://nlp2rdf.lod2.eu/schema/string/String> .
+<http://nlp2rdf.lod2.eu/schema/sso/Word> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://nlp2rdf.lod2.eu/schema/sso/StopWord> <http://www.w3.org/2000/01/rdf-schema#label> "Stop Word" .
+<http://nlp2rdf.lod2.eu/schema/sso/StopWord> <http://www.w3.org/2000/01/rdf-schema#comment> "A string that can be considered a Stop Word, i.e. it does not contain usefull information for search and other tasks." .
+<http://nlp2rdf.lod2.eu/schema/sso/StopWord> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://nlp2rdf.lod2.eu/schema/sso/Word> .
+<http://nlp2rdf.lod2.eu/schema/sso/StopWord> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://nlp2rdf.lod2.eu/schema/sso/Phrase> <http://www.w3.org/2000/01/rdf-schema#label> "Phrase" .
+<http://nlp2rdf.lod2.eu/schema/sso/Phrase> <http://www.w3.org/2000/01/rdf-schema#comment> "A string that can be considered a phrase consists of at least 2 strings that are words. " .
+<http://nlp2rdf.lod2.eu/schema/sso/Phrase> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://nlp2rdf.lod2.eu/schema/string/String> .
+<http://nlp2rdf.lod2.eu/schema/sso/Phrase> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://nlp2rdf.lod2.eu/schema/sso/sentence> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/sentence> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/sentence> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://nlp2rdf.lod2.eu/schema/string/superString> .
+<http://nlp2rdf.lod2.eu/schema/sso/sentence> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/sso/Word> .
+<http://nlp2rdf.lod2.eu/schema/sso/sentence> <http://www.w3.org/2000/01/rdf-schema#range> <http://nlp2rdf.lod2.eu/schema/sso/Sentence> .
+<http://nlp2rdf.lod2.eu/schema/sso/word> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/word> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://nlp2rdf.lod2.eu/schema/string/subString> .
+<http://nlp2rdf.lod2.eu/schema/sso/word> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/sso/Sentence> .
+<http://nlp2rdf.lod2.eu/schema/sso/word> <http://www.w3.org/2000/01/rdf-schema#range> <http://nlp2rdf.lod2.eu/schema/sso/Word> .
+<http://nlp2rdf.lod2.eu/schema/sso/word> <http://www.w3.org/2002/07/owl#inverseOf> <http://nlp2rdf.lod2.eu/schema/sso/sentence> .
+<http://nlp2rdf.lod2.eu/schema/sso/firstWord> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/firstWord> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/firstWord> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/sso/Sentence> .
+<http://nlp2rdf.lod2.eu/schema/sso/firstWord> <http://www.w3.org/2000/01/rdf-schema#range> <http://nlp2rdf.lod2.eu/schema/sso/Word> .
+<http://nlp2rdf.lod2.eu/schema/sso/firstWord> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://nlp2rdf.lod2.eu/schema/sso/word> .
+<http://nlp2rdf.lod2.eu/schema/sso/lastWord> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/lastWord> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/lastWord> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/sso/Sentence> .
+<http://nlp2rdf.lod2.eu/schema/sso/lastWord> <http://www.w3.org/2000/01/rdf-schema#range> <http://nlp2rdf.lod2.eu/schema/sso/Word> .
+<http://nlp2rdf.lod2.eu/schema/sso/lastWord> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://nlp2rdf.lod2.eu/schema/sso/word> .
+<http://nlp2rdf.lod2.eu/schema/sso/child> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://nlp2rdf.lod2.eu/schema/string/subString> .
+<http://nlp2rdf.lod2.eu/schema/sso/child> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/sso/Phrase> .
+<http://nlp2rdf.lod2.eu/schema/sso/child> <http://www.w3.org/2002/07/owl#inverseOf> <http://nlp2rdf.lod2.eu/schema/sso/parent> .
+<http://nlp2rdf.lod2.eu/schema/sso/child> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/parent> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://nlp2rdf.lod2.eu/schema/string/superString> .
+<http://nlp2rdf.lod2.eu/schema/sso/parent> <http://www.w3.org/2000/01/rdf-schema#range> <http://nlp2rdf.lod2.eu/schema/sso/Phrase> .
+<http://nlp2rdf.lod2.eu/schema/sso/parent> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextWord> <http://www.w3.org/2000/01/rdf-schema#comment> "This property (and the others) can be used to traverse words, it can not be assumed that no gaps between words exist, i.e. string adjacency is not mandatory. " .
+<http://nlp2rdf.lod2.eu/schema/sso/nextWord> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextWord> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextWord> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/sso/Word> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextWord> <http://www.w3.org/2000/01/rdf-schema#range> <http://nlp2rdf.lod2.eu/schema/sso/Word> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextWord> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://nlp2rdf.lod2.eu/schema/sso/nextWordTrans> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextWord> <http://www.w3.org/2002/07/owl#inverseOf> <http://nlp2rdf.lod2.eu/schema/sso/previousWord> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextWordTrans> <http://www.w3.org/2000/01/rdf-schema#comment> "see :nextWord " .
+<http://nlp2rdf.lod2.eu/schema/sso/nextWordTrans> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#TransitiveProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextWordTrans> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/sso/Word> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextWordTrans> <http://www.w3.org/2000/01/rdf-schema#range> <http://nlp2rdf.lod2.eu/schema/sso/Word> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextWordTrans> <http://www.w3.org/2002/07/owl#inverseOf> <http://nlp2rdf.lod2.eu/schema/sso/previousWordTrans> .
+<http://nlp2rdf.lod2.eu/schema/sso/previousWord> <http://www.w3.org/2000/01/rdf-schema#comment> "see :nextWord " .
+<http://nlp2rdf.lod2.eu/schema/sso/previousWord> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://nlp2rdf.lod2.eu/schema/sso/previousWordTrans> .
+<http://nlp2rdf.lod2.eu/schema/sso/previousWord> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/previousWord> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/sso/Word> .
+<http://nlp2rdf.lod2.eu/schema/sso/previousWord> <http://www.w3.org/2000/01/rdf-schema#range> <http://nlp2rdf.lod2.eu/schema/sso/Word> .
+<http://nlp2rdf.lod2.eu/schema/sso/previousWord> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/previousWordTrans> <http://www.w3.org/2000/01/rdf-schema#comment> "see :nextWord " .
+<http://nlp2rdf.lod2.eu/schema/sso/previousWordTrans> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/sso/Word> .
+<http://nlp2rdf.lod2.eu/schema/sso/previousWordTrans> <http://www.w3.org/2000/01/rdf-schema#range> <http://nlp2rdf.lod2.eu/schema/sso/Word> .
+<http://nlp2rdf.lod2.eu/schema/sso/previousWordTrans> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#TransitiveProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextSentence> <http://www.w3.org/2000/01/rdf-schema#comment> "This property (and the others) can be used to traverse :Sentences, it can not be assumed that no gaps between Sentences exist, i.e. string adjacency is not mandatory. " .
+<http://nlp2rdf.lod2.eu/schema/sso/nextSentence> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextSentence> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextSentence> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/sso/Sentence> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextSentence> <http://www.w3.org/2000/01/rdf-schema#range> <http://nlp2rdf.lod2.eu/schema/sso/Sentence> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextSentence> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://nlp2rdf.lod2.eu/schema/sso/nextSentenceTrans> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextSentence> <http://www.w3.org/2002/07/owl#inverseOf> <http://nlp2rdf.lod2.eu/schema/sso/previousSentence> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextSentenceTrans> <http://www.w3.org/2000/01/rdf-schema#comment> "see :nextWord " .
+<http://nlp2rdf.lod2.eu/schema/sso/nextSentenceTrans> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#TransitiveProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextSentenceTrans> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/sso/Word> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextSentenceTrans> <http://www.w3.org/2000/01/rdf-schema#range> <http://nlp2rdf.lod2.eu/schema/sso/Word> .
+<http://nlp2rdf.lod2.eu/schema/sso/nextSentenceTrans> <http://www.w3.org/2002/07/owl#inverseOf> <http://nlp2rdf.lod2.eu/schema/sso/previousWordTrans> .
+<http://nlp2rdf.lod2.eu/schema/sso/previousSentence> <http://www.w3.org/2000/01/rdf-schema#comment> "see :nextSentence " .
+<http://nlp2rdf.lod2.eu/schema/sso/previousSentence> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://nlp2rdf.lod2.eu/schema/sso/previousSentenceTrans> .
+<http://nlp2rdf.lod2.eu/schema/sso/previousSentence> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/previousSentence> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/sso/Sentence> .
+<http://nlp2rdf.lod2.eu/schema/sso/previousSentence> <http://www.w3.org/2000/01/rdf-schema#range> <http://nlp2rdf.lod2.eu/schema/sso/Sentence> .
+<http://nlp2rdf.lod2.eu/schema/sso/previousSentence> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/previousSentenceTrans> <http://www.w3.org/2000/01/rdf-schema#comment> "see :nextSentence " .
+<http://nlp2rdf.lod2.eu/schema/sso/previousSentenceTrans> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/sso/Sentence> .
+<http://nlp2rdf.lod2.eu/schema/sso/previousSentenceTrans> <http://www.w3.org/2000/01/rdf-schema#range> <http://nlp2rdf.lod2.eu/schema/sso/Sentence> .
+<http://nlp2rdf.lod2.eu/schema/sso/previousSentenceTrans> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#TransitiveProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/stem> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/sso/Word> .
+<http://nlp2rdf.lod2.eu/schema/sso/stem> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/stem> <http://www.w3.org/2000/01/rdf-schema#comment> "The stem of a Word. " .
+<http://nlp2rdf.lod2.eu/schema/sso/lemma> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/sso/Word> .
+<http://nlp2rdf.lod2.eu/schema/sso/lemma> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/lemma> <http://www.w3.org/2000/01/rdf-schema#comment> "The lemma of a Word. " .
+<http://nlp2rdf.lod2.eu/schema/sso/posTag> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/sso/Word> .
+<http://nlp2rdf.lod2.eu/schema/sso/posTag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/posTag> <http://www.w3.org/2000/01/rdf-schema#comment> "The pos tag of a Word. " .
+<http://nlp2rdf.lod2.eu/schema/sso/oliaLink> <http://www.w3.org/2000/01/rdf-schema#domain> <http://nlp2rdf.lod2.eu/schema/sso/Word> .
+<http://nlp2rdf.lod2.eu/schema/sso/oliaLink> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://nlp2rdf.lod2.eu/schema/sso/oliaLink> <http://www.w3.org/2000/01/rdf-schema#comment> "The link to the OLiA Annotation model. " .
