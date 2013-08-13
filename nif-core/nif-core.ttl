@@ -19,8 +19,11 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+
+
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix nerd: <http://nerd.eurecom.fr/ontology#> .
 @prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
@@ -33,98 +36,74 @@
 
 <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> 
     a owl:Ontology ;
-    rdfs:label "NIF 2.0 Core Ontology"@en ;
     vann:preferredNamespacePrefix "nif" ;
     vann:preferredNamespaceUri "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#" ;
     vann:changes <https://github.com/NLP2RDF/persistence.uni-leipzig.org/commits/master/ontologies/nif-core> ;
-    rdfs:comment """
-# Disclaimer
-This ontology is part of the NLP2RDF project and provided as part of the NLP Interchange Format Version 2.0 under CC-BY license as well as Apache 2.0. 
-More documentation is available at the NIF/NLP2RDF overview page: http://persistence.uni-leipzig.org/nlp2rdf/
-# Relation to the FISE ontology
-FISE is an ontology originated from Apache Stanbol and found here: http://fise.iks-project.eu/ontology/
-The ontology was compatible and useful and we just included it here.
+    rdfs:isDefinedBy <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core.ttl> ;
+    rdfs:isDefinedBy <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-inf.ttl> ;
+    rdfs:isDefinedBy <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-val.ttl> ;
+    owl:versionInfo "see GitHub for older version https://github.com/NLP2RDF/ontologies/commits/master/nif-core/nif-core.ttl " ;
+    owl:versionIRI <https://github.com/NLP2RDF/ontologies/blob/master/nif-core/nif-core.ttl> ;
+# Meta information
+    rdfs:label "NIF 2.0 Core Ontology"@en ;
+    dcterms:title "NIF 2.0 Core Ontology"@en ;
+    dc:creator "Sebastian Hellmann" ;
+    dc:contributor "TODO";
+    dc:publisher "AKSW, University Leipzig" ;
+    dc:rights """This ontology is licensed under Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0) and CC-BY (http://creativecommons.org/licenses/by/3.0/)"""@en ;
+		
+    rdfs:comment """The NLP Interchange Format (NIF) is an RDF/OWL-based format that aims to achieve interoperability between Natural Language Processing (NLP) tools, language resources and annotations. NIF consists of specifications, ontologies and software, which are combined under the version identifier "2.0", but are versioned individually. This ontology is developed by the NLP2RDF project (http://nlp2rdf.org) and provided as part of NIF 2.0 under CC-BY license as well as Apache 2.0. Among other things, this ontology provides a total of seven core URIs (String, RFC5147String, Context, isString, referenceContext, beginIndex, endIndex) that provide the foundation allow to express NLP annotations efficiently in RDF."""@en ;
 
-# Ontolgy setup
-This ontology is split in three parts:
-* a terminological model (containing rdfs:comment, rdfs:label, rdfs:subClassOf, rdfs:subPropertyOf, rdfs:range and rdfs:domain statements)
-* an inference model (containing owl:TransitiveProperty, owl:hasKey)
-* a validation model (containing owl:FunctionalProperty, owl:DisjointWith)
-This is also the reason for the three rdfs:isDefinedBy properties.
-The ontology is developed at GitHub: https://github.com/NLP2RDF/persistence.uni-leipzig.org#readme (also older versions are there).
-You can find RDF/XML serializations online, but we only edit the turtle file in the repository. 
+	dc:description <http://svn.aksw.org/papers/2013/ISWC_NIF/public/portman_small.png> ;	
+    dc:description """For a more concise description about NIF, we refer the reader to the ISWC 2013 in Use paper: Integrating NLP using Linked Data by Sebastian Hellmann, Jens Lehmann, Sören Auer, and Martin Brümmer available at: http://svn.aksw.org/papers/2013/ISWC_NIF/public.pdf . Also the NLP2RDF project page (http://nlp2rdf.org) provides more general documentation and pointers.
+    The NIF 2.0 Core Ontology (http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#) provides classes and properties to describe the relations between substrings, text, documents and their URI schemes. The main class in the ontology is nif:String, which is the class of all words over the alphabet of Unicode characters (sometimes called Σ∗). We built NIF upon the Unicode Normalization Form C, as this follows the recommendation of the RDF standard for rdf:Literal. Indices are to be counted in code units. Each URI scheme is a subclass of nif:String and puts further restrictions over the syntax of the URIs.  For example, instances of type nif:RFC5147String have to adhere to the NIF URI scheme based on RFC 5147. Users of NIF can create their own URI schemes by subclassing nif:String and providing documentation on the Web in the rdfs:comment field.
+    Another important  subclass of nif:String is the nif:Context OWL class. This class is assigned to the whole string of the text (i.e. all characters). The purpose of an individual of this class is special, because the string of this individual is used to calculate the indices for all substrings. Therefore, all substrings have to have a relation nif:referenceContext pointing to an instance of nif:Context. Furthermore, the datatype property nif:isString can be used to include the reference text as a literal within the RDF as is required for the web service scenario. An example of NIF Core can be seen on the top left of the example Figure.  
+	
+	Ontology models
+	This ontology is split in three parts:
+	* a terminological model (containing rdfs:comment, rdfs:label, rdfs:subClassOf, rdfs:subPropertyOf, rdfs:range and rdfs:domain statements)
+	* an inference model (containing owl:TransitiveProperty, owl:hasKey)
+	* a validation model (containing owl:FunctionalProperty, owl:DisjointWith)
+
+	Feedback
+	If you'd like to leave feedback, please open an issue on GitHub (https://github.com/NLP2RDF/ontologies/issues) and read the README (https://github.com/NLP2RDF/ontologies#readme) or write an email to the mailing list: http://lists.informatik.uni-leipzig.de/mailman/listinfo/nlp2rdf
+
+	Versioning
+	TODO...
 
 # Other Ontologies
 NLP2RDF works together with several other projects, that make very good ontologies, which we are reusing for NIF 2.0. Please import them, if necessary:
 * http://purl.org/olia
 * http://www.w3.org/2005/11/its/rdf#
-
+# Relation to the FISE ontology
+FISE is an ontology originated from Apache Stanbol and found here: http://fise.iks-project.eu/ontology/
+The ontology was compatible and useful and we just included it here.
 # Examples
-At the end of this ontology we provide an example. 
-"""@en ;
-    rdfs:isDefinedBy <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/version-1.0/nif-core.ttl> ;
-    rdfs:isDefinedBy <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/version-1.0/nif-core-inf.ttl> ;
-    rdfs:isDefinedBy <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/version-1.0/nif-core-val.ttl> ;
-    owl:versionInfo "see GitHub for all version https://github.com/NLP2RDF/persistence.uni-leipzig.org " ;
-    owl:versionIRI <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/version-1.0/nif-core.ttl> ;
-    dcterms:license <http://www.apache.org/licenses/LICENSE-2.0> ;
-    dcterms:license <http://creativecommons.org/licenses/by/3.0/> .
+At the end of this ontology we provide an example.  """@en  .
 
 ###################
-# Base Classes
+# Base Classes and Properties
 ###################
 
+    
+nif:String
+    a owl:Class ; 
+    vs:term_status "1.0.0" ;
+    vs:changelog """1.0.0: Introduced stable version, linking to the ISWC In Use publication for documentation.""" ;
+    
+    rdfs:label "String"@en ;
+    ## rdfs:subClassOf nif:Annotation ;
+    rdfs:comment """This is a subclass of Annotation, because it "annotates" strings for example with begin and end index. The class is similar to fise:TextAnnotation"""@en .
+    
 nif:Context
     a owl:Class ;
     vs:term_status "1.0.0" ;
     vs:changelog """1.0.0: Introduced stable version, linking to the ISWC In Use publication for documentation.""" ;
     rdfs:label "Context"@en ;
     rdfs:comment """ see http://svn.aksw.org/papers/2013/ISWC_NIF/public.pdf """ ;
-    rdfs:subClassOf nif:String .
+    rdfs:subClassOf nif:String .    
     
-nif:String
-    a owl:Class ;
-    vs:term_status "1.0.0" ;
-    vs:changelog """1.0.0: Introduced stable version, linking to the ISWC In Use publication for documentation.""" ;
-    rdfs:label "String"@en ;
-    rdfs:subClassOf nif:Annotation ;
-    rdfs:comment """ see http://svn.aksw.org/papers/2013/ISWC_NIF/public.pdf This is a subclass of Annotation, because it "annotates" strings for example with begin and end index. It is also very similar to fise:TextAnnotation"""@en .
     
-nif:Annotation
-    a owl:Class ;
-    vs:term_status "unstable" ;
-    rdfs:label "Annotation"@en ;
-    rdfs:comment """This class is an individual used in the NIF-Stanbol profile and can be a URN """@en .
-
-    
-nif:URIScheme 
-    a owl:Class ;
-    vs:term_status "unstable" ;
-    rdfs:label "URI Scheme"@en ;
-    rdfs:comment "A URI Scheme for NIF, subclasses need to define guidelines on the URI Scheme as well as the text it refers to. This class is just to keep some order, please don't serialize." ;
-    rdfs:subClassOf nif:String .
-    
-
-nif:Structure
-    a owl:Class ;
-    vs:term_status "unstable" ;
-    rdfs:label "Structure"@en ;
-    rdfs:comment """A structure is a more or less arbitrary label for a partitioning of a string. We do not follow a strict approach for what a word, phrase, sentence, title, paragraph is. These labels enable the definition processes for tool chains, e.g. tool analyses nif:Paragraph and calculates term frequency. """ ;
-    rdfs:subClassOf nif:String .
-   
-    
-# experimental
-nif:HTMLString
-    a owl:Class ;
-    vs:term_status "unstable" ;
-    vs:term_status "experimental" ;
-    rdfs:label "HTML String"@en ;
-    rdfs:comment """experimental, a subspecialisation of String (a string with HTML markup). """@en ;
-    rdfs:subClassOf nif:String .
-    
-###################
-# Basic Properties
-###################    
 
 nif:referenceContext
     a owl:ObjectProperty ;
@@ -180,6 +159,92 @@ nif:endIndex
     # rdfs:subPropertyOf oa:end ;
     # rdfs:range <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
     rdfs:domain nif:String .
+
+
+nif:RFC5147String
+    a owl:Class ;
+    vs:term_status "1.0.0" ;
+    vs:changelog """1.0.0: Introduced stable version.""" ;
+    rdfs:label "RFC 5147 string"@en ;
+    rdfs:comment "cf. http://tools.ietf.org/html/rfc5147 " ;
+    rdfs:subClassOf nif:URIScheme .
+
+nif:ContextHashBasedString
+    a owl:Class ;
+    vs:term_status "1.0.0" ;
+    vs:changelog """1.0.0: Introduced stable version.""" ;
+    rdfs:label "Context hash based string"@en ;
+    rdfs:comment " cf. https://www.google.de/search?q=Linked-Data+Aware+URI+Schemes+for+Referencing+Text" ;
+    rdfs:subClassOf nif:URIScheme .
+
+########################################################################
+
+
+nif:annotation    
+	a owl:ObjectProperty ;
+    vs:term_status "unstable" ;
+    rdfs:label "annotation"@en ;
+    rdfs:comment """
+      see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 5 .
+    """@en ;
+    rdfs:domain nif:Annotation .
+
+nif:literalAnnotation    
+	a owl:DatatypeProperty ;
+    vs:term_status "unstable" ;
+    rdfs:label "literalAnnotation"@en ;
+    rdfs:comment """
+      see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 5 .
+    """@en ;
+    rdfs:domain nif:Annotation .
+    
+nif:classAnnotation   
+	a owl:AnnotationProperty ;
+    vs:term_status "unstable" ;
+    rdfs:label "classAnnotation"@en ;
+    rdfs:comment """
+      see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 5 .
+    """@en ;
+    rdfs:domain nif:Annotation .
+
+
+########################################################################
+    
+nif:Annotation
+    a owl:Class ;
+    vs:term_status "unstable" ;
+    rdfs:label "Annotation"@en ;
+    rdfs:comment """This class is an individual used in the NIF-Stanbol profile and can be a URN """@en .
+
+    
+nif:URIScheme 
+    a owl:Class ;
+    vs:term_status "unstable" ;
+    rdfs:label "URI Scheme"@en ;
+    rdfs:comment "A URI Scheme for NIF, subclasses need to define guidelines on the URI Scheme as well as the text it refers to. This class is just to keep some order, please don't serialize." ;
+    rdfs:subClassOf nif:String .
+    
+
+nif:Structure
+    a owl:Class ;
+    vs:term_status "unstable" ;
+    rdfs:label "Structure"@en ;
+    rdfs:comment """A structure is a more or less arbitrary label for a partitioning of a string. We do not follow a strict approach for what a word, phrase, sentence, title, paragraph is. These labels enable the definition processes for tool chains, e.g. tool analyses nif:Paragraph and calculates term frequency. """ ;
+    rdfs:subClassOf nif:String .
+   
+    
+# experimental
+nif:HTMLString
+    a owl:Class ;
+    vs:term_status "unstable" ;
+    vs:term_status "experimental" ;
+    rdfs:label "HTML String"@en ;
+    rdfs:comment """experimental, a subspecialisation of String (a string with HTML markup). """@en ;
+    rdfs:subClassOf nif:String .
+    
+###################
+# Basic Properties
+###################    
     
 nif:anchorOf
     a owl:DatatypeProperty ;
@@ -278,52 +343,11 @@ nif:contextAsLiteral
     rdfs:domain nif:String .
 
 
-nif:annotation    
-	a owl:ObjectProperty ;
-    vs:term_status "unstable" ;
-    rdfs:label "annotation"@en ;
-    rdfs:comment """
-      see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 5 .
-    """@en ;
-    rdfs:domain nif:Annotation .
-
-nif:literalAnnotation    
-	a owl:DatatypeProperty ;
-    vs:term_status "unstable" ;
-    rdfs:label "literalAnnotation"@en ;
-    rdfs:comment """
-      see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 5 .
-    """@en ;
-    rdfs:domain nif:Annotation .
-    
-nif:classAnnotation   
-	a owl:AnnotationProperty ;
-    vs:term_status "unstable" ;
-    rdfs:label "classAnnotation"@en ;
-    rdfs:comment """
-      see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 5 .
-    """@en ;
-    rdfs:domain nif:Annotation .
 
 ###################
 # URI Schemes
 ###################
 
-nif:RFC5147String
-    a owl:Class ;
-    vs:term_status "1.0.0" ;
-    vs:changelog """1.0.0: Introduced stable version.""" ;
-    rdfs:label "RFC 5147 string"@en ;
-    rdfs:comment "cf. http://tools.ietf.org/html/rfc5147 " ;
-    rdfs:subClassOf nif:URIScheme .
-
-nif:ContextHashBasedString
-    a owl:Class ;
-    vs:term_status "1.0.0" ;
-    vs:changelog """1.0.0: Introduced stable version.""" ;
-    rdfs:label "Context hash based string"@en ;
-    rdfs:comment " cf. https://www.google.de/search?q=Linked-Data+Aware+URI+Schemes+for+Referencing+Text" ;
-    rdfs:subClassOf nif:URIScheme .
     
 nif:OffsetBasedString
     a owl:Class ;
