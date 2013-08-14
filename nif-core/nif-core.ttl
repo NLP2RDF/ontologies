@@ -21,40 +21,37 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
-
-
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix nerd: <http://nerd.eurecom.fr/ontology#> .
-@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
+
+# not sure
 @prefix skosxl: <http://www.w3.org/2008/05/skos-xl#> .
-@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
-@prefix vann: <http://purl.org/vocab/vann/> .
-@prefix oa: <http://www.w3.org/ns/oa#> .
 @prefix marl: <http://purl.org/marl/ns#> .
-@prefix fise: <http://fise.iks-project.eu/ontology/> .
 
 <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> 
     a owl:Ontology ;
-    vann:preferredNamespacePrefix "nif" ;
-    vann:preferredNamespaceUri "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#" ;
-    vann:changes <https://github.com/NLP2RDF/persistence.uni-leipzig.org/commits/master/ontologies/nif-core> ;
+ 
+    <http://purl.org/vocab/vann/preferredNamespacePrefix> "nif" ;
+    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#" ;
+    <http://purl.org/vocab/vann/changes> <https://github.com/NLP2RDF/persistence.uni-leipzig.org/commits/master/ontologies/nif-core> ;
+    
+    owl:versionInfo "see GitHub for older version https://github.com/NLP2RDF/ontologies/commits/master/nif-core/nif-core.ttl " ;
+    owl:versionIRI <https://github.com/NLP2RDF/ontologies/blob/master/nif-core/nif-core.ttl> ;
+ 
+ 
+    dcterms:license <http://creativecommons.org/licenses/by/3.0/> ;		
+    dcterms:license <http://www.apache.org/licenses/LICENSE-2.0> ;		
+    dcterms:title "NIF 2.0 Core Ontology"@en ;
+
+    rdfs:label "NIF 2.0 Core Ontology"@en ;
     rdfs:isDefinedBy <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core.ttl> ;
     rdfs:isDefinedBy <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-inf.ttl> ;
     rdfs:isDefinedBy <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-val.ttl> ;
-    owl:versionInfo "see GitHub for older version https://github.com/NLP2RDF/ontologies/commits/master/nif-core/nif-core.ttl " ;
-    owl:versionIRI <https://github.com/NLP2RDF/ontologies/blob/master/nif-core/nif-core.ttl> ;
-# Meta information
-    rdfs:label "NIF 2.0 Core Ontology"@en ;
-    dcterms:title "NIF 2.0 Core Ontology"@en ;
-    dc:creator "Sebastian Hellmann" ;
+    rdfs:comment """The NLP Interchange Format (NIF) is an RDF/OWL-based format that aims to achieve interoperability between Natural Language Processing (NLP) tools, language resources and annotations. NIF consists of specifications, ontologies and software, which are combined under the version identifier "2.0", but are versioned individually. This ontology is developed by the NLP2RDF project (http://nlp2rdf.org) and provided as part of NIF 2.0 under CC-BY license as well as Apache 2.0. Among other things, this ontology provides a total of seven core URIs (String, RFC5147String, Context, isString, referenceContext, beginIndex, endIndex) that provide the foundation allow to express NLP annotations efficiently in RDF."""@en ;
+
+	dc:creator "Sebastian Hellmann" ;
     dc:contributor "TODO";
     dc:publisher "AKSW, University Leipzig" ;
     dc:rights """This ontology is licensed under Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0) and CC-BY (http://creativecommons.org/licenses/by/3.0/)"""@en ;
-    dcterms:license <http://creativecommons.org/licenses/by/3.0/> ;		
-    dcterms:license <http://www.apache.org/licenses/LICENSE-2.0> ;		
-    rdfs:comment """The NLP Interchange Format (NIF) is an RDF/OWL-based format that aims to achieve interoperability between Natural Language Processing (NLP) tools, language resources and annotations. NIF consists of specifications, ontologies and software, which are combined under the version identifier "2.0", but are versioned individually. This ontology is developed by the NLP2RDF project (http://nlp2rdf.org) and provided as part of NIF 2.0 under CC-BY license as well as Apache 2.0. Among other things, this ontology provides a total of seven core URIs (String, RFC5147String, Context, isString, referenceContext, beginIndex, endIndex) that provide the foundation allow to express NLP annotations efficiently in RDF."""@en ;
-
 	dc:description <http://svn.aksw.org/papers/2013/ISWC_NIF/public/portman_small.png> ;	
     dc:description """For a more concise description about NIF, we refer the reader to the ISWC 2013 in Use paper: Integrating NLP using Linked Data by Sebastian Hellmann, Jens Lehmann, Sören Auer, and Martin Brümmer available at: http://svn.aksw.org/papers/2013/ISWC_NIF/public.pdf . Also the NLP2RDF project page (http://nlp2rdf.org) provides more general documentation and pointers.
     The NIF 2.0 Core Ontology (http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#) provides classes and properties to describe the relations between substrings, text, documents and their URI schemes. The main class in the ontology is nif:String, which is the class of all words over the alphabet of Unicode characters (sometimes called Σ∗). We built NIF upon the Unicode Normalization Form C, as this follows the recommendation of the RDF standard for rdf:Literal. Indices are to be counted in code units. Each URI scheme is a subclass of nif:String and puts further restrictions over the syntax of the URIs.  For example, instances of type nif:RFC5147String have to adhere to the NIF URI scheme based on RFC 5147. Users of NIF can create their own URI schemes by subclassing nif:String and providing documentation on the Web in the rdfs:comment field.
@@ -93,8 +90,6 @@ At the end of this ontology we provide an example.  """@en  .
 nif:String
     a owl:Class ; 
     dcterms:hasVersion "1.0.0" ;
-    vs:changelog """1.0.0: Introduced stable version, linking to the ISWC In Use publication for documentation.""" ;
-    
     rdfs:label "String"@en ;
     ## rdfs:subClassOf nif:Annotation ;
     rdfs:comment """This is a subclass of Annotation, because it "annotates" strings for example with begin and end index. The class is similar to fise:TextAnnotation"""@en .
@@ -102,7 +97,6 @@ nif:String
 nif:Context
     a owl:Class ;
     dcterms:hasVersion "1.0.0" ;
-    vs:changelog """1.0.0: Introduced stable version, linking to the ISWC In Use publication for documentation.""" ;
     rdfs:label "Context"@en ;
     rdfs:comment """ see http://svn.aksw.org/papers/2013/ISWC_NIF/public.pdf """ ;
     rdfs:subClassOf nif:String . 
@@ -129,7 +123,6 @@ nif:referenceContext
 nif:isString
     a owl:DatatypeProperty ;
     dcterms:hasVersion "1.0.0" ;
-    vs:changelog """1.0.0: Introduced stable version.""" ;
     rdfs:label "is string"@en ; 
     rdfs:comment """The reference text as rdf:Literal for this nif:Context resource.  
     NIF highly recommends to always include the reference text (i.e. the context) as an rdf:Literal.
@@ -142,7 +135,6 @@ nif:isString
 nif:beginIndex
     a owl:DatatypeProperty ;
     dcterms:hasVersion "1.0.0" ;
-    vs:changelog """"" ;
     rdfs:label "begin index"@en ;
     rdfs:comment """The begin index of a character range as defined in http://tools.ietf.org/html/rfc5147#section-2.2.1 and http://tools.ietf.org/html/rfc5147#section-2.2.2, measured as the gap between two characters, starting to count from 0 (the position before the first character of a text). 
     Example: Index "2" is the postion between "Mr" and "."  in "Mr. Sandman".
@@ -163,7 +155,6 @@ nif:beginIndex
 nif:endIndex
     a owl:DatatypeProperty ;
     dcterms:hasVersion "1.0.0" ;
-    vs:changelog """1.0.0: Introduced stable version.""" ;
     rdfs:label "end index"@en ;
     rdfs:comment """The end index of a character range as defined in http://tools.ietf.org/html/rfc5147#section-2.2.1 and http://tools.ietf.org/html/rfc5147#section-2.2.2, measured as the gap between two characters, starting to count from 0 (the position before the first character of a text). 
     Example: Index "2" is the postion between "Mr" and "."  in "Mr. Sandman".
@@ -177,8 +168,6 @@ nif:endIndex
 
 nif:anchorOf
     a owl:DatatypeProperty ;
-    dcterms:hasVersion "testing" ;
-    dcterms:hasVersion "optional" ;
     rdfs:label "anchor of"@en ;
     rdfs:comment "The string, which the uri is representing as an RDF Literal. Some use cases require this property, as it is necessary for certain sparql queries. " ;
     rdfs:domain nif:String .
@@ -186,7 +175,6 @@ nif:anchorOf
 nif:RFC5147String
     a owl:Class ;
     dcterms:hasVersion "1.0.0" ;
-    vs:changelog """1.0.0: Introduced stable version.""" ;
     rdfs:label "RFC 5147 string"@en ;
     rdfs:comment "cf. http://tools.ietf.org/html/rfc5147 " ;
     rdfs:subClassOf nif:URIScheme .
@@ -196,7 +184,6 @@ nif:RFC5147String
 nif:ContextHashBasedString
     a owl:Class ;
     dcterms:hasVersion "1.0.0" ;
-    vs:changelog """1.0.0: Introduced stable version.""" ;
     rdfs:label "Context hash based string"@en ;
     rdfs:comment " cf. https://www.google.de/search?q=Linked-Data+Aware+URI+Schemes+for+Referencing+Text" ;
     rdfs:subClassOf nif:URIScheme .
@@ -206,7 +193,7 @@ nif:ContextHashBasedString
 
 nif:annotation    
 	a owl:ObjectProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned, unstable" ;
     rdfs:label "annotation"@en ;
     rdfs:comment """
       see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 5 .
@@ -215,7 +202,7 @@ nif:annotation
 
 nif:literalAnnotation    
 	a owl:DatatypeProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:label "literalAnnotation"@en ;
     rdfs:comment """
       see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 5 .
@@ -224,7 +211,7 @@ nif:literalAnnotation
     
 nif:classAnnotation   
 	a owl:AnnotationProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:label "classAnnotation"@en ;
     rdfs:comment """
       see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 5 .
@@ -236,14 +223,14 @@ nif:classAnnotation
     
 nif:Annotation
     a owl:Class ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:label "Annotation"@en ;
     rdfs:comment """This class is an individual used in the NIF-Stanbol profile and can be a URN """@en .
 
     
 nif:URIScheme 
     a owl:Class ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:label "URI Scheme"@en ;
     rdfs:comment "A URI Scheme for NIF, subclasses need to define guidelines on the URI Scheme as well as the text it refers to. This class is just to keep some order, please don't serialize." ;
     rdfs:subClassOf nif:String .
@@ -251,7 +238,7 @@ nif:URIScheme
 
 nif:Structure
     a owl:Class ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:label "Structure"@en ;
     rdfs:comment """A structure is a more or less arbitrary label for a partitioning of a string. We do not follow a strict approach for what a word, phrase, sentence, title, paragraph is. These labels enable the definition processes for tool chains, e.g. tool analyses nif:Paragraph and calculates term frequency. """ ;
     rdfs:subClassOf nif:String .
@@ -260,7 +247,7 @@ nif:Structure
 # experimental
 nif:HTMLString
     a owl:Class ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     dcterms:hasVersion "experimental" ;
     rdfs:label "HTML String"@en ;
     rdfs:comment """experimental, a subspecialisation of String (a string with HTML markup). """@en ;
@@ -322,7 +309,7 @@ nif:after
     rdfs:domain nif:String .
 
 nif:head a owl:DatatypeProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:label "head"@en ;
      rdfs:comment """
       The first few chars of the nif:anchorOf. Typically used if the nif:anchorOf
@@ -331,7 +318,7 @@ nif:head a owl:DatatypeProperty ;
     rdfs:domain nif:String .
     
 nif:tail
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:label "tail"@en ;
     rdfs:comment """
       The last few chars of the nif:anchorOf. Typically used if the nif:anchorOf
@@ -340,7 +327,7 @@ nif:tail
     rdfs:domain nif:String .
     
 nif:contextAsLiteral    
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:label "contextAsLiteral"@en ;
     rdfs:comment """
       The string that the nif:anchorOf is embedded in. FILTER ( strlen (nif:referenceContext [ nif:isString ] ) ) 
@@ -353,7 +340,7 @@ nif:contextAsLiteral
 
 nif:contextAsLiteral    
 	a owl:DatatypeProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:label "contextAsLiteral"@en ;
     rdfs:comment """
       The string that the nif:anchorOf is embedded in. FILTER ( strlen (nif:referenceContext [ nif:isString ] ) ) 
@@ -377,7 +364,7 @@ nif:OffsetBasedString
     
 nif:ArbitraryString
     a owl:Class ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:label "Text Annotation"@en ;
     rdfs:comment """An abitrary URI (e.g. a URN) for an arbitrary string of the context. This is exactly the same as TextAnnotations are currently implemented in Stanbol."""@en ;
     rdfs:subClassOf nif:URIScheme .
@@ -385,7 +372,7 @@ nif:ArbitraryString
 #experimental
 nif:OccuringWord
     a owl:Class ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:label "Occuring String"@en ;
 	rdfs:comment """Instances of this class represent all occuring words with a matching string within the same context. The pattern for this scheme is 'occ_'+urlencode($anchorOf) . If the text is tokenizedd with nif:Word, instances of this class would be the same as the combination of all instances, that have the same nif:anchorOf and the same nif:referenceContext. It is a scheme to refer to all tokens with the exact same string in one text. If such a URI is used, it implies, that the word occurs at least once in the given context. Otherwise nif:LabelString should be used. """@en ;
     rdfs:subClassOf nif:String .
@@ -393,7 +380,7 @@ nif:OccuringWord
 
 nif:LabelString
     a owl:Class ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     dcterms:hasVersion "experimental" ;
     rdfs:label "Label String"@en ;
 	rdfs:comment """Instances of this class represent a label independent from any context. This class is a subClassOf skosxl:Label, but disjoint with nif:String (see nif-core-val.ttl). We included this class in nif-core, because we are proposing the following scheme for it: 'label_'+urlencode($term).   """@en ;
@@ -402,7 +389,7 @@ nif:LabelString
 #experimental
 nif:XPathString 
     a owl:Class ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     dcterms:hasVersion "experimental" ;
     rdfs:label "XPath string"@en ;
 #   rdfs:comment """ TODO """ ;
@@ -441,14 +428,14 @@ nif:Sentence
 
 nif:Paragraph
     a owl:Class ;
-    dcterms:hasVersion "unstable" ;  
+    dcterms:hasVersion "unversioned" ;  
     rdfs:label "a Paragraph"@en ;
     rdfs:comment "a Paragraph." ;
     rdfs:subClassOf nif:Structure  .
     
 nif:Title
     a owl:Class ;
-    dcterms:hasVersion "unstable" ;  
+    dcterms:hasVersion "unversioned" ;  
     rdfs:label "title"@en ;
     rdfs:comment "a title within a text." ;
     rdfs:subClassOf nif:Structure  .
@@ -464,7 +451,7 @@ nif:Title
 
 nif:subString
     a owl:ObjectProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:label "sub string"@en ;
     rdfs:comment """This property together with nif:subString, nif:superString, and their transitive extension can be used to express that one string is contained in another one. Examples: "a" nif:subString "apple" , "apple" nif:subString "apple".  The transitivity axioms are included in nif-core-inf.ttl and need to be included separately to keep a low reasoning profile. They are modeled after skos:broader and skos:broaderTransitive"""@en ;
     rdfs:domain nif:String ;
@@ -473,7 +460,7 @@ nif:subString
 
 nif:subStringTrans
     a owl:ObjectProperty  ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:label "transitive version of subString"@en ;
     rdfs:comment "see nif:subString"@en ;
     rdfs:domain nif:String ;
@@ -481,7 +468,7 @@ nif:subStringTrans
 
 nif:superString
     a owl:ObjectProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:label "super String"@en ;
     rdfs:comment "see nif:subString"@en ;
     rdfs:domain nif:String ;
@@ -490,7 +477,7 @@ nif:superString
 
 nif:superStringTrans
     a owl:ObjectProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:label "transitive version of superString"@en ;
     rdfs:comment "see nif:subString"@en ;
     rdfs:domain nif:String ;
@@ -502,7 +489,7 @@ nif:superStringTrans
 
 nif:nextSentence
     a owl:ObjectProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:comment """This property (and nif:previousSentence, nif:nextWord, nif:previousWord and their transitive extension) can be used to make resources of nif:Sentence and nif:Word traversable, it can not be assumed that no gaps or whitespaces between sentences or words exist, i.e. string adjacency is not mandatory. The transitivity axioms are included in nif-core-inf.ttl and need to be included separately to keep a low reasoning profile. They are modeled after skos:broader and skos:broaderTransitive"""@en ;
     rdfs:domain nif:Sentence ;
     rdfs:range nif:Sentence ;
@@ -510,14 +497,14 @@ nif:nextSentence
 
 nif:nextSentenceTrans
     a owl:ObjectProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:comment "see nif:nextSentence"@en ;
     rdfs:domain nif:Sentence ;
     rdfs:range nif:Sentence  .
 
 nif:previousSentence
 	a owl:ObjectProperty ;
-	dcterms:hasVersion "unstable" ;
+	dcterms:hasVersion "unversioned" ;
     rdfs:comment "see nif:nextSentence"@en ;
     rdfs:domain nif:Sentence ;
     rdfs:range nif:Sentence ;
@@ -525,7 +512,7 @@ nif:previousSentence
 
 nif:previousSentenceTrans
     a owl:ObjectProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:comment "see nif:nextSentence"@en ;
     rdfs:domain nif:Sentence ;
     rdfs:range nif:Sentence .
@@ -533,7 +520,7 @@ nif:previousSentenceTrans
     
 nif:word
     a owl:ObjectProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:label "has word"@en ;
     rdfs:comment "This property links sentences to their words."@en ;
     rdfs:domain nif:Sentence ;
@@ -541,7 +528,7 @@ nif:word
 
 nif:firstWord
     a owl:ObjectProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:label "has first word"@en ;
     rdfs:comment "This property links sentences to their first word."@en ;
     rdfs:domain nif:Sentence ;
@@ -550,7 +537,7 @@ nif:firstWord
 
 nif:lastWord
     a owl:ObjectProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:label "has first word"@en ;
     rdfs:comment "This property links sentences to their last word."@en ;
     rdfs:domain nif:Sentence ;
@@ -563,21 +550,21 @@ nif:lastWord
 
 nif:occurrence
     a owl:ObjectProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:comment "This property links a URI of type OccuringWord to other nif:String, that occur in the same context." ;
     rdfs:domain nif:OccuringWord ;
     rdfs:range nif:String .
 
 nif:sentence
     a owl:ObjectProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:comment "This property links words to their sentence." ;
     rdfs:domain nif:Word ;
     rdfs:range nif:Sentence .
 
 nif:nextWord
     a owl:ObjectProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:comment "see nif:nextSentence"@en ;
     rdfs:domain nif:Word ;
     rdfs:range nif:Word ;
@@ -586,7 +573,7 @@ nif:nextWord
 
 nif:nextWordTrans
     a owl:ObjectProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:comment "see nif:nextSentence"@en ;
     rdfs:domain nif:Word ;
     rdfs:range nif:Word .
@@ -594,7 +581,7 @@ nif:nextWordTrans
 
 nif:previousWord
     a owl:ObjectProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:comment "see nif:nextSentence"@en ;
     rdfs:domain nif:Word ;
     rdfs:range nif:Word ;
@@ -602,7 +589,7 @@ nif:previousWord
 
 nif:previousWordTrans
     a owl:ObjectProperty ;
-    dcterms:hasVersion "unstable" ;
+    dcterms:hasVersion "unversioned" ;
     rdfs:comment "see nif:nextSentence"@en ;
     rdfs:domain nif:Word ;
     rdfs:range nif:Word .
@@ -647,7 +634,7 @@ nif:oliaLink
     
 nif:oliaLinkConf
     a owl:DatatypeProperty ;
-    dcterms:hasVersion "unstable" ; 
+    dcterms:hasVersion "unversioned" ; 
     rdfs:label "confidence of OLiA link" ;
     rdfs:comment "The confidence is relative to the tool and can be between 0.0 and 1.0 "@en ;
     rdfs:range xsd:decimal ;
@@ -662,7 +649,7 @@ nif:oliaCategory
 
 nif:oliaCategoryConf
     a owl:DatatypeProperty ;
-    dcterms:hasVersion "unstable" ; 
+    dcterms:hasVersion "unversioned" ; 
     rdfs:label "confidence of OLiA category" ;
     rdfs:comment "The confidence is relative to the tool and can be between 0.0 and 1.0 "@en ;
     rdfs:range xsd:decimal ;
@@ -692,7 +679,7 @@ nif:NormalizedCollectionOccurrence a owl:Class . #nif:URIScheme .
 
 nif:class 
 	rdfs:label "class";
-	dcterms:hasVersion "unstable" ; 
+	dcterms:hasVersion "unversioned" ; 
 	rdfs:comment """A simple annotation for machine learning purposes. The object can be anything, e.g. the literal "A. PRESS: Reportage" from brown or any URI.  """@en ;
 	a owl:AnnotationProperty .
 
@@ -707,14 +694,14 @@ nif:class
 
 nif:sentimentValue 
 	rdfs:label "sentiment value";
-	dcterms:hasVersion "unstable" ; 
+	dcterms:hasVersion "unversioned" ; 
 	rdfs:comment """Between -1 negative and 1 positive """@en ;
 	rdfs:range xsd:decimal ;
 	a owl:DatatypeProperty .
 
 nif:opinion 
 	rdfs:label "opinion";
-	dcterms:hasVersion "unstable" ; 
+	dcterms:hasVersion "unversioned" ; 
 	rdfs:comment """This property is used to link to a marl:Opinion. We have not investigated marl, so it might be replaced. http://marl.gi2mo.org/?page_id=1#overview . InverseOf marl:extractedFrom"""@en ;
 	rdfs:domain nif:String ;
 	rdfs:range marl:Opinion ;
@@ -726,7 +713,7 @@ nif:opinion
 
 nif:EntityAnnotation
     a owl:Class ;
-    dcterms:hasVersion "unstable" ; 
+    dcterms:hasVersion "unversioned" ; 
     rdfs:label "Entity Annotation"@en ;
     rdfs:comment """This anntotation is an entity. Only usable with the Apache Stanbol profile. disjointWith nif:String and fise:TextAnnotation."""@en ;
     rdfs:subClassOf nif:Annotation .
@@ -734,21 +721,21 @@ nif:EntityAnnotation
 
 nif:TopicAnnotation
     a owl:Class ;
-    dcterms:hasVersion "unstable" ; 
+    dcterms:hasVersion "unversioned" ; 
     rdfs:label "A Topic Annotation"@en ;
     rdfs:comment """This anntotation is TODO:???? . Only usable with the Apache Stanbol profile. disjointWith nif:String and fise:TextAnnotation. """@en ;
     rdfs:subClassOf nif:Annotation .
 
 nif:confidence
     a owl:DatatypeProperty ;
-    dcterms:hasVersion "unstable" ; 
+    dcterms:hasVersion "unversioned" ; 
     rdfs:comment """The confidence of the nif:Annotation. If this property is attached to a nif:String, this property indicates the likelyness that the assigned indices and the nif:Structures are correct. If there are problems with URI minting use nif:ArbitraryString"""@en ;
     rdfs:domain nif:Annotation ;
     rdfs:label "confidence"@en ;
     rdfs:range xsd:decimal .
     
 nif:extractedFrom
-	dcterms:hasVersion "unstable" ; 
+	dcterms:hasVersion "unversioned" ; 
     a owl:ObjectProperty ;
     rdfs:comment """links a nif:String to a nif:Annotation ."""@en ;
     rdfs:domain nif:String ;
