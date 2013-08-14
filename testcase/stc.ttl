@@ -1,0 +1,89 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix stc: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/stc#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/stc#> 
+    a owl:Ontology ;
+    
+    <http://purl.org/dc/terms/title> "STC - Simple Test Case Ontology"@en ;
+    <http://purl.org/dc/terms/license> <http://creativecommons.org/licenses/by/3.0/> ;		
+    <http://purl.org/dc/terms/license> <http://www.apache.org/licenses/LICENSE-2.0> ;	
+ 
+    <http://purl.org/vocab/vann/preferredNamespacePrefix> "stc" ;
+    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/stc#" ;
+    
+    dc:creator "Sebastian Hellmann, Dimitris Kontokostas" ;
+    dc:contributor "TODO";
+    dc:publisher "AKSW, University Leipzig" ;
+    dc:rights """This ontology is licensed under Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0) and CC-BY (http://creativecommons.org/licenses/by/3.0/)"""@en ;
+    
+    owl:versionInfo "1.0.0, using http://semver.org, see GitHub for all version https://github.com/NLP2RDF/ontologies " ;
+    owl:versionIRI <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/testcase/stc.ttl> ;		
+    
+    rdfs:label "STC - Simple Test Case Ontology"@en ;
+    rdfs:comment """This is a helper ontology for NIF 2.0 to be able to write SPARQL based test cases for RDF. It applies to other RDF projects as well. """@en ;
+	
+	dc:description """The main use case of this ontology is to relate a SPARQL query to one or more vocabulary URIs from the NIF 2.0 Core Ontology and then produce helpful log and debug output, if executed on a NIF model. This is done by creating a test suite and test cases. 
+	
+	Hey, why don't you look at the test suite for NIF 2.0: 
+
+	TODO persistence link
+	
+    Changelog:
+    * 1.0.0 initial version
+    """@en
+
+##########  
+#The Suite
+##########  
+
+stc:TestSuite
+	a owl:Class ;
+	rdfs:label "Test suite"@en ;
+	rdfs:comment "An unordered collection of test cases. Use dcterms:hasVersion for versioning on this resource. "@en .
+
+stc:case
+	a owl:ObjectProperty ;
+	rdfs:label "case"@en ;
+	rdfs:comment "Make a suite and connect it to the cases via this property."@en ; 
+	rdfs:domain stc:TestSuite ; 
+	rdfs:range stc:SimpleSparqlTestCase .
+
+stc:sparqlPrefix
+    a owl:DatatypeProperty ;
+	rdfs:label "SPARQL prefixes"@en ;
+	rdfs:domain stc:TestSuite ; 
+	rdfs:comment """several prefixes in sparql syntax attached to the suite."""@en .  
+
+
+##########  
+#The test case definition
+##########  
+
+stc:SimpleTestCase
+	a owl:Class ;
+	rdfs:label "Test Case"@en;
+	rdfs:comment "A simple test case"@en .
+
+stc:SimpleSparqlTestCase 
+	a owl:Class ;
+	rdfs:label "Test Case"@en;
+	rdfs:comment "A test case, which has a SPARQL query attached to it as a simple string via the stc:sparql property."@en ; 
+	owl:subClassOf stc:SimpleTestCase .
+	
+
+# yes, it is a string, in OWL we would need to describe all parts (e.g. SELECT vs. CONSTRUCT, Variables, etc.). This would result in SPIN	
+stc:sparql 
+    a owl:DatatypeProperty ;
+	rdfs:label "SPARQL query"@en ;
+	rdfs:domain stc:SimpleSparqlTestCase ; 
+	rdfs:comment """This property allows to attach SPARQL construct queries to a test case. If the query is executed, errors or warnings can be detected and logged to debug the resource."""@en .
+
+# actually we might infer test coverage from this property, but it would be better to specify it in OWL directly. 
+stc:relatesTo
+	a owl:AnnotationProperty;
+	rdfs:label "SPARQL query"@en ;
+	rdfs:comment """Link the test case to the vocabulary URI. This section is just for browsing/information. (e.g. give me all testcases relating to nif:anchorOf). You can link it to classes, individuals and properties. """@en .

@@ -12,6 +12,8 @@ rsync -rav .htaccess nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ont
 
 #docu
 curl http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core.owl > nif-core/nif-core.html
+curl http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog/rlog.owl > rlog/rlog.html
+curl http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/testcase/stc.owl > testcase/stc.html
 
 # sync run
 rsync -rav * nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies 

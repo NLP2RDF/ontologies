@@ -21,6 +21,9 @@ RewriteRule ^nif-core$ /nlp2rdf/ontologies/nif-core/nif-core.html [R=303,L]
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^rlog$ /nlp2rdf/ontologies/rlog/rlog.html [R=303,L]
 
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^rlog$ /nlp2rdf/ontologies/testcase/stc.html [R=303,L]
+
 ##################
 # Rewrite rule to serve RDF/XML content if requested
 ##################
@@ -30,9 +33,13 @@ RewriteRule ^nif-core$ /nlp2rdf/ontologies/nif-core/nif-core.owl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^rlog$ /nlp2rdf/ontologies/rlog/rlog.owl [R=303,L]
 
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^rlog$ /nlp2rdf/ontologies/testcase/stc.owl [R=303,L]
+
 #################
 # Default
 #################
 RewriteRule ^nif-core$ /nlp2rdf/ontologies/nif-core/nif-core.ttl [R=303,L]
 RewriteRule ^rlog$ /nlp2rdf/ontologies/rlog/rlog.ttl [R=303,L]
+RewriteRule ^rlog$ /nlp2rdf/ontologies/testcase/stc.ttl [R=303,L]
 

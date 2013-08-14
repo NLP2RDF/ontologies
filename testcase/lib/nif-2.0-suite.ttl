@@ -1,0 +1,179 @@
+@base <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/testcases/lib/nif-2.0-suite.ttl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix stc: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/stc#> .
+@prefix nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+
+<NIFCoreValidationSuite> 
+	a  stc:TestSuite ;
+	rdfs:label "The NIF 2.0 Core Validation Suite"@en ;
+	rdfs:comment """All the queries in this suite have three variables ?resource ?logLevel ?message. """@en ;
+	<http://purl.org/dc/terms/hasVersion> "1.0.0" ;
+	stc:sparqlPrefix """PREFIX nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>   
+PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ .
+
+<t1> a stc:SimpleSparqlTestCase ;	
+	stc:relatesTo <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> ;
+	stc:sparql """Select ?resource ?logLevel ?message {
+		?resource a ?class .
+		FILTER ( 
+			CONTAINS (str(?class), "http://nlp2rdf.lod2.eu/schema/string/") ||
+			CONTAINS (str(?class), "http://nlp2rdf.lod2.eu/schema/sso/")
+			) 
+		# README
+		BIND (concat(str(?class),": is using the old vocabulary, a newer version is available at http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#") AS ?message) 
+		BIND ( rlog:WARN as ?logLevel ) 
+		} """ .	
+
+<t2> a stc:SimpleSparqlTestCase ;
+	stc:relatesTo nif:Context ;
+	stc:relatesTo nif:isString ;
+	stc:sparql """Select ?resource ?logLevel ?message {
+		?resource a nif:Context .
+		FILTER (NOT EXISTS {?resource nif:isString ?o } )
+		
+		# README
+		BIND (concat(str(?resource), ": all nif:Context must have an explicit nif:isString") AS ?message)
+		BIND ( rlog:ERROR as ?logLevel ) 
+		} """ .
+
+<t3> a stc:SimpleSparqlTestCase ;
+	stc:relatesTo nif:Context ;
+	stc:relatesTo nif:beginIndex ;
+    stc:sparql """Select ?resource ?logLevel ?message {
+		?resource a nif:Context .
+		?resource nif:beginIndex ?begin .
+		FILTER (xsd:nonNegativeInteger(?begin) != xsd:nonNegativeInteger(0)) 
+		
+		# README
+		BIND (concat(str(?resource), ": nif:beginIndex of nif:Context MUST be zero, but is ", str(?begin)) AS ?message)
+		BIND ( rlog:ERROR as ?logLevel ) 
+	}""" .
+
+<t4> a stc:SimpleSparqlTestCase ;
+	stc:relatesTo nif:Context ;
+	stc:relatesTo nif:beginIndex ;
+    stc:sparql """Select ?resource ?logLevel ?message {
+		?resource a nif:Context .
+		?resource nif:isString ?string . 
+		?resource nif:endIndex ?length .
+		BIND ( xsd:nonNegativeInteger(strlen(?string)) as ?a)
+		BIND ( xsd:nonNegativeInteger(?length) as ?b)
+		FILTER ( ?a != ?b  )
+		
+		# README
+		BIND (concat(str(?resource), ": for the context, the length of nif:isString (",str(?a), ") must equal nif:endIndex(",str(?b),")" ) AS ?message)
+		BIND ( rlog:ERROR as ?logLevel ) 
+		}""" .
+		
+<t5> a stc:SimpleSparqlTestCase ;
+	stc:relatesTo nif:anchorOf ;
+	stc:relatesTo nif:isString ;
+	stc:sparql """Select ?resource ?logLevel ?message {
+		#not sure, if necessary -> ?s a nif:RFC5147String .
+		?resource nif:anchorOf ?anchorOf .
+		?resource nif:beginIndex ?beginIndex .
+		?resource nif:endIndex ?endIndex .
+		?resource nif:referenceContext [ nif:isString ?referenceString ]  .
+		BIND (SUBSTR(?referenceContext, ?beginIndex , (?endIndex - ?beginIndex) ) AS ?test ) .
+		FILTER (str(?test) != str(?anchorOf )) .
+		
+		# README 
+		BIND (concat(str(?resource), ": nif:anchorOf must match the substring of nif:isString calculated with begin and end index") AS ?message) 
+		BIND ( rlog:ERROR as ?logLevel ) 
+	}""" .
+
+
+<t6> a stc:SimpleSparqlTestCase ;
+	stc:relatesTo nif:RFC5147String ;
+	stc:sparql """Select ?resource ?logLevel ?message {
+		?resource a ?class .
+		FILTER ( 
+			CONTAINS (str(?class), "RFC") &&  CONTAINS (str(?class), "147String") && ! CONTAINS (str(?class), "5") || 
+			CONTAINS (str(?class), "RFC5") &&  CONTAINS (str(?class), "47String") && ! CONTAINS (str(?class), "1") || 
+			CONTAINS (str(?class), "RFC51") &&  CONTAINS (str(?class), "7String") && ! CONTAINS (str(?class), "4") ||
+			CONTAINS (str(?class), "RFC514") &&  CONTAINS (str(?class), "String") && ! CONTAINS (str(?class), "7") ||
+			CONTAINS (str(?class), "5147String")  && ! CONTAINS (str(?class), "RFC") ||
+			CONTAINS (str(?class), "RFC") &&  CONTAINS (str(?class), "5147") && ! CONTAINS (str(?class), "String") 
+			) 
+		
+		# README
+		BIND (concat(str(?class),": is misspelled") AS ?message)	
+		BIND ( rlog:ERROR as ?logLevel ) 
+	}""" .
+
+
+<t7> a stc:SimpleSparqlTestCase ;
+	rdfs:comment "TODO: this test case can be more general (also covering other urischemes). " ;
+	stc:relatesTo nif:RFC5147String ;
+	stc:relatesTo nif:referenceContext ;
+	stc:sparql """Select ?resource ?logLevel ?message {
+		?resource a nif:RFC5147String .
+		
+		FILTER (NOT EXISTS {?s a nif:Context } ) .
+		FILTER (NOT EXISTS {?s nif:referenceContext [ a nif:Context ] . } ) 
+		
+		# README
+		
+		BIND (concat(str(?s), ": all nif:RFC5147String that aren't Contexts must have an explicit referenceContext") AS ?message)
+		BIND ( rlog:ERROR as ?logLevel ) 
+		}""" .
+
+<t8> a stc:SimpleSparqlTestCase ;
+	rdfs:comment "TODO: this test case can be more general (also covering other urischemes). " ;
+	stc:relatesTo nif:RFC5147String ;
+	stc:relatesTo nif:endIndex ;
+	stc:sparql """Select ?resource ?logLevel ?message {
+		?resource a nif:RFC5147String .
+		FILTER ( NOT EXISTS {?s nif:endIndex ?o  } )
+		
+		# README
+		BIND ( concat(str(?resource), ": all nif:RFC5147String must have nif:endIndex") AS ?message)
+		BIND ( rlog:ERROR as ?logLevel ) 
+	}""" .
+	
+<t9> a stc:SimpleSparqlTestCase ;
+	rdfs:comment "TODO: this test case can be more general (also covering other urischemes). " ;
+	stc:relatesTo nif:RFC5147String ;
+	stc:relatesTo nif:beginIndex ;
+	stc:sparql """Select ?resource ?logLevel ?message {
+		?resource a nif:RFC5147String . 
+		FILTER ( NOT EXISTS {?resource nif:beginIndex ?o  } )
+		
+		# README
+		BIND (concat(str(?resource), ": all nif:RFC5147String MUST have nif:beginIndex.") AS ?message)
+		BIND ( rlog:ERROR as ?logLevel ) 
+	} """ .
+
+<t10> a stc:SimpleSparqlTestCase ;
+	rdfs:comment "TODO: this test case can be more general (also covering other urischemes). " ;
+	stc:relatesTo nif:RFC5147String ;
+	stc:relatesTo nif:beginIndex ;
+	stc:sparql """Select ?resource ?logLevel ?message {
+		?resource a nif:Context .
+		FILTER ( NOT EXISTS {?resource a nif:RFC5147String }  )
+		
+		# README
+		BIND (concat(str(?resource), ": all nif:Context must have rdf:type nif:RFC5147String or similar" ) AS ?message)
+		BIND ( rlog:ERROR as ?logLevel ) 
+	}""" .
+
+<t10> a stc:SimpleSparqlTestCase ;
+	rdfs:comment "nif:beginIndex and nif:endIndex MUST be castable to xsd:nonNegativeInteger, ?test will not be bound if ?o can not be casted." ;
+	stc:relatesTo nif:beginIndex ;
+	stc:relatesTo nif:endIndex ;
+	stc:sparql """Select ?resource ?logLevel ?message { 
+		{ ?resource nif:beginIndex ?o . }
+		UNION
+		{ ?resource nif:endIndex   ?o . }
+
+		BIND (DATATYPE(xsd:nonNegativeInteger(?o)) AS ?test)
+		FILTER ( !bound (?test) ) 
+		
+		# README
+		BIND (concat(str(?resource), ": nif:beginIndex and nif:endIndex MUST be castable to xsd:nonNegativeInteger") AS ?message)
+		BIND ( rlog:ERROR as ?logLevel ) 
+}""" .

@@ -1,0 +1,71 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+
+
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix nerd: <http://nerd.eurecom.fr/ontology#> .
+@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix skosxl: <http://www.w3.org/2008/05/skos-xl#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix oa: <http://www.w3.org/ns/oa#> .
+@prefix marl: <http://purl.org/marl/ns#> .
+@prefix fise: <http://fise.iks-project.eu/ontology/> .
+
+###############
+# Plain text example
+###############
+
+# Stable part:
+# URI for the first word
+<http://nlp2rdf.lod2.eu/usecases/plaintext.txt#char=0,6> 
+	a nif:RFC5147String  ;
+	nif:referenceContext <http://nlp2rdf.lod2.eu/usecases/plaintext.txt#char=0,1756>  ;
+	nif:beginIndex "0"^^xsd:nonNegativeInteger ;
+	nif:endIndex "6"^^xsd:nonNegativeInteger ;
+# unstable /testing part begins below	
+	nif:anchorOf "Mexico" ;
+	
+	# Tokenization
+	##############
+	a nif:Word , nif:Phrase ;
+	
+	# Entity linking
+	# see http://www.w3.org/TR/its20/#conversion-to-nif
+	################
+	itsrdf:taIdentRef  <http://dbpedia.org/resource/Mexico> ;
+	itsrdf:taConfidence  "0.99"^^xsd:decimal ;
+	itsrdf:taClassRef  <http://nerd.eurecom.fr/ontology#Country> ;
+	
+	# PartOfSpeech tagging
+	######################
+	nif:oliaLink <http://purl.org/olia/penn.owl#NNP> ;
+	nif:oliaLinkConf "0.99"^^xsd:decimal ;
+	nif:oliaCategory <http://purl.org/olia/olia.owl#Noun> ;
+	nif:oliaCategory <http://purl.org/olia/olia.owl#ProperNoun> .
+
+# the mention found in the first word
+<http://dbpedia.org/resource/Mexico> 
+	a <http://nerd.eurecom.fr/ontology#Country> .
+
+## Context
+<http://nlp2rdf.lod2.eu/usecases/plaintext.txt#char=0,1756> 
+	a nif:RFC5147String  , nif:Context ;
+	nif:beginIndex "0"^^xsd:nonNegativeInteger ;
+	nif:endIndex "1756"^^xsd:nonNegativeInteger ;
+	dcterms:created "2013-05-08T17:00:00Z"^^xsd:datetime ;
+	nif:referenceContext <http://nlp2rdf.lod2.eu/usecases/plaintext.txt#char=0,1756>  ;
+	nif:sourceUrl <http://nlp2rdf.lod2.eu/usecases/plaintext.txt>  ;
+	nif:isString """Mexico expects the U.S. to accelerate the disbursement of aid to strengthen its fight against drug gangs and put back on track a $1.4 billion program that has been hamstrung by delays in recent years, Foreign Affairs Minister Patricia Espinosa said.
+Espinosa, in an interview yesterday, said both U.S. President Barack Obama and Secretary of State Hillary Clinton promised to disburse $500 million this year in equipment and aid for police training as part of the bilateral Merida Initiative. Mexico expects to receive complete financing of the multi-year program by next year, she said.
+"We got off to a slow start in part because this is a completely new cooperation plan," Espinosa, 52, said at Bloomberg's offices in Mexico City. "We now see that it's advancing more quickly."
+(It would boring without special characters such as äöüßéèâ&auml;) .
+U.S. anti-narcotics aid to Mexico suffered delays even as the death toll from President Felipe Calderon's crackdown on drug gangs surged to over 35,000 victims since he took office in 2006. Mexico received at least $480 million in U.S. aid under the program since it was signed in 2008 by Calderon and former President George W. Bush, with $380 million arriving between 2008 and 2010, according to data from the Foreign Ministry.
+The shortfall in U.S. assistance has delayed the delivery of equipment including polygraph machines and Black Hawk helicopters needed to combat drug traffickers. It has also delayed the training of Mexican officials, according to the GAO report.
+Until a year ago the U.S. had delivered only about 9 percent of the promised aid to Mexico and Central America because agencies involved lacked staff and funding, the U.S. Government Accountability Office said in a report in 2010.""".
