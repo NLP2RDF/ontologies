@@ -20,7 +20,7 @@
     dc:publisher "AKSW, University Leipzig" ;
     dc:rights """This ontology is licensed under Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0) and CC-BY (http://creativecommons.org/licenses/by/3.0/)"""@en ;
     
-    owl:versionInfo "1.0.0, using http://semver.org, see GitHub for all version https://github.com/NLP2RDF/ontologies " ;
+    owl:versionInfo "1.0.0" ;
     owl:versionIRI <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/testcase/stc.ttl> ;		
     
     rdfs:label "STC - Simple Test Case Ontology"@en ;
@@ -29,11 +29,16 @@
 	dc:description """The main use case of this ontology is to relate a SPARQL query to one or more vocabulary URIs from the NIF 2.0 Core Ontology and then produce helpful log and debug output, if executed on a NIF model. This is done by creating a test suite and test cases. 
 	
 	Hey, why don't you look at the test suite for NIF 2.0: 
+	TODO add link
 
-	TODO persistence link
+	
+	For detailed information about license, persistence and versioning, please look at versioning spec: http://persistence.uni-leipzig.org/nlp2rdf/specification/version.html
+	In short, we use http://semver.org, provide previous versions on GitHub https://github.com/NLP2RDF/ontologies and there are Maven repos: http://maven.aksw.org/archiva/browse/org.nlp2rdf.ontologies/persistence.uni-leipzig.org
 	
     Changelog:
-    * 1.0.0 initial version
+    * 0.0.0 - this ontology is not versionend
+    * 1.0.0 - using http://semver.org, see GitHub for all version https://github.com/NLP2RDF/ontologies 
+	
     """@en
 
 ##########  

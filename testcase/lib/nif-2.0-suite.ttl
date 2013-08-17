@@ -9,11 +9,16 @@
 <NIFCoreValidationSuite> 
 	a  stc:TestSuite ;
 	rdfs:label "The NIF 2.0 Core Validation Suite"@en ;
-	rdfs:comment """All the queries in this suite have three variables ?resource ?logLevel ?message. """@en ;
-	<http://purl.org/dc/terms/hasVersion> "1.0.0" ;
+	rdfs:comment """All the queries in this suite have three variables ?resource ?logLevel ?message. 
+	
+	Changelog:
+	1.0.1 added case property
+	"""@en ;
+	<http://purl.org/dc/terms/hasVersion> "1.0.1" ;
 	stc:sparqlPrefix """PREFIX nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>   
-PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ .
+PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ :
+	stc:case <t1>, <t2>, <t3>, <t4>, <t5>, <t6>, <t7>, <t8>, <t9>, <t10> .
 
 <t1> a stc:SimpleSparqlTestCase ;	
 	stc:relatesTo <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> ;
