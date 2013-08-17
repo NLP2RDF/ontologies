@@ -37,7 +37,7 @@
 	
     Changelog:
     * 0.0.0 - this ontology is not versionend
-    * 1.0.0 - using http://semver.org, see GitHub for all version https://github.com/NLP2RDF/ontologies 
+    * 1.0.0 - there is an implementation using it
 	
     """@en
 

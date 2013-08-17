@@ -1,4 +1,4 @@
-@base <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/testcases/lib/nif-2.0-suite.ttl#> .
+@prefix : <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/testcases/lib/nif-2.0-suite.ttl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -6,21 +6,23 @@
 @prefix stc: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/stc#> .
 @prefix nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
 
-<NIFCoreValidationSuite> 
+:NIFCoreValidationSuite
 	a  stc:TestSuite ;
+	<http://purl.org/dc/terms/hasVersion> "1.0.2" ;
 	rdfs:label "The NIF 2.0 Core Validation Suite"@en ;
 	rdfs:comment """All the queries in this suite have three variables ?resource ?logLevel ?message. 
 	
 	Changelog:
 	1.0.1 added case property
+	1.0.2 fixed prefixes, as base didn't work
 	"""@en ;
-	<http://purl.org/dc/terms/hasVersion> "1.0.1" ;
+
 	stc:sparqlPrefix """PREFIX nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>   
-PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ :
-	stc:case <t1>, <t2>, <t3>, <t4>, <t5>, <t6>, <t7>, <t8>, <t9>, <t10> .
+PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ ;
+	stc:case :t1 , :t2 , :t3 , :t4 , :t5 , :t6 , :t7 , :t8 , :t9 , :t10 .
 
-<t1> a stc:SimpleSparqlTestCase ;	
+:t1  a stc:SimpleSparqlTestCase ;	
 	stc:relatesTo <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> ;
 	stc:sparql """Select ?resource ?logLevel ?message {
 		?resource a ?class .
@@ -33,7 +35,7 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ :
 		BIND ( rlog:WARN as ?logLevel ) 
 		} """ .	
 
-<t2> a stc:SimpleSparqlTestCase ;
+:t2  a stc:SimpleSparqlTestCase ;
 	stc:relatesTo nif:Context ;
 	stc:relatesTo nif:isString ;
 	stc:sparql """Select ?resource ?logLevel ?message {
@@ -45,7 +47,7 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ :
 		BIND ( rlog:ERROR as ?logLevel ) 
 		} """ .
 
-<t3> a stc:SimpleSparqlTestCase ;
+:t3  a stc:SimpleSparqlTestCase ;
 	stc:relatesTo nif:Context ;
 	stc:relatesTo nif:beginIndex ;
     stc:sparql """Select ?resource ?logLevel ?message {
@@ -58,7 +60,7 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ :
 		BIND ( rlog:ERROR as ?logLevel ) 
 	}""" .
 
-<t4> a stc:SimpleSparqlTestCase ;
+:t4  a stc:SimpleSparqlTestCase ;
 	stc:relatesTo nif:Context ;
 	stc:relatesTo nif:beginIndex ;
     stc:sparql """Select ?resource ?logLevel ?message {
@@ -74,7 +76,7 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ :
 		BIND ( rlog:ERROR as ?logLevel ) 
 		}""" .
 		
-<t5> a stc:SimpleSparqlTestCase ;
+:t5  a stc:SimpleSparqlTestCase ;
 	stc:relatesTo nif:anchorOf ;
 	stc:relatesTo nif:isString ;
 	stc:sparql """Select ?resource ?logLevel ?message {
@@ -92,7 +94,7 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ :
 	}""" .
 
 
-<t6> a stc:SimpleSparqlTestCase ;
+:t6  a stc:SimpleSparqlTestCase ;
 	stc:relatesTo nif:RFC5147String ;
 	stc:sparql """Select ?resource ?logLevel ?message {
 		?resource a ?class .
@@ -111,7 +113,7 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ :
 	}""" .
 
 
-<t7> a stc:SimpleSparqlTestCase ;
+:t7  a stc:SimpleSparqlTestCase ;
 	rdfs:comment "TODO: this test case can be more general (also covering other urischemes). " ;
 	stc:relatesTo nif:RFC5147String ;
 	stc:relatesTo nif:referenceContext ;
@@ -127,7 +129,7 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ :
 		BIND ( rlog:ERROR as ?logLevel ) 
 		}""" .
 
-<t8> a stc:SimpleSparqlTestCase ;
+:t8  a stc:SimpleSparqlTestCase ;
 	rdfs:comment "TODO: this test case can be more general (also covering other urischemes). " ;
 	stc:relatesTo nif:RFC5147String ;
 	stc:relatesTo nif:endIndex ;
@@ -140,7 +142,7 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ :
 		BIND ( rlog:ERROR as ?logLevel ) 
 	}""" .
 	
-<t9> a stc:SimpleSparqlTestCase ;
+:t9  a stc:SimpleSparqlTestCase ;
 	rdfs:comment "TODO: this test case can be more general (also covering other urischemes). " ;
 	stc:relatesTo nif:RFC5147String ;
 	stc:relatesTo nif:beginIndex ;
@@ -153,7 +155,7 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ :
 		BIND ( rlog:ERROR as ?logLevel ) 
 	} """ .
 
-<t10> a stc:SimpleSparqlTestCase ;
+:t10  a stc:SimpleSparqlTestCase ;
 	rdfs:comment "TODO: this test case can be more general (also covering other urischemes). " ;
 	stc:relatesTo nif:RFC5147String ;
 	stc:relatesTo nif:beginIndex ;
@@ -166,7 +168,7 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ :
 		BIND ( rlog:ERROR as ?logLevel ) 
 	}""" .
 
-<t10> a stc:SimpleSparqlTestCase ;
+:t10  a stc:SimpleSparqlTestCase ;
 	rdfs:comment "nif:beginIndex and nif:endIndex MUST be castable to xsd:nonNegativeInteger, ?test will not be bound if ?o can not be casted." ;
 	stc:relatesTo nif:beginIndex ;
 	stc:relatesTo nif:endIndex ;
