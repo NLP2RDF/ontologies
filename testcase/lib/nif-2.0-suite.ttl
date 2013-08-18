@@ -31,7 +31,7 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ ;
 			CONTAINS (str(?class), "http://nlp2rdf.lod2.eu/schema/sso/")
 			) 
 		# README
-		BIND (concat(str(?class),": is using the old vocabulary, a newer version is available at http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#") AS ?message) 
+		BIND (concat(str(?resource),": is using the old vocabulary (",str(?class),") a newer version is available at http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#") AS ?message) 
 		BIND ( rlog:WARN as ?logLevel ) 
 		} """ .	
 
@@ -72,7 +72,7 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ ;
 		FILTER ( ?a != ?b  )
 		
 		# README
-		BIND (concat(str(?resource), ": for the context, the length of nif:isString (",str(?a), ") must equal nif:endIndex(",str(?b),")" ) AS ?message)
+		BIND (concat(str(?resource), ": for the context, the length of nif:isString (",str(?a), ") must equal nif:endIndex (",str(?b),")" ) AS ?message)
 		BIND ( rlog:ERROR as ?logLevel ) 
 		}""" .
 		
@@ -81,15 +81,25 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ ;
 	stc:relatesTo nif:isString ;
 	stc:sparql """Select ?resource ?logLevel ?message {
 		#not sure, if necessary -> ?s a nif:RFC5147String .
-		?resource nif:anchorOf ?anchorOf .
+		#?resource nif:anchorOf ?anchorOf .
 		?resource nif:beginIndex ?beginIndex .
 		?resource nif:endIndex ?endIndex .
 		?resource nif:referenceContext [ nif:isString ?referenceString ]  .
-		BIND (SUBSTR(?referenceContext, ?beginIndex , (?endIndex - ?beginIndex) ) AS ?test ) .
-		FILTER (str(?test) != str(?anchorOf )) .
+		BIND (SUBSTR(?referenceString, ?beginIndex , (?endIndex - ?beginIndex) ) AS ?test ) .
+	    #FILTER (str(?test) != str(?anchorOf )) .
 		
-		# README 
-		BIND (concat(str(?resource), ": nif:anchorOf must match the substring of nif:isString calculated with begin and end index") AS ?message) 
+		
+		# debugging query
+		#BIND ((xsd:int(?endIndex) - xsd:int(?beginIndex))  as ?diff )
+		#BIND ((?endIndex - ?beginIndex)   as ?diff )
+		#BIND (concat(str(?diff), "ass") AS ?message) 
+		#BIND (SUBSTR(?referenceString, ?beginIndex , (?endIndex - ?beginIndex) ) AS ?test ) .
+		#BIND ("anything" AS ?test ) .
+		#BIND (concat(str(?referenceString), " " ,  ?beginIndex, ?endIndex," ", ?diff," ", ?test) AS ?message) 
+		# BIND (concat(str(?test), " " ,  ?beginIndex," "," ", ?test) AS ?message) 
+		
+		# README - TODO this query does not work correctly
+		#BIND (concat(str(?referenceString), ": nif:anchorOf must match the substring of nif:isString calculated with begin and end index") AS ?message) 
 		BIND ( rlog:ERROR as ?logLevel ) 
 	}""" .
 
@@ -108,7 +118,7 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ ;
 			) 
 		
 		# README
-		BIND (concat(str(?class),": is misspelled") AS ?message)	
+		BIND (concat("rdf:type of ",str(?resource)," is misspelled: ",str(?class)) AS ?message)	
 		BIND ( rlog:ERROR as ?logLevel ) 
 	}""" .
 
@@ -168,7 +178,7 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ ;
 		BIND ( rlog:ERROR as ?logLevel ) 
 	}""" .
 
-:t10  a stc:SimpleSparqlTestCase ;
+:t11  a stc:SimpleSparqlTestCase ;
 	rdfs:comment "nif:beginIndex and nif:endIndex MUST be castable to xsd:nonNegativeInteger, ?test will not be bound if ?o can not be casted." ;
 	stc:relatesTo nif:beginIndex ;
 	stc:relatesTo nif:endIndex ;
