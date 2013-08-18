@@ -8,13 +8,14 @@
 
 :NIFCoreValidationSuite
 	a  stc:TestSuite ;
-	<http://purl.org/dc/terms/hasVersion> "1.0.2" ;
+	<http://purl.org/dc/terms/hasVersion> "1.0.3" ;
 	rdfs:label "The NIF 2.0 Core Validation Suite"@en ;
 	rdfs:comment """All the queries in this suite have three variables ?resource ?logLevel ?message. 
 	
 	Changelog:
 	1.0.1 added case property
 	1.0.2 fixed prefixes, as base didn't work
+	1.0.3 debugging and testing of each query
 	"""@en ;
 
 	stc:sparqlPrefix """PREFIX nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#>
@@ -86,7 +87,7 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ ;
 		?resource nif:endIndex ?endIndex .
 		?resource nif:referenceContext [ nif:isString ?referenceString ]  .
 		BIND (SUBSTR(?referenceString, ?beginIndex , (?endIndex - ?beginIndex) ) AS ?test ) .
-	    #FILTER (str(?test) != str(?anchorOf )) .
+	    FILTER (str(?test) != str(?anchorOf )) .
 		
 		
 		# debugging query
@@ -96,10 +97,10 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ ;
 		#BIND (SUBSTR(?referenceString, ?beginIndex , (?endIndex - ?beginIndex) ) AS ?test ) .
 		#BIND ("anything" AS ?test ) .
 		#BIND (concat(str(?referenceString), " " ,  ?beginIndex, ?endIndex," ", ?diff," ", ?test) AS ?message) 
-		# BIND (concat(str(?test), " " ,  ?beginIndex," "," ", ?test) AS ?message) 
+		#BIND (concat(str(?referenceString), " " ,  ?beginIndex, ?diff," "," ", ?test) AS ?message) 
 		
 		# README - TODO this query does not work correctly
-		#BIND (concat(str(?referenceString), ": nif:anchorOf must match the substring of nif:isString calculated with begin and end index") AS ?message) 
+		BIND (concat(str(?referenceString), ": nif:anchorOf must match the substring of nif:isString calculated with begin and end index") AS ?message) 
 		BIND ( rlog:ERROR as ?logLevel ) 
 	}""" .
 
@@ -130,12 +131,11 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ ;
 	stc:sparql """Select ?resource ?logLevel ?message {
 		?resource a nif:RFC5147String .
 		
-		FILTER (NOT EXISTS {?s a nif:Context } ) .
-		FILTER (NOT EXISTS {?s nif:referenceContext [ a nif:Context ] . } ) 
+		FILTER (NOT EXISTS {?resource a nif:Context } ) .
+		FILTER (NOT EXISTS {?resource nif:referenceContext [ a nif:Context ] . } ) 
 		
 		# README
-		
-		BIND (concat(str(?s), ": all nif:RFC5147String that aren't Contexts must have an explicit referenceContext") AS ?message)
+		BIND (concat(str(?resource), ": all nif:RFC5147String that aren't contexts must have an explicit referenceContext") AS ?message)
 		BIND ( rlog:ERROR as ?logLevel ) 
 		}""" .
 
@@ -145,10 +145,10 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ ;
 	stc:relatesTo nif:endIndex ;
 	stc:sparql """Select ?resource ?logLevel ?message {
 		?resource a nif:RFC5147String .
-		FILTER ( NOT EXISTS {?s nif:endIndex ?o  } )
+		FILTER ( NOT EXISTS {?resource nif:endIndex ?o  } )
 		
 		# README
-		BIND ( concat(str(?resource), ": all nif:RFC5147String must have nif:endIndex") AS ?message)
+		BIND ( concat(str(?resource), ": all nif:RFC5147String MUST have nif:endIndex") AS ?message)
 		BIND ( rlog:ERROR as ?logLevel ) 
 	}""" .
 	
