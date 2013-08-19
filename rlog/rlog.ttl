@@ -11,32 +11,44 @@
 
 <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> 
     a owl:Ontology ;
-    rdfs:label "RLOG - an RDF Logging Ontology"@en ;
+    
+    <http://purl.org/vocab/vann/preferredNamespacePrefix> "rlog" ;
+    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#" ;
+    <http://purl.org/vocab/vann/changes> <https://github.com/NLP2RDF/persistence.uni-leipzig.org/commits/master/ontologies/rlog>;
+ 
+    owl:versionInfo "1.0.0" ;
+    owl:versionIRI <https://github.com/NLP2RDF/ontologies/blob/master/rlog/rlog.ttl> ;
+ 
+    dcterms:license <http://creativecommons.org/licenses/by/3.0/> ;		
+    dcterms:license <http://www.apache.org/licenses/LICENSE-2.0> ;		
     dcterms:title "RLOG - an RDF Logging Ontology"@en ;
-    vann:preferredNamespacePrefix "rlog" ;
-    vann:preferredNamespaceUri "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#" ;
-    dc:creator "Sebastian Hellmann" ;
+  
+    rdfs:label "RLOG - an RDF Logging Ontology"@en ;
+    rdfs:comment """This is a helper ontology for NIF 2.0 to be able to log errors and warning messages."""@en ;
+	
+	
+	dc:creator "Sebastian Hellmann" ;
     dc:contributor "TODO";
     dc:publisher "AKSW, University Leipzig" ;
     dc:rights """This ontology is licensed under Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0) and CC-BY (http://creativecommons.org/licenses/by/3.0/)"""@en ;
-    dcterms:license <http://creativecommons.org/licenses/by/3.0/> ;		
-    dcterms:license <http://www.apache.org/licenses/LICENSE-2.0> ;	
-    owl:versionInfo "1.0.0, using http://semver.org, see GitHub for all version https://github.com/NLP2RDF/ontologies " ;
-    owl:versionIRI <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog/rlog.ttl> ;		
-    rdfs:comment """This is a helper ontology for NIF 2.0 to be able to log errors and warning messages."""@en ;
-	dc:description """We built this ontology by looking at log4j version 1.2 and version 2 beta: http://logging.apache.org/log4j/2.x/manual/layouts.html, http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/PatternLayout.html 
+    dc:description """We built this ontology by looking at log4j version 1.2 and version 2 beta: http://logging.apache.org/log4j/2.x/manual/layouts.html, http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/PatternLayout.html 
 	Is this complete? No! But it will be sufficient for most use cases, please feel free to extend and adapt the ontology, if you need more. 
     Loglevels: TRACE, DEBUG, INFO, WARN, ERROR and FATAL
+    
+    Feedback
+	If you'd like to leave feedback, please open an issue on GitHub (https://github.com/NLP2RDF/ontologies/issues) and read the README (https://github.com/NLP2RDF/ontologies#readme) or write an email to the mailing list: http://lists.informatik.uni-leipzig.de/mailman/listinfo/nlp2rdf
+
+	Versioning process is explained here: http://persistence.uni-leipzig.org/nlp2rdf/specification/version.html
     
     Changelog:
     * 1.0.0 initial version
     """@en .
-
+    
 
 rlog:Entry
     a owl:Class ;
     rdfs:label "Log Entry"@en ;
-    rdfs:comment """ An entry in a log. """@en .
+    rdfs:comment """An entry in a log."""@en .
  
 rlog:Level
     a owl:Class ;

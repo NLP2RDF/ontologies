@@ -30,12 +30,12 @@
 <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> 
     a owl:Ontology ;
  
-    <http://purl.org/vocab/vann/preferredNamespacePrefix> "nif" ;
-    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#" ;
+    <http://purl.org/vocab/vann/preferredNamespacePrefix> "nifs" ;
+    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-stanbol#" ;
     <http://purl.org/vocab/vann/changes> <https://github.com/NLP2RDF/persistence.uni-leipzig.org/commits/master/ontologies/nif-core> ;
     
-    owl:versionInfo "1.0.0" ;
-    owl:versionIRI <https://github.com/NLP2RDF/ontologies/blob/master/nif-core/nif-core.ttl> ;
+    owl:versionInfo "versione in http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#" ;
+    owl:versionIRI <https://github.com/NLP2RDF/ontologies/blob/master/nif-core/nif-stanbol.ttl> ;
  
  
     dcterms:license <http://creativecommons.org/licenses/by/3.0/> ;		
@@ -62,14 +62,22 @@
 	Ontology models
 	This ontology is split in three parts:
 	* a terminological model (containing rdfs:comment, rdfs:label, rdfs:subClassOf, rdfs:subPropertyOf, rdfs:range and rdfs:domain statements)
-	* an inference model (containing owl:TransitiveProperty, owl:hasKey), see nif-core-inf.ttl
-	* a validation model (containing owl:FunctionalProperty, owl:DisjointWith), see nif-core-val.ttl
+	* an inference model (containing owl:TransitiveProperty, owl:hasKey)
+	* a validation model (containing owl:FunctionalProperty, owl:DisjointWith)
 
 	Feedback
 	If you'd like to leave feedback, please open an issue on GitHub (https://github.com/NLP2RDF/ontologies/issues) and read the README (https://github.com/NLP2RDF/ontologies#readme) or write an email to the mailing list: http://lists.informatik.uni-leipzig.de/mailman/listinfo/nlp2rdf
 
 	Versioning process is explained here: http://persistence.uni-leipzig.org/nlp2rdf/specification/version.html
 	Changelog is written to rdfs:comment (resource level versioning).
+	
+# Other Ontologies
+NLP2RDF works together with several other projects, that make very good ontologies, which we are reusing for NIF 2.0. Please import them, if necessary:
+* http://purl.org/olia
+* http://www.w3.org/2005/11/its/rdf#
+# Relation to the FISE ontology
+FISE is an ontology originated from Apache Stanbol and found here: http://fise.iks-project.eu/ontology/
+The ontology was compatible and useful and we just included it here.
 """@en  .
 
 
@@ -78,55 +86,10 @@
 # Base Classes and Properties
 ###################
 
-    
+# 
 nif:String
-    a owl:Class ; 
-    dcterms:hasVersion "1.0.0" ;
-    rdfs:label "String"@en ;
-    rdfs:comment """Individuals of this class are string, i.e. Unicode characters. 
-    
-    NIF-Stanbol (nif-stanbol.ttl):
-    subclassOf nifs:Annotation because it "annotates" strings for example with begin and end index. The class is similar to fise:TextAnnotation
-     
-    """@en .
-    
-nif:Context
-    a owl:Class ;
-    dcterms:hasVersion "1.0.0" ;
-    rdfs:label "Context"@en ;
-    rdfs:comment """The string used to calculate the indexes for, if used with nif:referenceContext, see http://svn.aksw.org/papers/2013/ISWC_NIF/public.pdf """ ;
-    rdfs:subClassOf nif:String . 
-
-nif:referenceContext
-    a owl:ObjectProperty ;
-    dcterms:hasVersion "1.0.0" ;
-    rdfs:label "reference context"@en ;
-    rdfs:comment """Links a URI of a string to its reference context of type nif:Context.  The reference context determines the calculation of begin and end index
-    Each String that is not an instance of nif:Context MUST have exactly one reference context. 
-    
-    Inferences (nif-core-inf.ttl): 
-    Instances of nif:Context do have itself as reference context, this is inferred automatically, MAY be materialized, as well.  
-    
-    OWL validation (nif-core-val.ttl): 
-    This property is functional.
-    
-    Changelog:
-    * 1.0.0: Introduced stable version.
-    """@en ;
-    rdfs:domain nif:String ;
-    rdfs:range nif:Context .
-
-nif:isString
-    a owl:DatatypeProperty ;
-    dcterms:hasVersion "1.0.0" ;
-    rdfs:label "is string"@en ; 
-    rdfs:comment """The reference text as rdf:Literal for this nif:Context resource.  
-    NIF highly recommends to always include the reference text (i.e. the context) as an rdf:Literal.
-    Note, that the isString property is *the* place to keep the string itself in RDF.
-    All other nif:Strings and nif:URISchemes relate to the text of this property to calculate character position and indices. """@en ;
-	rdfs:subPropertyOf nif:anchorOf ;
-    rdfs:domain nif:Context .
-
+    rdfs:subClassOf nif:Annotation .
+  
     
 nif:beginIndex
     a owl:DatatypeProperty ;
@@ -135,7 +98,7 @@ nif:beginIndex
     rdfs:comment """The begin index of a character range as defined in http://tools.ietf.org/html/rfc5147#section-2.2.1 and http://tools.ietf.org/html/rfc5147#section-2.2.2, measured as the gap between two characters, starting to count from 0 (the position before the first character of a text). 
     Example: Index "2" is the postion between "Mr" and "."  in "Mr. Sandman".
     Note: RFC 5147 is re-used for the definition of character ranges. RFC 5147 is assuming a text/plain MIME type. NIF builds upon Unicode and is content agnostic. 
-    Requirement (1): This property has the same value the "Character position" of RFC 5147 and it MUST therefore be castable to xsd:nonNegativeInteger, i.e. it MUST not have negative values.  
+    Requirement (1): This property has the same value the "Character position" of RFC 5147 and it must therefore be an xsd:nonNegativeInteger .  
     Requirement (2): The index of the subject string MUST be calculated relative to the nif:referenceContext of the subject. If available, this is the rdf:Literal of the nif:isString property.
     
     Changelog: 
@@ -165,7 +128,7 @@ nif:endIndex
 nif:anchorOf
     a owl:DatatypeProperty ;
     rdfs:label "anchor of"@en ;
-    rdfs:comment "The string, which the URI is representing as an RDF Literal. Some use cases require this property, as it is necessary for certain sparql queries. " ;
+    rdfs:comment "The string, which the uri is representing as an RDF Literal. Some use cases require this property, as it is necessary for certain sparql queries. " ;
     rdfs:domain nif:String .
 
 nif:RFC5147String
@@ -175,6 +138,7 @@ nif:RFC5147String
     rdfs:comment "cf. http://tools.ietf.org/html/rfc5147 " ;
     rdfs:subClassOf nif:URIScheme .
     
+	
 
 nif:ContextHashBasedString
     a owl:Class ;
@@ -188,7 +152,7 @@ nif:ContextHashBasedString
 
 nif:annotation    
 	a owl:ObjectProperty ;
-    dcterms:hasVersion "0.1.0" ;
+    dcterms:hasVersion "unversioned, unstable" ;
     rdfs:label "annotation"@en ;
     rdfs:comment """
       see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 5 .
