@@ -29,6 +29,8 @@ curl -I  http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core | grep -
 curl -I -H "Accept: application/rdf+xml " http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core | grep -E "(303|Location)"
 curl -I -H "Accept: text/html " http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core | grep -E "(303|Location)"
 
+mvn deploy
+
 #push any changes
 #git push server
 
