@@ -30,7 +30,7 @@ http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#String
 Note that ontologies with '/' URIs need to published differently (partly discussed here: http://lists.w3.org/Archives/Public/semantic-web/2013Apr/0157.html). 
 
 ### Workflow for '\#' ontologies in this repository
-1. All ontologies are edited in Turtle syntax with the Geany text editor or any other Turtle editor e.g. http://aksw.org/Projects/Xturtle.html), and include developers' comments using "#" directly in the source, see e.g. nif-core/nif-core.ttl
+1. All ontologies are edited in Turtle syntax with the Geany text editor or any other Turtle editor ( e.g. http://aksw.org/Projects/Xturtle.html), and include developers' comments using "#" directly in the source, see e.g. nif-core/nif-core.ttl
 2. A script called _publish.sh_ does the following:
   * Convert all turtle files to rdfxml (nif-core/nif-core.owl)  using rapper(http://librdf.org/raptor/rapper.html)
   * sync it to the staging server http://persistence.uni-leipzig.de/nlp2rdf/ontologies

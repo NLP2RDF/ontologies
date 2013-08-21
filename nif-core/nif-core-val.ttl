@@ -10,7 +10,7 @@
 # Imports
 ###################  
 
-<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#val>  owl:imports <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/version-1.0/nif-core-inf.ttl> .
+<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#val>  owl:imports <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-inf.ttl> .
 <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#val>  owl:sameAs <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
 
 
