@@ -6,7 +6,7 @@ NIF consists of specifications, ontologies and software, which are combined unde
 NIF 2.0 is a major, not backward-compatible improvement upon the previous version NIF 1.0.  
 
 ## Versioning, License and Persistence 
-see TODO
+is documented here: http://persistence.uni-leipzig.org/nlp2rdf/specification/version.html
 
 ## More information can be found:
 * At the NLP2RDF Project page: http://nlp2rdf.org
