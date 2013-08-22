@@ -210,12 +210,16 @@ nif:classAnnotation
       see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 5 .
     """@en .
 
-nif:dependency
+nif:inter
 	a owl:ObjectProperty ;
-    dcterms:hasVersion "0.1.0" ;
-    rdfs:label "dependency"@en ;
+    dcterms:hasVersion "0.2.0" ;
+    rdfs:label "inter"@en ;
     rdfs:comment """
-		This object property models a relation between two nif:Strings. The name dependency comes from dependency parsing. However this property is more general and is also superproperty of nif:substring and nif:nextWord.
+		This object property models a relation between two nif:Strings. The name "inter" is kept generic and can be used to express any kind of relation in between (inter) two nif:Strings. Extensions can create rdfs:subPropertyOf for "head", "dependent", nif:substring and nif:nextWord.  
+		
+		Changelog: 
+		* 0.1.0 initial commit of property "dependency"
+		* 0.2.0 changed name to "inter" which is more general than "dependency".
     """@en ;
     rdfs:domain nif:String ;
     rdfs:range nif:String .
