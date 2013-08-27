@@ -188,26 +188,32 @@ nif:ContextHashBasedString
 
 nif:annotation    
 	a owl:ObjectProperty ;
-    dcterms:hasVersion "0.1.0" ;
+    dcterms:hasVersion "0.1.1" ;
     rdfs:label "annotation"@en ;
     rdfs:comment """
-      see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 5 .
+      see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 21 .
+      Changelog:
+      * 0.1.1 Fixed page number
     """@en .
 
 nif:literalAnnotation    
 	a owl:DatatypeProperty ;
-    dcterms:hasVersion "0.1.0" ;
+    dcterms:hasVersion "0.1.1" ;
     rdfs:label "literalAnnotation"@en ;
     rdfs:comment """
-      see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 5 .
+      see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 21 .
+      Changelog:
+      * 0.1.1 Fixed page number
     """@en .
     
 nif:classAnnotation   
 	a owl:AnnotationProperty ;
-    dcterms:hasVersion "0.1.0" ;
+    dcterms:hasVersion "0.1.1" ;
     rdfs:label "classAnnotation"@en ;
     rdfs:comment """
-      see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 5 .
+      see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 12 .
+      Changelog:
+      * 0.1.1 Fixed page number
     """@en .
 
 nif:inter
@@ -503,9 +509,12 @@ nif:firstWord
 
 nif:lastWord
     a owl:ObjectProperty ;
-    dcterms:hasVersion "0.1.0" ;
-    rdfs:label "has first word"@en ;
-    rdfs:comment "This property links sentences to their last word."@en ;
+    dcterms:hasVersion "0.1.1" ;
+    rdfs:label "has last word"@en ;
+    rdfs:comment """This property links sentences to their last word.
+	 Changelog:
+	 0.1.1 fixed label
+    """@en ;
     rdfs:domain nif:Sentence ;
     rdfs:range nif:Word ;
     rdfs:subPropertyOf nif:word .
@@ -559,11 +568,14 @@ nif:previousWordTrans
 
 
 #TODO
-nif:OccuringWord
+nif:OccurringString
     a owl:Class ;
     dcterms:hasVersion "0.0.0" ;
-    rdfs:label "Occuring String"@en ;
-	rdfs:comment """Instances of this class represent all occuring words with a matching string within the same context. The pattern for this scheme is 'occ_'+urlencode($anchorOf) . If the text is tokenizedd with nif:Word, instances of this class would be the same as the combination of all instances, that have the same nif:anchorOf and the same nif:referenceContext. It is a scheme to refer to all tokens with the exact same string in one text. If such a URI is used, it implies, that the word occurs at least once in the given context. Otherwise nif:LabelString should be used. """@en ;
+    rdfs:label "Occurring String"@en ;
+	rdfs:comment """Instances of this class represent all occurring strings which match this string within the same context. Requires the presence of nif:anchorOf.  Definition: All strings in the context, that match, if you search for the literal of nif:anchorOf.  The pattern for this scheme is 'occ_'+urlencode($anchorOf) . 
+	
+	To express that this string is a word or phrase combine with a "structure" class.
+	It is a scheme to refer to all substrings with an exact string match in one context. If such a URI is used, it implies, that the word occurs at least once in the given context. Otherwise nif:LabelString should be used. """@en ;
     rdfs:subClassOf nif:String .
 
 #TODO
@@ -572,15 +584,15 @@ nif:LabelString
     dcterms:hasVersion "0.0.0" ;
     dcterms:hasVersion "experimental" ;
     rdfs:label "Label String"@en ;
-	rdfs:comment """Instances of this class represent a label independent from any context. This class is a subClassOf skosxl:Label, but disjoint with nif:String (see nif-core-val.ttl). We included this class in nif-core, because we are proposing the following scheme for it: 'label_'+urlencode($term).   """@en ;
+	rdfs:comment """Instances of this class represent a label independent from any context. This class is a subClassOf skosxl:Label, but disjoint with nif:String (see nif-core-val.ttl). We included this class in nif-core, because we are proposing the following scheme for it: 'label_'+urlencode($term). Might be replaces with lemon in the future.  """@en ;
     rdfs:subClassOf skosxl:Label .
 
 #TODO
 nif:occurrence
     a owl:ObjectProperty ;
     dcterms:hasVersion "0.0.0" ;
-    rdfs:comment "This property links a URI of type OccuringWord to other nif:String, that occur in the same context." ;
-    rdfs:domain nif:OccuringWord ;
+    rdfs:comment "This property links a URI of type OccurringString to other nif:String, that occur in the same context." ;
+    rdfs:domain nif:OccurringString ;
     rdfs:range nif:String .
 
 ###############
@@ -613,11 +625,15 @@ nif:stem
 
 nif:oliaLink
     a owl:ObjectProperty ;
-    dcterms:hasVersion "0.1.0" ; 
+    dcterms:hasVersion "0.1.1" ; 
     rdfs:label "OLiA link"@en ;
-    rdfs:comment """This property links a string to a URI from one of the OLiA Annotation model, e.g. http://purl.org/olia/penn.owl#NNP """@en ;
+    rdfs:comment """This property links a string to a URI from one of the OLiA Annotation model, e.g. http://purl.org/olia/penn.owl#NNP 
+    Changelog:
+    0.1.1 - added subproperty of nif:annotation as per http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 21 
+    """@en ;
     ## rdfs:range TODO ;
-    rdfs:domain nif:String .
+    rdfs:domain nif:String ;
+    rdfs:subPropertyOf nif:annotation .
     
 nif:oliaLinkConf
     a owl:DatatypeProperty ;
@@ -629,10 +645,14 @@ nif:oliaLinkConf
     
 nif:oliaCategory
     a owl:AnnotationProperty ;
-    dcterms:hasVersion "0.1.0" ; 
+    dcterms:hasVersion "0.1.1" ; 
     rdfs:label "OLiA Category"@en ;
-    rdfs:comment """This property links a string to the OLiA Reference model. It provides a direct link for querying, thus it is an optimization. """@en ;
-    rdfs:domain nif:String . 
+    rdfs:comment """This property links a string to the OLiA Reference model. It provides a direct link for querying, thus it is an optimization. 
+    Changelog:
+    0.1.1 - added subproperty of nif:classAnnotation as per http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 21 
+    """@en ;
+    rdfs:domain nif:String ;
+    rdfs:subPropertyOf nif:classAnnotation .
 
 nif:oliaCategoryConf
     a owl:DatatypeProperty ;
@@ -682,8 +702,9 @@ nif:class
 nif:sentimentValue 
 	a owl:DatatypeProperty ;
 	dcterms:hasVersion "0.0.0" ; 
-	rdfs:label "sentiment value";
+	rdfs:label "sentiment value" ;
 	rdfs:comment """Between -1 negative and 1 positive """@en ;
+	rdfs:domain nif:String ;
 	rdfs:range xsd:decimal .
 
 nif:opinion 
