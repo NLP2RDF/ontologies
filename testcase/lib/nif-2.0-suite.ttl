@@ -126,58 +126,90 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ ;
 
 
 :t7  a stc:SimpleSparqlTestCase ;
-	rdfs:comment "TODO: this test case can be more general (also covering other urischemes). " ;
 	stc:relatesTo nif:CString ;
+	stc:relatesTo nif:CStringImpl ;
 	stc:relatesTo nif:OffsetBasedString ;
 	stc:relatesTo nif:RFC5147String ;
 	stc:relatesTo nif:referenceContext ;
 	stc:sparql """Select ?resource ?logLevel ?message {
-		?resource a nif:RFC5147String .
-		
+		{
+			{?resource a nif:CStringImpl}
+			UNION
+			{?resource a nif:OffsetBasedString}
+			UNION
+			{?resource a nif:RFC5147String}
+		}
 		FILTER (NOT EXISTS {?resource a nif:Context } ) .
 		FILTER (NOT EXISTS {?resource nif:referenceContext [ a nif:Context ] . } ) 
 		
 		# README
-		BIND (concat(str(?resource), ": all nif:RFC5147String that aren't contexts must have an explicit referenceContext") AS ?message)
+		BIND (concat(str(?resource), ": all nif:CString and subclasses that aren't contexts must have an explicit referenceContext") AS ?message)
 		BIND ( rlog:ERROR as ?logLevel ) 
 		}""" .
 
 :t8  a stc:SimpleSparqlTestCase ;
-	rdfs:comment "TODO: this test case can be more general (also covering other urischemes). " ;
+	stc:relatesTo nif:CString ;
+	stc:relatesTo nif:CStringImpl ;
+	stc:relatesTo nif:OffsetBasedString ;
 	stc:relatesTo nif:RFC5147String ;
+	stc:relatesTo nif:referenceContext ;
 	stc:relatesTo nif:endIndex ;
 	stc:sparql """Select ?resource ?logLevel ?message {
-		?resource a nif:RFC5147String .
+		{
+			{?resource a nif:CStringImpl}
+			UNION
+			{?resource a nif:OffsetBasedString}
+			UNION
+			{?resource a nif:RFC5147String}
+		}
 		FILTER ( NOT EXISTS {?resource nif:endIndex ?o  } )
 		
 		# README
-		BIND ( concat(str(?resource), ": all nif:RFC5147String MUST have nif:endIndex") AS ?message)
+		BIND ( concat(str(?resource), ":  all nif:CString and subclasses MUST have nif:endIndex") AS ?message)
 		BIND ( rlog:ERROR as ?logLevel ) 
 	}""" .
 	
 :t9  a stc:SimpleSparqlTestCase ;
-	rdfs:comment "TODO: this test case can be more general (also covering other urischemes). " ;
+	stc:relatesTo nif:CString ;
+	stc:relatesTo nif:CStringImpl ;
+	stc:relatesTo nif:OffsetBasedString ;
 	stc:relatesTo nif:RFC5147String ;
 	stc:relatesTo nif:beginIndex ;
 	stc:sparql """Select ?resource ?logLevel ?message {
-		?resource a nif:RFC5147String . 
+		{
+			{?resource a nif:CStringImpl}
+			UNION
+			{?resource a nif:OffsetBasedString}
+			UNION
+			{?resource a nif:RFC5147String}
+		}
 		FILTER ( NOT EXISTS {?resource nif:beginIndex ?o  } )
 		
 		# README
-		BIND (concat(str(?resource), ": all nif:RFC5147String MUST have nif:beginIndex.") AS ?message)
+		BIND (concat(str(?resource), ":  all nif:CString and subclasses MUST have nif:beginIndex.") AS ?message)
 		BIND ( rlog:ERROR as ?logLevel ) 
 	} """ .
 
 :t10  a stc:SimpleSparqlTestCase ;
-	rdfs:comment "TODO: this test case can be more general (also covering other urischemes). " ;
+	stc:relatesTo nif:CString ;
+	stc:relatesTo nif:CStringImpl ;
+	stc:relatesTo nif:OffsetBasedString ;
 	stc:relatesTo nif:RFC5147String ;
 	stc:relatesTo nif:beginIndex ;
 	stc:sparql """Select ?resource ?logLevel ?message {
 		?resource a nif:Context .
-		FILTER ( NOT EXISTS {?resource a nif:RFC5147String }  )
+		FILTER ( NOT EXISTS {
+			{
+				{?resource a nif:CStringImpl}
+				UNION
+				{?resource a nif:OffsetBasedString}
+				UNION
+				{?resource a nif:RFC5147String}
+			}
+		})
 		
 		# README
-		BIND (concat(str(?resource), ": all nif:Context must have rdf:type nif:RFC5147String or similar" ) AS ?message)
+		BIND (concat(str(?resource), ": all nif:Context must have rdf:type  of a subclass of nif:CString" ) AS ?message)
 		BIND ( rlog:ERROR as ?logLevel ) 
 	}""" .
 
@@ -197,3 +229,26 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ ;
 		BIND (concat(str(?resource), ": nif:beginIndex and nif:endIndex MUST be castable to xsd:nonNegativeInteger") AS ?message)
 		BIND ( rlog:ERROR as ?logLevel ) 
 }""" .
+
+
+:t10  a stc:SimpleSparqlTestCase ;
+	stc:relatesTo nif:CString ;
+	stc:relatesTo nif:CStringImpl ;
+	stc:relatesTo nif:OffsetBasedString ;
+	stc:relatesTo nif:RFC5147String ;
+	stc:sparql """Select ?resource ?logLevel ?message {
+		?resource a nif:CString .
+		FILTER ( NOT EXISTS {
+			{
+				{?resource a nif:CStringImpl}
+				UNION
+				{?resource a nif:OffsetBasedString}
+				UNION
+				{?resource a nif:RFC5147String}
+			}
+		})
+		
+		# README
+		BIND (concat(str(?resource), ": nif:CString is an abstract class, it MUST only exist, if a subclass is used as well (e.g. CStringImpl, RFC5147String, OffsetBasedString)" ) AS ?message)
+		BIND ( rlog:ERROR as ?logLevel ) 
+	}""" .
