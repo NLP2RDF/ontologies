@@ -16,6 +16,7 @@
 	1.0.1 added case property
 	1.0.2 fixed prefixes, as base didn't work
 	1.0.3 debugging and testing of each query
+	1.1.3 added support for CString
 	"""@en ;
 
 	stc:sparqlPrefix """PREFIX nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#>
@@ -126,6 +127,8 @@ PREFIX rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> """ ;
 
 :t7  a stc:SimpleSparqlTestCase ;
 	rdfs:comment "TODO: this test case can be more general (also covering other urischemes). " ;
+	stc:relatesTo nif:CString ;
+	stc:relatesTo nif:OffsetBasedString ;
 	stc:relatesTo nif:RFC5147String ;
 	stc:relatesTo nif:referenceContext ;
 	stc:sparql """Select ?resource ?logLevel ?message {

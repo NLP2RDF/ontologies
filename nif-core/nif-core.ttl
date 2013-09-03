@@ -171,10 +171,13 @@ nif:anchorOf
 
 nif:RFC5147String
     a owl:Class ;
-    dcterms:hasVersion "1.0.0" ;
+    dcterms:hasVersion "1.1.0" ;
     rdfs:label "RFC 5147 string"@en ;
-    rdfs:comment "cf. http://tools.ietf.org/html/rfc5147 " ;
-    rdfs:subClassOf nif:URIScheme .
+    rdfs:comment """cf. http://tools.ietf.org/html/rfc5147 
+    Changelog:
+    * 1.1.0 changed subclass to CString .
+    """ ;
+    rdfs:subClassOf nif:CString .
     
 
 nif:ContextHashBasedString
@@ -234,11 +237,26 @@ nif:inter
         
 nif:URIScheme 
     a owl:Class ;
-    dcterms:hasVersion "0.1.0" ;
+    dcterms:hasVersion "0.1.1" ;
     rdfs:label "URI Scheme"@en ;
-    rdfs:comment "A URI Scheme for NIF, subclasses need to define guidelines on the URI Scheme as well as the text it refers to. This class is just to keep some order, please don't serialize." ;
-    rdfs:subClassOf nif:String .
+    rdfs:comment """A URI Scheme for NIF, subclasses need to define guidelines on the URI Scheme as well as the text it refers to. This class is just to keep some order, and should not be serialized. 
     
+    This is an abstract class and should not be serialized. 
+    
+    Changelog:
+    * 0.1.1 changed comment
+    """@en ;
+    rdfs:subClassOf nif:String .
+ 
+
+nif:CString 
+    a owl:Class ;
+    dcterms:hasVersion "0.1.0" ;
+    rdfs:label "Consecutive String"@en ;
+    rdfs:comment """A URI Scheme for NIF which is able to refer to a single, consecutive string in a context. Note that any scheme subclassing this class, requires the existence of beginIndex, endIndex and referenceContext . 
+    This is an abstract class and should not be serialized. 
+    """@en ;
+    rdfs:subClassOf nif:URIScheme .    
 
 nif:Structure
     a owl:Class ;
@@ -336,23 +354,25 @@ nif:contextAsLiteral
     
 nif:OffsetBasedString
     a owl:Class ;
-    dcterms:hasVersion "1.0.0" ;
+    dcterms:hasVersion "1.1.0" ;
     
     rdfs:label "Offset based string"@en ;
     rdfs:comment """cf. Linked-Data Aware URI Schemes for Referencing Text Fragments by Sebastian Hellmann, Jens Lehmann und Sören Auer in EKAW 2012 http://jens-lehmann.org/files/2012/ekaw_nif.pdf
 	
+	requires the existence of begin, endIndex and referenceContext
+	
 	Changelog: 
-	* originally a plain text string was attached to this uri scheme, but this was removed later, because of complaints. 
-	* this was first mentioned in NIF 1.0
+	* 1.0.0 originally a plain text string was attached to this uri scheme, but this was removed later, because of complaints and complexity. 
+	* 1.1.0 subclassing of nif:CString
     """@en ;
-    rdfs:subClassOf nif:URIScheme .
+    rdfs:subClassOf nif:CString .
     
-nif:ArbitraryString
+nif:CStringImpl
     a owl:Class ;
     dcterms:hasVersion "0.0.0" ;
-    rdfs:label "Text Annotation"@en ;
-    rdfs:comment """An abitrary URI (e.g. a URN) for an arbitrary string of the context. This is exactly the same as TextAnnotations are currently implemented in Stanbol."""@en ;
-    rdfs:subClassOf nif:URIScheme .
+    rdfs:label "Consecutive String Instantiation"@en ;
+    rdfs:comment """ An abitrary URI (e.g. a URN) for an arbitrary string of the context. This is exactly the same as TextAnnotations are currently implemented in Stanbol."""@en ;
+    rdfs:subClassOf nif:CString .
     
 
 #experimental
