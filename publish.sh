@@ -1,4 +1,4 @@
-
+#!/bin/sh
 # update owl files:
 for f in `find . -name "*.ttl" | grep -v previous | grep -v format`
 	do 
@@ -14,10 +14,27 @@ rsync -rav --delete pom.xml nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/web
 rsync -rav .htaccess nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies
 
 #docu
-curl http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core.owl > nif-core/nif-core.html
-curl http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-stanbol.owl > nif-core/nif-stanbol.html
-curl http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog/rlog.owl > rlog/rlog.html
-curl http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/testcase/stc.owl > testcase/stc.html
+curl http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core.owl > /tmp/docu.html
+if [ -s /tmp/docu.html ]
+then
+  cp /tmp/docu.html nif-core/nif-core.html
+fi
+curl http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-stanbol.owl > /tmp/docu.html
+if [ -s /tmp/docu.html ]
+then
+  cp /tmp/docu.html nif-core/nif-stanbol.html
+fi
+curl http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog/rlog.owl > /tmp/docu.html
+if [ -s /tmp/docu.html ]
+then
+  cp /tmp/docu.html rlog/rlog.html
+fi
+curl http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/testcase/stc.owl > /tmp/docu.html
+if [ -s /tmp/docu.html ]
+then
+  cp /tmp/docu.html testcase/stc.html
+fi
+
 
 # sync run
 rsync -rav --delete nif-core/ nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies/nif-core

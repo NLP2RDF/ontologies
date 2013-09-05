@@ -34,7 +34,7 @@
     <http://purl.org/vocab/vann/preferredNamespaceUri> "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#" ;
     <http://purl.org/vocab/vann/changes> <https://github.com/NLP2RDF/persistence.uni-leipzig.org/commits/master/ontologies/nif-core> ;
     
-    owl:versionInfo "1.0.0-not used yet" ;
+    owl:versionInfo "Versioning done on resource level." ;
     owl:versionIRI <https://github.com/NLP2RDF/ontologies/blob/master/nif-core/nif-core.ttl> ;
  
  
@@ -183,7 +183,7 @@ nif:RFC5147String
 nif:ContextHashBasedString
     a owl:Class ;
     dcterms:hasVersion "1.0.0" ;
-    rdfs:label "Context hash based string"@en ;
+    rdfs:label "Context Hash Based String"@en ;
     rdfs:comment " cf. https://www.google.de/search?q=Linked-Data+Aware+URI+Schemes+for+Referencing+Text" ;
     rdfs:subClassOf nif:URIScheme .
 
@@ -356,7 +356,7 @@ nif:OffsetBasedString
     a owl:Class ;
     dcterms:hasVersion "1.1.0" ;
     
-    rdfs:label "Offset based string"@en ;
+    rdfs:label "Offset-based String"@en ;
     rdfs:comment """cf. Linked-Data Aware URI Schemes for Referencing Text Fragments by Sebastian Hellmann, Jens Lehmann und Sören Auer in EKAW 2012 http://jens-lehmann.org/files/2012/ekaw_nif.pdf
 	
 	requires the existence of begin, endIndex and referenceContext
@@ -367,11 +367,11 @@ nif:OffsetBasedString
     """@en ;
     rdfs:subClassOf nif:CString .
     
-nif:CStringImpl
+nif:CStringInst
     a owl:Class ;
     dcterms:hasVersion "0.0.0" ;
     rdfs:label "Consecutive String Instantiation"@en ;
-    rdfs:comment """ An abitrary URI (e.g. a URN) for an arbitrary string of the context. This is exactly the same as TextAnnotations are currently implemented in Stanbol."""@en ;
+    rdfs:comment """An abitrary URI (e.g. a URN) for an arbitrary string of the context. This is exactly the same as TextAnnotations are currently implemented in Stanbol."""@en ;
     rdfs:subClassOf nif:CString .
     
 
@@ -393,40 +393,58 @@ nif:CStringImpl
 
 nif:Word
     a owl:Class ;
-    dcterms:hasVersion "0.1.0" ;  
-    rdfs:label "word"@en ;
+    dcterms:hasVersion "0.1.1" ;  
+    rdfs:label "Word"@en ;
     rdfs:comment """
-    Assigning this class to a nif:String This class has definitory 
+    Assigning this class to a nif:String has definitory character. 
     A string that can be considered a word or a punctuation mark, the sentence 'He enters the room.' for example has 5 words. In general, the division into nif:Word is done by a tokenizer. Instances of this class are defined as a string, that is a 'meaningful' unit of characters. The class is not descriptive, but prescriptive. All NIF tools are supposed to either honor the current assignment of nif:Word or possibly correct it, if that is intended by the developer. 
-    The class has not been named 'Token' as the NLP definition of 'Token' is more similar to our definition of nif:String in general, e.g. "can't" could be one, two or three tokens."""@en ;
+    The class has not been named 'Token' as the NLP definition of 'Token' is more similar to our definition of nif:String in general, e.g. "can't" could be one, two or three tokens.
+    Changelog:
+    * 0.1.1 fixed spelling
+    """@en ;
     rdfs:subClassOf nif:Structure  .
 
 nif:Phrase
     a owl:Class ;
-    dcterms:hasVersion "0.1.0" ;   
-    rdfs:label "phrase"@en ;
-    rdfs:comment """A nif:Phrase can be a nif:String, that is a chunk of several words or a word itself (e.g. a NounPhrase as a Named Entity). The term is underspecified and can be compatible with many defintitions of phrase. Please subClass it to specify the meaning (e.g. for Chunking or Phrase Structure Grammar). Example: ((My dog)(also)(likes)(eating (sausage))) """ ;
+    dcterms:hasVersion "0.1.1" ;   
+    rdfs:label "Phrase"@en ;
+    rdfs:comment """A nif:Phrase can be a nif:String, that is a chunk of several words or a word itself (e.g. a NounPhrase as a Named Entity). The term is underspecified and can be compatible with many defintitions of phrase. Please subClass it to specify the meaning (e.g. for Chunking or Phrase Structure Grammar). Example: ((My dog)(also)(likes)(eating (sausage))) 
+    Changelog:
+    * 0.1.1 fixed spelling
+    """ ;
     rdfs:subClassOf nif:Structure  .
 
 nif:Sentence
     a owl:Class ;
-    dcterms:hasVersion "0.1.0" ; 
-    rdfs:label "sentence"@en ;
-    rdfs:comment "a sentence." ;
+    dcterms:hasVersion "0.1.1" ; 
+    rdfs:label "Sentence"@en ;
+    rdfs:comment """
+    A sentence.
+    Changelog:
+    * 0.1.1 fixed spelling, added language tag
+    """@en ;
     rdfs:subClassOf nif:Structure  .
 
 nif:Paragraph
     a owl:Class ;
-    dcterms:hasVersion "0.1.0" ;  
-    rdfs:label "paragraph"@en ;
-    rdfs:comment "a Paragraph." ;
+    dcterms:hasVersion "0.1.1" ;  
+    rdfs:label "Paragraph"@en ;
+    rdfs:comment """
+    A paragraph.
+    Changelog:
+    * 0.1.1 fixed spelling, added language tag
+    """@en ;
     rdfs:subClassOf nif:Structure  .
     
 nif:Title
     a owl:Class ;
-    dcterms:hasVersion "0.1.0" ;  
-    rdfs:label "title"@en ;
-    rdfs:comment "a title within a text." ;
+    dcterms:hasVersion "0.1.1" ;  
+    rdfs:label "Title"@en ;
+    rdfs:comment """
+    A title within a text.
+    Changelog:
+    * 0.1.1 fixed spelling, added language tag
+    """@en ;
     rdfs:subClassOf nif:Structure  .
     
 
