@@ -77,7 +77,7 @@
 	:status "Under development" ;
 	:description """ A document specifying the core of NIF.""" .
 	
-<http://persistence.uni-leipzig.org/nlp2rdf/specification/core.html> 
+<https://github.com/NLP2RDF/software#nif-validator> 
 	:type "software" ;
 	rdfs:label "NIF 2.0 Validator"@en ;
 	:versioningLevel "jar -jar validate.jar -v" ;
