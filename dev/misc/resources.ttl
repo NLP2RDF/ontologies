@@ -1,0 +1,99 @@
+@prefix : <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/dev/misc/resources.ttl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+
+
+<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> 
+	:type "ontology" ;
+	rdfs:label "NIF 2.0 Core Ontology"@en ;
+	:prefix "nif:" ;
+	:versioningLevel "Individual URIs" ;
+	:revisions	"GitHub, Changelog written to rdfs:comment" ;
+	:example """nif:Context a owl:Class """; 
+	:status "Most of the core properties are stable." ;
+	:versioningMethod """The version number (loosely) follows http://semver.org/ . All classes and properties starting with 0.x.y are not stable and might be removed anytime. As soon as a class or property reaches 1.x.y it will not be deleted anymore and will remain in the ontology.  This means it will be terminological stable. The version number will be incremented to 2.x.y if use of the URL is deprecated. Further increments (<= 3 ) are not used. """ ;
+	:description """ We like to keep as much information as possible within the ontology itself, please have a look there. Additional models:<br><ol>
+	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#">Terminological model</a></li>
+	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-inf.ttl">Inference model</a></li>
+	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-val.ttl">Validation model</a></li>
+</ol>""" .
+	
+
+<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> 
+	:type "ontology" ;
+	rdfs:label "RLOG - an RDF Logging Ontology"@en ;
+	:prefix "rlog:" ;
+	:versioningLevel "Whole Ontology" ;
+	:versioningMethod "as specified in http://semver.org/" ;
+	:revisions	"GitHub" ;
+	:status "Mature" ;
+	:description """ We prefer to keep as much information as possible within the ontology itself, please have a look there. """ .
+
+
+<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/stc#> 
+	:type "ontology" ;
+	rdfs:label "STC - Simple Test Case Ontology"@en ;
+	:prefix "stc:" ;
+	:versioningLevel "Whole Ontology" ;
+	:versioningMethod "as specified in http://semver.org/" ;
+	:revisions	"GitHub" ;
+	:status "This ontology is a helper ontology and just use for some validation of RDF tool output by tools implementing NIF." ;
+	:description """ We prefer to keep as much information as possible within the ontology itself, please have a look there. """ .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/testcase/lib/nif-2.0-suite.ttl> 
+	:type "ontology" ;
+	rdfs:label "NIF Validator TestCase Suite"@en ;
+	:versioningLevel "Whole Ontology" ;
+	:versioningMethod "as specified in http://semver.org/" ;
+	:revisions	"GitHub, changelog in rdfs:comment" ;
+	:status "Mature" ;
+	:description """A collection of SPARQL queries to validate NIF models.""" .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/specification/version.html> 
+	:type "specification" ;
+	rdfs:label "License, Persistence, Versioning"@en ;
+	:versioningLevel "Document" ;
+	:versioningMethod "as specified in http://semver.org/" ;
+	:revisions	"GitHub and previous versions are kept on the server" ;
+	:status "see resource itself" ;
+	:description """todo: add description.""" .
+	
+
+<http://persistence.uni-leipzig.org/nlp2rdf/specification/api.html> 
+	:type "specification" ;
+	rdfs:label "Public API Specification"@en ;
+	:versioningLevel "Document" ;
+	:versioningMethod "as specified in http://semver.org/" ;
+	:revisions	"GitHub and previous versions are kept on the server" ;
+	:status "Under development" ;
+	:description """A document specifying the public qe api requirments of tools implementing NIF.""" .
+
+
+<http://persistence.uni-leipzig.org/nlp2rdf/specification/core.html> 
+	:type "specification" ;
+	rdfs:label "NIF 2.0 Core Specification"@en ;
+	:versioningLevel "Document" ;
+	:versioningMethod "as specified in http://semver.org/" ;
+	:revisions	"GitHub and previous versions are kept on the server" ;
+	:status "Under development" ;
+	:description """ A document specifying the core of NIF.""" .
+	
+<http://persistence.uni-leipzig.org/nlp2rdf/specification/core.html> 
+	:type "software" ;
+	rdfs:label "NIF 2.0 Validator"@en ;
+	:versioningLevel "jar -jar validate.jar -v" ;
+	:versioningMethod "relies on NIF Validator TestCase Suite and the API specification" ;
+	:revisions	"GitHub" ;
+	:status "Mature" ;
+	:description """Documentation can be found here: <a href="https://github.com/NLP2RDF/software#nif-validator">https://github.com/NLP2RDF/software#nif-validator</a>""" .
+	
+	
+	
+<https://github.com/NLP2RDF/software/wiki/How-to-publish-a-txt-corpora-with-NIF-as-Linked-Data> 
+	:type "wikipage" ;
+	rdfs:label "How to publish a txt corpora with NIF as Linked Data"@en ;
+	:versioningLevel "n/a" ;
+	:versioningMethod "GitHub" ;
+	:revisions	"GitHub" ;
+	:status "Under development, possibly outdated" ;
+	:description """Wiki page""" .
+

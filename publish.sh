@@ -1,6 +1,6 @@
 #!/bin/sh
 # update owl files:
-for f in `find . -name "*.ttl" | grep -v previous | grep -v format`
+for f in `find . -name "*.ttl" | grep -v previous | grep -v format | grep -v misc `
 	do 
 		FILE=$(echo $f | sed 's/.ttl$//')
 		rapper -i turtle -o rdfxml-abbrev $f >  $FILE".owl" 
@@ -11,6 +11,7 @@ rsync -rav --delete nif-core/ nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/w
 rsync -rav --delete rlog/ nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies/rlog 
 rsync -rav --delete testcase/ nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies/testcase 
 rsync -rav --delete pom.xml nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies
+rsync -rav --delete dev/misc/resources.ttl nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies/dev/misc/resources.ttl
 rsync -rav .htaccess nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies
 
 #docu
