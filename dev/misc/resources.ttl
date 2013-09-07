@@ -6,10 +6,10 @@
 	:type "ontology" ;
 	rdfs:label "NIF 2.0 Core Ontology"@en ;
 	:prefix "nif:" ;
-	:versioningLevel "Individual URIs" ;
+	:versioningLevel "IRI-level via owl:versionInfo" ;
 	:revisions	"GitHub, Changelog written to rdfs:comment" ;
-	:example """nif:Context a owl:Class """; 
-	:status "Most of the core properties are stable." ;
+	:example """ """; 
+	:status "Mature core vocabulary. Persistent hosting." ;
 	:versioningMethod """The version number (loosely) follows http://semver.org/ . All classes and properties starting with 0.x.y are not stable and might be removed anytime. As soon as a class or property reaches 1.x.y it will not be deleted anymore and will remain in the ontology.  This means it will be terminological stable. The version number will be incremented to 2.x.y if use of the URL is deprecated. Further increments (<= 3 ) are not used. """ ;
 	:description """ We like to keep as much information as possible within the ontology itself, please have a look there. Additional models:<br><ol>
 	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#">Terminological model</a></li>
@@ -22,8 +22,8 @@
 	:type "ontology" ;
 	rdfs:label "RLOG - an RDF Logging Ontology"@en ;
 	:prefix "rlog:" ;
-	:versioningLevel "Whole Ontology" ;
-	:versioningMethod "as specified in http://semver.org/" ;
+	:versioningLevel "Ontology IRI" ;
+	:versioningMethod "As specified in http://semver.org/" ;
 	:revisions	"GitHub" ;
 	:status "Mature" ;
 	:description """ We prefer to keep as much information as possible within the ontology itself, please have a look there. """ .
@@ -33,17 +33,17 @@
 	:type "ontology" ;
 	rdfs:label "STC - Simple Test Case Ontology"@en ;
 	:prefix "stc:" ;
-	:versioningLevel "Whole Ontology" ;
-	:versioningMethod "as specified in http://semver.org/" ;
+	:versioningLevel "Ontology IRI" ;
+	:versioningMethod "As specified in http://semver.org/" ;
 	:revisions	"GitHub" ;
-	:status "This ontology is a helper ontology and just use for some validation of RDF tool output by tools implementing NIF." ;
-	:description """ We prefer to keep as much information as possible within the ontology itself, please have a look there. """ .
+	:status "Development finished, but not persistent" ;
+	:description """This ontology is a helper ontology and just use for some validation of RDF tool output by tools implementing NIF. We prefer to keep as much information as possible within the ontology itself, please have a look there. """ .
 
 <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/testcase/lib/nif-2.0-suite.ttl> 
 	:type "ontology" ;
 	rdfs:label "NIF Validator TestCase Suite"@en ;
-	:versioningLevel "Whole Ontology" ;
-	:versioningMethod "as specified in http://semver.org/" ;
+	:versioningLevel "Ontology IRI" ;
+	:versioningMethod "As specified in http://semver.org/" ;
 	:revisions	"GitHub, changelog in rdfs:comment" ;
 	:status "Mature" ;
 	:description """A collection of SPARQL queries to validate NIF models.""" .
@@ -52,8 +52,8 @@
 	:type "specification" ;
 	rdfs:label "License, Persistence, Versioning"@en ;
 	:versioningLevel "Document" ;
-	:versioningMethod "as specified in http://semver.org/" ;
-	:revisions	"GitHub and previous versions are kept on the server" ;
+	:versioningMethod "As specified in http://semver.org/" ;
+	:revisions	"GitHub, previous versions are kept on the server, persistently." ;
 	:status "see resource itself" ;
 	:description """todo: add description.""" .
 	
@@ -62,26 +62,26 @@
 	:type "specification" ;
 	rdfs:label "Public API Specification"@en ;
 	:versioningLevel "Document" ;
-	:versioningMethod "as specified in http://semver.org/" ;
-	:revisions	"GitHub and previous versions are kept on the server" ;
+	:versioningMethod "As specified in http://semver.org/" ;
+	:revisions	"GitHub, previous versions are kept on the server, persistently." ;
 	:status "Under development" ;
-	:description """A document specifying the public qe api requirments of tools implementing NIF.""" .
+	:description """A document specifying the public API requirements of tools implementing NIF.""" .
 
 
 <http://persistence.uni-leipzig.org/nlp2rdf/specification/core.html> 
 	:type "specification" ;
 	rdfs:label "NIF 2.0 Core Specification"@en ;
 	:versioningLevel "Document" ;
-	:versioningMethod "as specified in http://semver.org/" ;
-	:revisions	"GitHub and previous versions are kept on the server" ;
+	:versioningMethod "As specified in http://semver.org/" ;
+	:revisions	"GitHub, previous versions are kept on the server, persistently." ;
 	:status "Under development" ;
 	:description """ A document specifying the core of NIF.""" .
 	
 <https://github.com/NLP2RDF/software#nif-validator> 
 	:type "software" ;
-	rdfs:label "NIF 2.0 Validator"@en ;
+	rdfs:label "NIF 2.0 Validator Tool"@en ;
 	:versioningLevel "jar -jar validate.jar -v" ;
-	:versioningMethod "relies on NIF Validator TestCase Suite and the API specification" ;
+	:versioningMethod "Versioning relies on NIF Validator TestCase Suite and the API specification" ;
 	:revisions	"GitHub" ;
 	:status "Mature" ;
 	:description """Documentation can be found here: <a href="https://github.com/NLP2RDF/software#nif-validator">https://github.com/NLP2RDF/software#nif-validator</a>""" .
@@ -97,3 +97,42 @@
 	:status "Under development, possibly outdated" ;
 	:description """Wiki page""" .
 
+<http://www.w3.org/TR/its20/#conversion-to-nif> 
+	:type "specification" ;
+	rdfs:label "W3C Conversion of ITS 2.0 to NIF"@en ;
+	:versioningLevel "Document" ;
+	:versioningMethod "W3C specific" ;
+	:revisions	"W3C specific" ;
+	:status "W3C Last Call Working Draft 20 August 2013" ;
+	:description """This section provides an informative algorithm to convert XML or HTML documents (or their DOM representations) that contain International TagSet (ITS) 2.0 metadata to the RDF format based on [NIF]. The conversion results in RDF triples.""" .
+
+<http://www.w3.org/TR/its20/#nif-backconversion> 
+	:type "specification" ;
+	rdfs:label "W3C Conversion of NIF to ITS 2.0"@en ;
+	:versioningLevel "Document" ;
+	:versioningMethod "W3C specific" ;
+	:revisions	"W3C specific" ;
+	:status "W3C Last Call Working Draft 20 August 2013" ;
+	:description """The conversion from International TagSet (ITS) 2.0 to NIF is a possible basis for a natural language processing (NLP) application that creates, for example, named entity annotations. A non-normative algorithm to integrate these annotations into the original input document is given in Appendix G: Conversion NIF2ITS. Many decisions to be made in this algorithm depend on the particular NLP application being used.""" .
+	
+<http://nlp2rdf.lod2.eu/demo.php> 
+	:type "demo" ;
+	rdfs:label "NIF Combinator Demo"@en ;
+	:versioningLevel "n/a" ;
+	:versioningMethod "n/a" ;
+	:revisions	"GitHub" ;
+	:status "working, but outdated" ;
+	:code "https://github.com/NLP2RDF/software/blob/master/php/demo/demo.php" ;
+	:description """A GUI called the NIF Combinator, which allows to combine the output of the implemented NIF web services. http://svn.aksw.org/papers/2012/NIF/EKAW_DEMO/public_preprint.pdf‎""" .
+
+
+	
+<http://wiki-link.nlp2rdf.org/> 
+	:type "corpus" ;
+	rdfs:label "Wiki-Link Corpus in RDF"@en ;
+	:versioningLevel "n/a" ;
+	:versioningMethod "n/a" ;
+	:revisions	"n/a" ;
+	:status "working, some bugs" ;
+	:code "http://wiki-link.nlp2rdf.org/WikilinksNifConverter.jar" ;
+	:description """Data from the wikilinks corpus (https://code.google.com/p/wiki-link/) was converted to NIF""" .
