@@ -722,10 +722,13 @@ nif:NormalizedCollectionOccurrence a owl:Class . #nif:URIScheme .
 # Machine Learning
 ###################  
 
-nif:class 
-	rdfs:label "class";
-	owl:versionInfo "0.1.0" ; 
-	rdfs:comment """A simple annotation for machine learning purposes. The object can be anything, e.g. the literal "A. PRESS: Reportage" from brown or any URI.  """@en ;
+nif:category 
+	rdfs:label "category";
+	owl:versionInfo "0.2.0" ; 
+	rdfs:comment """A simple annotation for machine learning purposes. The object can be anything, e.g. the literal "A. PRESS: Reportage" from Brown or any URI.  
+	ChangeLog:
+	* 0.2.0 changed nif:class to nif:category due to conflict with Java 
+	"""@en ;
 	a owl:AnnotationProperty .
 
 ###############
