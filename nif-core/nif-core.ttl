@@ -732,10 +732,32 @@ nif:category
 	a owl:AnnotationProperty .
 
 ###############
-# NamedEntity
+# Dependencies
 ###############
 
+nif:dependency
+	a owl:ObjectProperty ;
+    owl:versionInfo "0.1.0" ;
+    rdfs:label "dependency"@en ;
+    rdfs:comment """
+		A dependency relation pointing from gov to dep.
+		Changelog: 
+		* 0.1.0 initial commit of property "dependency"
+    """@en ;
+   	rdfs:subPropertyOf nif:inter ;
+    rdfs:domain nif:String ;
+    rdfs:range nif:String .
 
+nif:oliaPropLink
+    a owl:AnnotationProperty ;
+    owl:versionInfo "0.1.0" ; 
+    rdfs:label "OLiA property link"@en ;
+    rdfs:comment """This property links a property of type inter or other to a URI from one of the OLiA Annotation model, e.g. http://purl.org/olia/stanford.owl#prep 
+    Changelog:
+    0.1.0 - added subproperty of nif:annotation as per http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 21 
+    """@en .
+    
+    
 ###############
 # Sentiment
 ###############    

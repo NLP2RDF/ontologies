@@ -77,6 +77,20 @@
 	:status "Under development" ;
 	:description """ A document specifying the core of NIF.""" .
 	
+<http://nlp2rdf.lod2.eu/releases/stanford-core-beta-with-lemma-pos-cccollapseddependencies.jar> 
+	:type "software" ;
+	rdfs:label "NIF 2.0 Stanford Core Implementation"@en ;
+	:versioningLevel "not versioned, just an early release, but working" ;
+	:versioningMethod "none" ;
+	:revisions	"GitHub" ;
+	:status "Working, undocumented beta, just cli" ;
+	:code "https://github.com/NLP2RDF/software/tree/master/java-maven/implementation/stanford-core" ;
+	:description """Code can be found here: <a href="https://github.com/NLP2RDF/software/tree/master/java-maven/implementation/stanford-core">https://github.com/NLP2RDF/software/tree/master/java-maven/implementation/stanford-core</a>
+	Start with  echo "This is a testing sentence." | ./stanford-core-beta-with-lemma-pos-cccollapseddependencies.jar -f text
+	See parameters with ./stanford-core-beta-with-lemma-pos-cccollapseddependencies.jar --help
+	""" .
+	
+	
 <https://github.com/NLP2RDF/software#nif-validator> 
 	:type "software" ;
 	rdfs:label "NIF 2.0 Validator Tool"@en ;
@@ -85,7 +99,7 @@
 	:revisions	"GitHub" ;
 	:status "Mature" ;
 	:description """Documentation can be found here: <a href="https://github.com/NLP2RDF/software#nif-validator">https://github.com/NLP2RDF/software#nif-validator</a>""" .
-	
+
 	
 	
 <https://github.com/NLP2RDF/software/wiki/How-to-publish-a-txt-corpora-with-NIF-as-Linked-Data> 
