@@ -4,7 +4,7 @@
 
 <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> 
 	:type "ontology" ;
-	rdfs:label "NIF 2.0 Core Ontology"@en ;
+	rdfs:label "NIF 2.0 Core Ontology - Terminological Model"@en ;
 	:prefix "nif:" ;
 	:versioningLevel "IRI-level via owl:versionInfo" ;
 	:revisions	"GitHub, Changelog written to rdfs:comment" ;
@@ -17,6 +17,33 @@
 	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-val.ttl">Validation model</a></li>
 </ol>""" .
 	
+<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-inf.ttl> 
+	:type "ontology" ;
+	rdfs:label "NIF 2.0 Core Ontology - Inference Model"@en ;
+	:versioningLevel "done in terminological model at IRI-level" ;
+	:revisions	"GitHub, Changelog written to rdfs:comment in terminological model" ;
+	:example """ """; 
+	:status "Contrary to the terminological model, this ontology may still change a lot. Persistent hosting." ;
+	:versioningMethod """done in terminological model at IRI-level""" ;
+	:description """ We like to keep as much information as possible within the ontology itself, please have a look there. Additional models:<br><ol>
+	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#">Terminological model</a></li>
+	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-inf.ttl">Inference model</a></li>
+	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-val.ttl">Validation model</a></li>
+</ol>""" .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-val.ttl> 
+	:type "ontology" ;
+	rdfs:label "NIF 2.0 Core Ontology - Validation Model"@en ;
+	:versioningLevel "done in terminological model at IRI-level" ;
+	:revisions	"GitHub, Changelog written to rdfs:comment in terminological model" ;
+	:example """ """; 
+	:status "Contrary to the terminological model, this ontology may still change a lot. Persistent hosting." ;
+	:versioningMethod """done in terminological model at IRI-level""" ;
+	:description """ We like to keep as much information as possible within the ontology itself, please have a look there. Additional models:<br><ol>
+	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#">Terminological model</a></li>
+	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-inf.ttl">Inference model</a></li>
+	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-val.ttl">Validation model</a></li>
+</ol>""" .
 
 <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> 
 	:type "ontology" ;
