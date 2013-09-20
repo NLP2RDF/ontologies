@@ -23,7 +23,7 @@
 	:versioningLevel "done in terminological model at IRI-level" ;
 	:revisions	"GitHub, Changelog written to rdfs:comment in terminological model" ;
 	:example """ """; 
-	:status "Contrary to the terminological model, this ontology may still change a lot. Persistent hosting." ;
+	:status "Contrary to the terminological model, this ontology may still change a lot." ;
 	:versioningMethod """done in terminological model at IRI-level""" ;
 	:description """ We like to keep as much information as possible within the ontology itself, please have a look there. Additional models:<br><ol>
 	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#">Terminological model</a></li>
@@ -37,7 +37,7 @@
 	:versioningLevel "done in terminological model at IRI-level" ;
 	:revisions	"GitHub, Changelog written to rdfs:comment in terminological model" ;
 	:example """ """; 
-	:status "Contrary to the terminological model, this ontology may still change a lot. Persistent hosting." ;
+	:status "Contrary to the terminological model, this ontology may still change a lot." ;
 	:versioningMethod """done in terminological model at IRI-level""" ;
 	:description """ We like to keep as much information as possible within the ontology itself, please have a look there. Additional models:<br><ol>
 	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#">Terminological model</a></li>

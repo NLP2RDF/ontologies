@@ -1,0 +1,898 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford>
+    a <http://www.w3.org/2002/07/owl#Ontology> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """OLiA Annotation Model of Stanford Parser dependency labels (de Marneffe and Manning 2011)
+
+Unless specified otherwise, all comments are taken from de Marneffe and Manning (2011)
+
+References:
+Marie-Catherine de Marneffe and Christopher D. Manning (2011), Stanford typed dependencies manual, September 2008, revised for Stanford Parser v. 1.6.9 in September 2011, http://nlp.stanford.edu/software/dependencies_manual.pdf"""^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> "http://nlp.stanford.edu/software/dependencies_manual.pdf"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2002/07/owl#imports> <http://purl.org/olia/system.owl> ;
+    <http://www.w3.org/2002/07/owl#versionInfo> """2010-01-05 created by Sebastian Hellmann (RDF) 
+2010-01-12 OWL/DL conversion, integration with OLiA ontologies
+2011-11-30 update for Stanford Parser v.1.6.9, added PrepositionalClausalModifier, MultiWordExpression, NounPhraseAsAdverbialModifier; support for collapsed edge labels (prepc_, prep_, conj_)
+2012-01-16 encoding errors fixed
+
+Christian Chiarcos, chiarcos@uni-potsdam.de"""^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#AbbreviationModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """An abbreviation modifier of an NP is a parenthesized NP that serves to abbreviate the NP (or to define an abbreviation).
+
+\"The Australian Broadcasting Corporation (ABC)\" 
+abbrev(Corporation, ABC)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "abbreviation modifier"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#AdjectivalComplement>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """An adjectival complement of a verb is an adjectival phrase which functions as the complement (like an object of the verb).
+
+\"She looks very beautiful\"
+acomp(looks, beautiful)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "adjectival complement"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Complement> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#AdjectivalModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """An adjectival modifier of an NP is any adjectival phrase that serves to modify the meaning of the NP.
+
+\"Sam eats red meat\" 
+amod(meat, red)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "adjectival modifier"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#AdverbialClauseModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """An adverbial clause modifier of a VP or S is a clause modifying the verb (temporal clause, consequence, conditional clause, etc.).
+
+\"The accident happened as the night was falling\" 
+advcl(happened, falling)
+
+\"If you know who did it, you should tell the teacher\"
+advcl(tell, know)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "adverbial clause modifier"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#AdverbialModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """An adverbial modifier of a word is a (non-clausal) adverb or adverbial phrase (ADVP) that serves to modify the meaning of the word.
+
+\"Genetically modified food\" 
+advmod(modified, genetically)
+
+\"less often\" 
+advmod(often, less)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "adverbial modifier"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Agent>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """An agent is the complement of a passive verb which is introduced by the preposition \"by\" and does the action.
+
+\"The man has been killed by the police\" 
+agent(killed, police)
+
+\"Effects caused by the protein are important\" 
+agent(caused, protein)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "agent"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Argument> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#AppositionalModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """An appositional modifier of an NP is an NP immediately to the right of the first NP that serves to define or modify that NP. It includes parenthesized examples.
+
+\"Sam, my brother\" 
+appos(Sam, brother)
+
+\"Bill (John's cousin)\" 
+appos(Bill, cousin)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "appositional modifier"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Argument>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "argument"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Dependent> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Attributive>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """An attributive is a WHNP complement of a copular verb such as \"to be\", \"to seem\", \"to appear\".
+
+\"What is that?\" 
+attr (is, What)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "attributive"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Complement> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Auxiliary>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """An auxiliary of a clause is a non-main verb of the clause, e.g. modal auxiliary, \"be\" and \"have\" in a composed tense.
+
+\"Reagan has died\" 
+aux(died, has)
+
+\"He should leave\" 
+aux(leave, should)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "auxiliary"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Dependent> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#ClausalComplementWithExternalSubject>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """An open clausal complement (xcomp) of a VP or an ADJP is a clausal complement without its own subject, whose reference is determined by an external subject. These complements are always non-finite. The name xcomp is borrowed from Lexical-Functional Grammar. 
+
+\"He says that you like to swim\" 
+xcomp(like, swim)
+
+\"I am ready to leave\" 
+xcomp(ready, leave)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "clausal complement with external subject"^^<http://www.w3.org/2001/XMLSchema#string>, "open clausal complement" ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Complement> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#ClausalComplementWithInternalSubject>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A clausal complement of a verb or adjective is a dependent clause with an internal subject which functions like an object of the verb, or adjective. Clausal complements for nouns are limited to complement clauses with a subset of nouns like \"fact\" or \"report\". We analyze them the same (parallel to the analysis of this class as \"content clauses\" in Huddleston and Pullum 2002). Such clausal complements are usually finite (though there are occasional remnant English subjunctives).
+
+\"He says that you like to swim\" 
+ccomp(says, like)
+
+\"I am certain that he did it\" 
+ccomp(certain, did)
+
+\"I admire the fact that you are honest\" 
+ccomp(fact, honest)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "clausal complement with internal subject"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Complement> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#ClausalSubject>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A clausal subject is a clausal syntactic subject of a clause, i.e., the subject is itself a clause. The governor of this relation might not always be a verb: when the verb is a copular verb, the root of the clause is the complement of the copular verb. In the two following examples, \"what she said\" is the subject.
+
+\"What she said makes sense\" 
+csubj (makes, said)
+
+\"What she said is not true\" 
+csubj (true, said)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "clausal subject"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Subject> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Complement>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "complement"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Argument> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Complementizer>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A complementizer of a clausal complement (ccomp) is the word introducing it. It will be the subordinating conjunction \"that\" or \"whether\".
+
+\"He says that you like to swim\" 
+complm(like, that)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "complementizer"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Complement> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#CompountNumberElement>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """An element of compound number is a part of a number phrase or currency amount.
+
+\"I lost $ 3.2 billion\" 
+number($, billion)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "element of compound number"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Conjunct>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A conjunct is the relation between two elements connected by a coordinating conjunction, such as \"and\", \"or\", etc. We treat conjunctions asymmetrically: The head of the relation is the first
+conjunct and other conjunctions depend on it via the conj relation.
+
+\"Bill is big and honest\" 
+conj (big, honest)
+
+\"They either ski or snowboard\" 
+conj (ski, snowboard)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "conjunct"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Dependent> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#ControllingSubject>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A controlling subject is the relation between the head of a open clausal complement (xcomp) and the external subject of that clause.
+
+\"Tom likes to eat fish\" 
+xsubj (eat, Tom)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "controlling subject"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#SemanticDependent> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Coordination>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A coordination is the relation between an element of a conjunct and the coordinating conjunction word of the conjunct. (Note: different dependency grammars have different treatments of coordination. We take one conjunct of a conjunction (normally the first) as the head of the conjunction.)
+
+\"Bill is big and honest\" 
+cc(big, and)
+
+\"They either ski or snowboard\" 
+cc(ski, or)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "coordination"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Dependent> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Copula>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A copula is the relation between the complement of a copular verb and the copular verb. (We normally take a copula as a dependent of its complement.)
+
+\"Bill is big\" 
+cop(big, is)
+
+\"Bill is an honest man\" 
+cop(man, is)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "copula"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Auxiliary> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#DependencyLabel>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> .
+    
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#DependencyRelation>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Dependent>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """Dependencies are established between tokens, i.e., exactly those entities that are subject to part of speech annotation.
+
+A dependency is labeled as dep when the system is unable to determine a more precise dependency relation between two words. This may be because of a weird grammatical construction, a limitation in the Stanford Dependency conversion software, a parser error, or because of an unresolved long distance dependency.
+
+\"Then, as if to show that he could, . . . \" 
+dep(show, if)"""^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "dependent"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#DependencyLabel> .
+    <http://www.w3.org/2002/07/owl#versionInfo> "TODO: check tier (layer/level) identifier for stanford dependencies"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Determiner>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A determiner is the relation between the head of an NP and its determiner.
+
+\"The man is here\" 
+det(man, the)
+
+\"Which book do you prefer?\" 
+det(book, which)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "determiner"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#DirectObject>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """The direct object of a VP is the noun phrase which is the (accusative) object of the verb.
+
+\"She gave me a raise\" 
+dobj (gave, raise)
+
+\"They win the lottery\" 
+dobj (win, lottery)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "direct object"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Object> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Expletive>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """This relation captures an existential \"there\". The main verb of the clause is the governor.
+
+\"There is a ghost in the room\" 
+expl(is, There)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "expletive (expletive “there”)"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Dependent> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#IndirectObject>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """The indirect object of a VP is the noun phrase which is the (dative) object of the verb.
+
+\"She gave me a raise\"
+iobj (gave, me)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "indirect object"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Object> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#InfinitivalModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """An infinitival modifier of an NP is an infinitive that serves to modify the meaning of the NP.
+
+\"Points to establish are . . . \" 
+infmod(points, establish)
+
+\"I don't have anything to say\" 
+infmod(anything, say)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "infinitival modifier"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Marker>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A marker of an adverbial clausal complement (advcl) is the word introducing it. It will be a subordinating conjunction different from \"that\" or \"whether\": e.g. \"because\", \"when\", \"although\", etc.
+
+\"Forces engaged in fighting after insurgents attacked\" 
+mark(attacked, after)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "marker (word introducing an advcl )"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Complement> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#MeasurePhraseModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "measure-phrase modifier"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "modifier"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Dependent> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#MultiWordExpression>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """The multi-word expression (modifier) relation is used for certain multi-word idioms that behave like a single function word. It is used for a closed set of dependencies between words in common multi-word expressions for which it seems difficult or unclear to assign any other relationships.
+At present, this relation is used inside the following expressions: rather than, as well as, instead of, such as, because of, instead of, in addition to, all but, such as, because of, instead of, due to.
+The boundaries of this class are unclear; it could grow or shrink a little over time.
+
+\"I like dogs as well as cats\" 
+mwe(well, as)
+mwe(well, as)
+
+\"He cried because of you\" 
+mwe(of, because)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#NegationModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """The negation modifier is the relation between a negation word and the word it modifies. 
+
+\"Bill is not a scientist\" 
+neg(scientist, not)
+
+\"Bill doesn't drive\" 
+neg(drive, n't)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "negation modifier"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#AdverbialModifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#NominalSubject>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A nominal subject is a noun phrase which is the syntactic subject of a clause. The governor of this relation might not always be a verb: when the verb is a copular verb, the root of the clause is the complement of the copular verb, which can be an adjective or noun.
+
+\"Clinton defeated Dole\" 
+nsubj (defeated, Clinton)
+
+\"The baby is cute\" 
+nsubj (cute, baby)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "nominal subject"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Subject> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#NounCompoundModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A noun compound modifier of an NP is any noun that serves to modify the head noun. (Note that in the current system for dependency extraction, all nouns modify the rightmost noun of the NP -- there is no intelligent noun compound analysis. This is likely to be fixed once the
+Penn Treebank represents the branching structure of NPs.)
+
+\"Oil price futures\" 
+nn(futures, oil)
+nn(futures, price)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "noun compound modifier"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#NounPhraseAsAdverbialModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """This relation captures various places where something syntactically a noun phrase (NP) is used as an adverbial modifier in a sentence. These usages include: (i) a measure phrase, which is the relation between the head of an ADJP/ADVP/PP and the head of a measure phrase modifying the ADJP/ADVP; (ii) noun phrases giving an extent inside a VP which are not objects; (iii) financial constructions involving an adverbial or PP-like NP, notably the following construction $5 a share, where the second NP means \"per share\"; (iv) floating reflexives; and (v) certain other absolutive NP constructions. A temporal modifier (tmod) is a subclass of npadvmod which is distinguished as a separate relation.
+
+\"The director is 65 years old\" 
+npadvmod(old, years)
+
+\"6 feet long\" 
+npadvmod(long, feet)
+
+\"Shares eased a fraction\" 
+npadvmod(eased, fraction)
+
+\"IBM earned $ 5 a share\" 
+npadvmod($, share)
+
+\"The silence is itself significant\" 
+npadvmod(significant, itself)
+
+\"90% of Australians like him, the most of any country\" 
+npadvmod(like, most)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "noun phrase as adverbial modifier" ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#NumericModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A numeric modifier of a noun is any number phrase that serves to modify the meaning of the noun.
+
+\"Sam eats 3 sheep\" 
+num(sheep, 3)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "numeric modifier"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Object>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "object"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Complement> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#ObjectOfPreposition>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """The object of a preposition is the head of a noun phrase following the preposition, or the adverbs \"here\" and \"there\". (The preposition in turn may be modifying a noun, verb, etc.) Unlike the Penn Treebank, we here define cases of VBG quasi-prepositions like \"including\", \"concerning\", etc. as instances of pobj. (The preposition can be called a FW for \"pace\", \"versus\", etc. It can also be called a CC -- but we don't currently handle that and would need to distinguish from conjoined prepositions.) In the case of preposition stranding, the object can precede the preposition (e.g., \"What does CPR stand for?\").
+
+\"I sat on the chair\" 
+pobj (on, chair)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "object of preposition"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Object> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Parataxis>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """The parataxis relation (from Greek for \"place side by side\") is a relation between the main verb of a clause and other sentential elements, such as a sentential parenthetical, or a clause after a \":\" or a \";\".
+
+\"The guy, John said, left early in the morning\" 
+parataxis(left, said)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "parataxis"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Dependent> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#ParticipalModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A participial modifier of an NP or VP or sentence is a participial verb form that serves to modify the meaning of a noun phrase or sentence.
+
+\"Truffles picked during the spring are tasty\" 
+partmod(truffles, picked)
+
+\"Bill tried to shoot demonstrating his incompetence\" 
+partmod(shoot, demonstrating)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "participial modifier"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PassiveAuxiliary>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A passive auxiliary of a clause is a non-main verb of the clause which contains the passive information.
+
+\"Kennedy has been killed\" 
+auxpass(killed, been)
+aux(killed,has)
+
+\"Kennedy was/got killed\" 
+auxpass(killed, was/got)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "passive auxiliary"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Auxiliary> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PassiveClausalSubject>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A clausal passive subject is a clausal syntactic subject of a passive clause. In the example below, \"that she lied\" is the subject.
+
+\"That she lied was suspected by everyone\" 
+csubjpass(suspected, lied)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "clausal passive subject", "passive clausal subject"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#ClausalSubject> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PassiveNominalSubject>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A passive nominal subject is a noun phrase which is the syntactic subject of a passive clause.
+
+\"Dole was defeated by Clinton\" 
+nsubjpass(defeated, Dole)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "passive nominal subject"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#NominalSubject> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PhrasalVerbParticle>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """The phrasal verb particle relation identifies a phrasal verb, and holds between the verb and its particle.
+
+\"They shut down the station\" 
+prt(shut, down)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "phrasal verb particle"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PossessionModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """The possession modifier relation holds between the head of an NP and its possessive determiner, or a genitive 's complement.
+
+\"their offices\" 
+poss(offices, their)
+
+\"Bill's clothes\" 
+poss(clothes, Bill)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "possession modifier"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PossessiveModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """The possessive modifier relation appears between the head of an NP and the genitive 's.
+
+\"Bill's clothes\" 
+possessive(John, 's)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "possessive modifier (’s)"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Preconjunct>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A preconjunct is the relation between the head of an NP and a word that appears at the beginning bracketing a conjunction (and puts emphasis on it), such as \"either\", \"both\", \"neither\").
+
+\"Both the boys and the girls are here\" 
+preconj (boys, both)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "preconjunct"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Predeterminer>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A predeterminer is the relation between the head of an NP and a word that precedes and modifies the meaning of the NP determiner.
+
+\"All the boys are here\" 
+predet(boys, all)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "predeterminer"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PrepositionalClausalModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """In the collapsed representation, a prepositional clausal modifier of a verb, adjective, or noun is a clause introduced by a preposition which serves to modify the meaning of the verb, adjective, or noun.
+
+\"He purchased it without paying a premium\" 
+prepc_without(purchased, paying)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PrepositionalModifier> ;
+    <http://www.w3.org/2002/07/owl#versionInfo> "missing in the taxonomy of de Maneffe & Manning (2011, §3)" .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PrepositionalComplement>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """This is used when the complement of a preposition is a clause or prepositional phrase (or occasionally, an adverbial phrase). The prepositional complement of a preposition is the head of a clause following the preposition, or the preposition head of the following PP.
+
+\"We have no information on whether users are at risk\" 
+pcomp(on, are)
+
+\"They heard about you missing classes\"
+pcomp(about, missing)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "prepositional complement" ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Complement> ;
+    <http://www.w3.org/2002/07/owl#versionInfo> "missing from the taxonomy de Maneffe & Manning (2011, §4)" .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PrepositionalModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A prepositional modifier of a verb, adjective, or noun is any prepositional phrase that serves to modify the meaning of the verb, adjective, noun, or even another prepositon. In the collapsed representation, this is used only for prepositions with NP complements.
+
+\"I saw a cat in a hat\"
+prep(cat, in)
+
+\"I saw a cat with a telescope\" 
+prep(saw, with)
+
+\"He is responsible for meals\" 
+prep(responsible, for)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "prepositional modifier"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Punctuation>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """This is used for any piece of punctuation in a clause, if punctuation is being retained in the typed dependencies. By default, punctuation is not retained in the output.
+
+\"Go home!\" 
+punct(Go, !)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "punctuation"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Dependent> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PurposeClauseModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A purpose clause modifier of a VP is a clause headed by \"(in order) to\" specifying a purpose. At present the system only recognizes ones that have \"in order to\" as otherwise the system is unable to distinguish from the surface representations between these and open clausal complements (xcomp). It can also recognize fronted \"to\" purpose clauses in sentences.
+
+\"He talked to him in order to secure the account\" 
+purpcl(talked, secure)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "purpose clause modifier"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#QuantifierModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A quantifier modifier is an element modifying the head of a QP constituent. (These are modifiers in complex numeric quantifiers, not other types of \"quantification\". Quantifiers like \"all\" become det.)
+
+\"About 200 people came to the party\" 
+quantmod(200, About)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "quantifier modifier"^^<http://www.w3.org/2001/XMLSchema#string>, "quantifier phrase modifier" ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Referent>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A referent of the head of an NP is the relative word introducing the relative clause modifying the NP.
+
+\"I saw the book which you bought\" 
+ref (book, which)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "referent"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Dependent> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Relative>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A relative of a relative clause is the head word of the WH-phrase introducing it. This analysis is used only for relative words which are not the subject of the relative clause. Relative words which act as the subject of a relative clause are analyzed as a nsubj.
+
+\"I saw the man whose wife you love\" 
+rel (love, wife)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "relative (word introducing a rcmod )"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Complement> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#RelativeClauseModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A relative clause modifier of an NP is a relative clause modifying the NP. The relation points from the head noun of the NP to the head of the relative clause, normally a verb.
+
+\"I saw the man you love\"
+rcmod(man, love)
+
+\"I saw the book which you bought\" 
+rcmod(book,bought)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "relative clause modifier"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Root>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """The root grammatical relation points to the root of the sentence. A fake node \"ROOT\" is used as the governor. The ROOT node is indexed with \"0\", since the indexation of real words in the sentence starts at 1.
+
+\"I love French fries.\" 
+root(ROOT, love)
+
+\"Bill is an honest man\" 
+root(ROOT, man)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#DependencyLabel> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#SemanticDependent>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "semantic dependent"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Dependent> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Subject>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "subject"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Argument> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#TemporalModifier>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+    <http://www.w3.org/2000/01/rdf-schema#comment> """A temporal modifier (of a VP, NP, or an ADJP is a bare noun phrase constituent that serves to modify the meaning of the constituent by specifying a time. (Other temporal modifiers are prepositional phrases and are introduced as prep.)
+
+\"Last night, I swam in the pool\" 
+tmod(swam, night)""" ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "temporal modifier"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#NounPhraseAsAdverbialModifier> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Token>
+    a <http://www.w3.org/2002/07/owl#ObjectProperty> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#abbrev>
+    <http://purl.org/olia/system.owl#hasTag> "abbrev"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#AbbreviationModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#acomp>
+    <http://purl.org/olia/system.owl#hasTag> "acomp"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#AdjectivalComplement>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#advcl>
+    <http://purl.org/olia/system.owl#hasTag> "advcl"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#AdverbialClauseModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#advmod>
+    <http://purl.org/olia/system.owl#hasTag> "advmod"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#AdverbialModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#agent>
+    <http://purl.org/olia/system.owl#hasTag> "agent"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Agent>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#amod>
+    <http://purl.org/olia/system.owl#hasTag> "amod"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#AdjectivalModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#appos>
+    <http://purl.org/olia/system.owl#hasTag> "appos"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#AppositionalModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#arg>
+    <http://purl.org/olia/system.owl#hasTag> "arg"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Argument>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#attr>
+    <http://purl.org/olia/system.owl#hasTag> "attr"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Attributive>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#aux>
+    <http://purl.org/olia/system.owl#hasTag> "aux"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Auxiliary>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#auxpass>
+    <http://purl.org/olia/system.owl#hasTag> "auxpass"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PassiveAuxiliary>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#cc>
+    <http://purl.org/olia/system.owl#hasTag> "cc"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Coordination>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#ccomp>
+    <http://purl.org/olia/system.owl#hasTag> "ccomp"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#ClausalComplementWithInternalSubject>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#comp>
+    <http://purl.org/olia/system.owl#hasTag> "comp"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Complement>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#compl>
+    <http://purl.org/olia/system.owl#hasTag> "compl"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Complementizer>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#complm>
+    <http://purl.org/olia/system.owl#hasTag> "complm" ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Complementizer>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#conj>
+    <http://purl.org/olia/system.owl#hasTag> "conj"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Conjunct>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#conj_>
+    <http://purl.org/olia/system.owl#hasTagStartingWith> "conj_" ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Conjunct>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#cop>
+    <http://purl.org/olia/system.owl#hasTag> "cop"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Copula>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#csubj>
+    <http://purl.org/olia/system.owl#hasTag> "csubj"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#ClausalSubject>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#csubjpass>
+    <http://purl.org/olia/system.owl#hasTag> "csubjpass"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PassiveClausalSubject>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#dep>
+    <http://purl.org/olia/system.owl#hasTag> "dep"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Dependent>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#det>
+    <http://purl.org/olia/system.owl#hasTag> "det"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Determiner>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#dobj>
+    <http://purl.org/olia/system.owl#hasTag> "dobj"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#DirectObject>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#expl>
+    <http://purl.org/olia/system.owl#hasTag> "expl"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Expletive>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#infmod>
+    <http://purl.org/olia/system.owl#hasTag> "infmod"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#InfinitivalModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#iobj>
+    <http://purl.org/olia/system.owl#hasTag> "iobj"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#IndirectObject>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#mark>
+    <http://purl.org/olia/system.owl#hasTag> "mark"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Marker>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#measure>
+    <http://purl.org/olia/system.owl#hasTag> "measure"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#MeasurePhraseModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#mod>
+    <http://purl.org/olia/system.owl#hasTag> "mod"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Modifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#mwe>
+    <http://purl.org/olia/system.owl#hasTag> "mwe" ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#MultiWordExpression>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#neg>
+    <http://purl.org/olia/system.owl#hasTag> "neg"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#NegationModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#nn>
+    <http://purl.org/olia/system.owl#hasTag> "nn"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#NounCompoundModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#npadvmod>
+    <http://purl.org/olia/system.owl#hasTag> "npadvmod" ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#NounPhraseAsAdverbialModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#nsubj>
+    <http://purl.org/olia/system.owl#hasTag> "nsubj"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#NominalSubject>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#nsubjpass>
+    <http://purl.org/olia/system.owl#hasTag> "nsubjpass"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PassiveNominalSubject>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#num>
+    <http://purl.org/olia/system.owl#hasTag> "num"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#NumericModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#number>
+    <http://purl.org/olia/system.owl#hasTag> "number"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#CompountNumberElement>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#obj>
+    <http://purl.org/olia/system.owl#hasTag> "obj"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Object>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#parataxis>
+    <http://purl.org/olia/system.owl#hasTag> "parataxis"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Parataxis>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#partmod>
+    <http://purl.org/olia/system.owl#hasTag> "partmod"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#ParticipalModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#pcomp>
+    <http://purl.org/olia/system.owl#hasTag> "pcomp" ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PrepositionalComplement>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#pobj>
+    <http://purl.org/olia/system.owl#hasTag> "pobj"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#ObjectOfPreposition>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#poss>
+    <http://purl.org/olia/system.owl#hasTag> "poss"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PossessionModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#possessive>
+    <http://purl.org/olia/system.owl#hasTag> "possessive"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PossessiveModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#preconj>
+    <http://purl.org/olia/system.owl#hasTag> "preconj"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Preconjunct>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#predet>
+    <http://purl.org/olia/system.owl#hasTag> "predet"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Predeterminer>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#prep>
+    <http://purl.org/olia/system.owl#hasTag> "prep"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PrepositionalModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#prep_>
+    <http://purl.org/olia/system.owl#hasTagStartingWith> "prep_" ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PrepositionalModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#prepc>
+    <http://purl.org/olia/system.owl#hasTag> "prepc" ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PrepositionalClausalModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#prepc_>
+    <http://purl.org/olia/system.owl#hasTagStartingWith> "prepc_" ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PrepositionalClausalModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#prt>
+    <http://purl.org/olia/system.owl#hasTag> "prt"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PhrasalVerbParticle>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#punct>
+    <http://purl.org/olia/system.owl#hasTag> "punct"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Punctuation>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#purpcl>
+    <http://purl.org/olia/system.owl#hasTag> "purpcl"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#PurposeClauseModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#quantmod>
+    <http://purl.org/olia/system.owl#hasTag> "quantmod"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#QuantifierModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#rcmod>
+    <http://purl.org/olia/system.owl#hasTag> "rcmod"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#RelativeClauseModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#ref>
+    <http://purl.org/olia/system.owl#hasTag> "ref"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Referent>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#rel>
+    <http://purl.org/olia/system.owl#hasTag> "rel"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Relative>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#root>
+    <http://purl.org/olia/system.owl#hasTag> "root" ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Root>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#sdep>
+    <http://purl.org/olia/system.owl#hasTag> "sdep"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#SemanticDependent>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#subj>
+    <http://purl.org/olia/system.owl#hasTag> "subj"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#Subject>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#tmod>
+    <http://purl.org/olia/system.owl#hasTag> "tmod"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#TemporalModifier>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#xcomp>
+    <http://purl.org/olia/system.owl#hasTag> "xcomp"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#ClausalComplementWithExternalSubject>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
+<http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#xsubj>
+    <http://purl.org/olia/system.owl#hasTag> "xsubj"^^<http://www.w3.org/2001/XMLSchema#string> ;
+    a <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#ControllingSubject>, <http://www.w3.org/2002/07/owl#NamedIndividual> .
+
