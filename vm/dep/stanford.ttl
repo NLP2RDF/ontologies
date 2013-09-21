@@ -9,10 +9,12 @@
     a owl:Ontology ;
     rdfs:comment """This is a NIF simple model of the OLiA Stanford Annotation model, available at http://purl.org/olia/stanford.owl
     Please don't edit this model, it is generated. Originally everything is explained in (de Marneffe and Manning 2011)
+    We think the modelling of dependencies as RDF properties is adequate. 
+    
 References:
 Marie-Catherine de Marneffe and Christopher D. Manning (2011), Stanford typed dependencies manual, September 2008, revised for Stanford Parser v. 1.6.9 in September 2011, http://nlp.stanford.edu/software/dependencies_manual.pdf"""@en ;
     rdfs:isDefinedBy "http://purl.org/olia/stanford.owl" ;
-    owl:versionInfo "1.0.0"@en .
+    owl:versionInfo "0.9.0"@en .
 
 stanford:AbbreviationModifier
     a owl:ObjectProperty ;
