@@ -1,6 +1,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix stanford: <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#> .
+@prefix nif: <http://persistence.uni-leipzig.org/nlp2rdf/nif-core#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
@@ -222,12 +223,6 @@ cop(man, is)"""@en ;
     rdfs:label "copula" ;
     rdfs:subPropertyOf stanford:Auxiliary .
 
-stanford:DependencyLabel
-    a owl:ObjectProperty .
-
-stanford:DependencyRelation
-    a owl:ObjectProperty .
-
 stanford:Dependent
     a owl:ObjectProperty ;
     rdfs:comment """Dependencies are established between tokens, i.e., exactly those entities that are subject to part of speech annotation.
@@ -237,7 +232,7 @@ A dependency is labeled as dep when the system is unable to determine a more pre
 \"Then, as if to show that he could, . . . \" 
 dep(show, if)"""@en ;
     rdfs:label "dependent" ;
-    rdfs:subPropertyOf stanford:DependencyLabel ;
+    rdfs:subPropertyOf nif:inter ;
     owl:versionInfo "TODO: check tier (layer/level) identifier for stanford dependencies" .
 
 stanford:Determiner
@@ -605,14 +600,8 @@ rcmod(book,bought)"""@en ;
 
 stanford:Root
     a owl:ObjectProperty ;
-    rdfs:comment """The root grammatical relation points to the root of the sentence. A fake node \"ROOT\" is used as the governor. The ROOT node is indexed with \"0\", since the indexation of real words in the sentence starts at 1.
-
-\"I love French fries.\" 
-root(ROOT, love)
-
-\"Bill is an honest man\" 
-root(ROOT, man)"""@en ;
-    rdfs:subPropertyOf stanford:DependencyLabel .
+    rdfs:comment """For practical reasons the Root relation points to the sentence Url in NIF Simple"""@en ;
+    rdfs:subPropertyOf nif:inter .
 
 stanford:SemanticDependent
     a owl:ObjectProperty ;
@@ -632,9 +621,6 @@ stanford:TemporalModifier
 tmod(swam, night)"""@en ;
     rdfs:label "temporal modifier" ;
     rdfs:subPropertyOf stanford:NounPhraseAsAdverbialModifier .
-
-stanford:Token
-    a owl:ObjectProperty .
 
 stanford:abbrev
     a owl:ObjectProperty ;

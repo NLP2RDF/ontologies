@@ -90,8 +90,7 @@
         </excludes>
         <targetPath>org/uni-leipzig/persistence/nlp2rdf/testcase</targetPath>
       </resource>
-    </resources>
-     <resource>
+      <resource>
         <directory>vm/dep</directory>
         <excludes>
           <exclude>*.html</exclude>
