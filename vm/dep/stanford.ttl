@@ -3,24 +3,15 @@
 @prefix stanford: <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix oliasystem: <http://purl.org/olia/system.owl#> .
 
 <http://persistence.uni-leipzig.org/nlp2rdf/vm/dep/stanford#>
     a owl:Ontology ;
-    rdfs:comment """OLiA Annotation Model of Stanford Parser dependency labels (de Marneffe and Manning 2011)
-
-Unless specified otherwise, all comments are taken from de Marneffe and Manning (2011)
-
+    rdfs:comment """This is a NIF simple model of the OLiA Stanford Annotation model, available at http://purl.org/olia/stanford.owl
+    Please don't edit this model, it is generated. Originally everything is explained in (de Marneffe and Manning 2011)
 References:
 Marie-Catherine de Marneffe and Christopher D. Manning (2011), Stanford typed dependencies manual, September 2008, revised for Stanford Parser v. 1.6.9 in September 2011, http://nlp.stanford.edu/software/dependencies_manual.pdf"""@en ;
-    rdfs:isDefinedBy "http://nlp.stanford.edu/software/dependencies_manual.pdf" ;
-    owl:imports <http://purl.org/olia/system.owl> ;
-    owl:versionInfo """2010-01-05 created by Sebastian Hellmann (RDF) 
-2010-01-12 OWL/DL conversion, integration with OLiA ontologies
-2011-11-30 update for Stanford Parser v.1.6.9, added PrepositionalClausalModifier, MultiWordExpression, NounPhraseAsAdverbialModifier; support for collapsed edge labels (prepc_, prep_, conj_)
-2012-01-16 encoding errors fixed
-
-Christian Chiarcos, chiarcos@uni-potsdam.de"""@en .
+    rdfs:isDefinedBy "http://purl.org/olia/stanford.owl" ;
+    owl:versionInfo "1.0.0"@en .
 
 stanford:AbbreviationModifier
     a owl:ObjectProperty ;
@@ -646,322 +637,258 @@ stanford:Token
     a owl:ObjectProperty .
 
 stanford:abbrev
-    oliasystem:hasTag "abbrev" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:AbbreviationModifier .
 
 stanford:acomp
-    oliasystem:hasTag "acomp" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:AdjectivalComplement .
 
 stanford:advcl
-    oliasystem:hasTag "advcl" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:AdverbialClauseModifier .
 
 stanford:advmod
-    oliasystem:hasTag "advmod" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:AdverbialModifier .
 
 stanford:agent
-    oliasystem:hasTag "agent" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Agent .
 
 stanford:amod
-    oliasystem:hasTag "amod" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:AdjectivalModifier .
 
 stanford:appos
-    oliasystem:hasTag "appos" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:AppositionalModifier .
 
 stanford:arg
-    oliasystem:hasTag "arg" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Argument .
 
 stanford:attr
-    oliasystem:hasTag "attr" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Attributive .
 
 stanford:aux
-    oliasystem:hasTag "aux" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Auxiliary .
 
 stanford:auxpass
-    oliasystem:hasTag "auxpass" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:PassiveAuxiliary .
 
 stanford:cc
-    oliasystem:hasTag "cc" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Coordination .
 
 stanford:ccomp
-    oliasystem:hasTag "ccomp" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:ClausalComplementWithInternalSubject .
 
 stanford:comp
-    oliasystem:hasTag "comp" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Complement .
 
 stanford:compl
-    oliasystem:hasTag "compl" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Complementizer .
 
 stanford:complm
-    oliasystem:hasTag "complm" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Complementizer .
 
 stanford:conj
-    oliasystem:hasTag "conj" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Conjunct .
 
 stanford:conj_
-    oliasystem:hasTagStartingWith "conj_" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Conjunct .
 
 stanford:cop
-    oliasystem:hasTag "cop" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Copula .
 
 stanford:csubj
-    oliasystem:hasTag "csubj" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:ClausalSubject .
 
 stanford:csubjpass
-    oliasystem:hasTag "csubjpass" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:PassiveClausalSubject .
 
 stanford:dep
-    oliasystem:hasTag "dep" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Dependent .
 
 stanford:det
-    oliasystem:hasTag "det" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Determiner .
 
 stanford:dobj
-    oliasystem:hasTag "dobj" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:DirectObject .
 
 stanford:expl
-    oliasystem:hasTag "expl" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Expletive .
 
 stanford:infmod
-    oliasystem:hasTag "infmod" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:InfinitivalModifier .
 
 stanford:iobj
-    oliasystem:hasTag "iobj" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:IndirectObject .
 
 stanford:mark
-    oliasystem:hasTag "mark" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Marker .
 
 stanford:measure
-    oliasystem:hasTag "measure" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:MeasurePhraseModifier .
 
 stanford:mod
-    oliasystem:hasTag "mod" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Modifier .
 
 stanford:mwe
-    oliasystem:hasTag "mwe" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:MultiWordExpression .
 
 stanford:neg
-    oliasystem:hasTag "neg" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:NegationModifier .
 
 stanford:nn
-    oliasystem:hasTag "nn" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:NounCompoundModifier .
 
 stanford:npadvmod
-    oliasystem:hasTag "npadvmod" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:NounPhraseAsAdverbialModifier .
 
 stanford:nsubj
-    oliasystem:hasTag "nsubj" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:NominalSubject .
 
 stanford:nsubjpass
-    oliasystem:hasTag "nsubjpass" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:PassiveNominalSubject .
 
 stanford:num
-    oliasystem:hasTag "num" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:NumericModifier .
 
 stanford:number
-    oliasystem:hasTag "number" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:CompountNumberElement .
 
 stanford:obj
-    oliasystem:hasTag "obj" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Object .
 
 stanford:parataxis
-    oliasystem:hasTag "parataxis" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Parataxis .
 
 stanford:partmod
-    oliasystem:hasTag "partmod" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:ParticipalModifier .
 
 stanford:pcomp
-    oliasystem:hasTag "pcomp" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:PrepositionalComplement .
 
 stanford:pobj
-    oliasystem:hasTag "pobj" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:ObjectOfPreposition .
 
 stanford:poss
-    oliasystem:hasTag "poss" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:PossessionModifier .
 
 stanford:possessive
-    oliasystem:hasTag "possessive" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:PossessiveModifier .
 
 stanford:preconj
-    oliasystem:hasTag "preconj" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Preconjunct .
 
 stanford:predet
-    oliasystem:hasTag "predet" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Predeterminer .
 
 stanford:prep
-    oliasystem:hasTag "prep" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:PrepositionalModifier .
 
 stanford:prep_
-    oliasystem:hasTagStartingWith "prep_" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:PrepositionalModifier .
 
 stanford:prepc
-    oliasystem:hasTag "prepc" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:PrepositionalClausalModifier .
 
 stanford:prepc_
-    oliasystem:hasTagStartingWith "prepc_" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:PrepositionalClausalModifier .
 
 stanford:prt
-    oliasystem:hasTag "prt" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:PhrasalVerbParticle .
 
 stanford:punct
-    oliasystem:hasTag "punct" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Punctuation .
 
 stanford:purpcl
-    oliasystem:hasTag "purpcl" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:PurposeClauseModifier .
 
 stanford:quantmod
-    oliasystem:hasTag "quantmod" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:QuantifierModifier .
 
 stanford:rcmod
-    oliasystem:hasTag "rcmod" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:RelativeClauseModifier .
 
 stanford:ref
-    oliasystem:hasTag "ref" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Referent .
 
 stanford:rel
-    oliasystem:hasTag "rel" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Relative .
 
 stanford:root
-    oliasystem:hasTag "root" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Root .
 
 stanford:sdep
-    oliasystem:hasTag "sdep" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:SemanticDependent .
 
 stanford:subj
-    oliasystem:hasTag "subj" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:Subject .
 
 stanford:tmod
-    oliasystem:hasTag "tmod" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:TemporalModifier .
 
 stanford:xcomp
-    oliasystem:hasTag "xcomp" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:ClausalComplementWithExternalSubject .
 
 stanford:xsubj
-    oliasystem:hasTag "xsubj" ;
     a owl:ObjectProperty ;
     rdfs:subPropertyOf stanford:ControllingSubject .
 
