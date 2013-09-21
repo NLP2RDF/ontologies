@@ -10,6 +10,7 @@ for f in `find . -name "*.ttl" | grep -v previous | grep -v format | grep -v mis
 rsync -rav --delete nif-core/ nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies/nif-core/
 rsync -rav --delete rlog/ nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies/rlog 
 rsync -rav --delete testcase/ nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies/testcase 
+rsync -rav --delete vm/dep nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies/vm/dep 
 rsync -rav --delete pom.xml nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies
 rsync -rav --delete dev/misc/resources.ttl nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies/dev/misc/resources.ttl
 rsync -rav --delete dev/misc/resources.json nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies/dev/misc/resources.json
@@ -36,12 +37,19 @@ if [ -s /tmp/docu.html ]
 then
   cp /tmp/docu.html testcase/stc.html
 fi
+curl http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/vm/dep/stanford.owl > /tmp/docu.html
+if [ -s /tmp/docu.html ]
+then
+  cp /tmp/docu.html vm/dep/stanford.html
+fi
+
 
 
 # sync run
 rsync -rav --delete nif-core/ nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies/nif-core
 rsync -rav --delete rlog/ nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies/rlog 
 rsync -rav --delete testcase/ nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies/testcase 
+rsync -rav --delete vm/dep nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies/vm/dep 
 rsync -rav --delete pom.xml nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies
 rsync -rav .htaccess nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies 
 

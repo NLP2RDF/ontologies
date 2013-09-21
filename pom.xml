@@ -91,6 +91,14 @@
         <targetPath>org/uni-leipzig/persistence/nlp2rdf/testcase</targetPath>
       </resource>
     </resources>
+     <resource>
+        <directory>vm/dep</directory>
+        <excludes>
+          <exclude>*.html</exclude>
+        </excludes>
+        <targetPath>org/uni-leipzig/persistence/nlp2rdf/vm/dep</targetPath>
+      </resource>
+    </resources>
   </build>
   <repositories>
     <repository>
