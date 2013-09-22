@@ -234,7 +234,7 @@ A dependency is labeled as dep when the system is unable to determine a more pre
 \"Then, as if to show that he could, . . . \" 
 dep(show, if)"""@en ;
     rdfs:label "dependent" ;
-    rdfs:subPropertyOf nif:inter ;
+    rdfs:subPropertyOf nif:dependency ;
     owl:versionInfo "TODO: check tier (layer/level) identifier for stanford dependencies" .
 
 stanford:Determiner
@@ -603,7 +603,7 @@ rcmod(book,bought)"""@en ;
 stanford:Root
     a owl:ObjectProperty ;
     rdfs:comment """For practical reasons the Root relation points to the sentence Url in NIF Simple"""@en ;
-    rdfs:subPropertyOf nif:inter .
+    rdfs:subPropertyOf nif:dependency .
 
 stanford:SemanticDependent
     a owl:ObjectProperty ;

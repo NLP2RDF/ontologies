@@ -758,6 +758,19 @@ nif:dependency
 		A dependency relation pointing from gov to dep.
 		Changelog: 
 		* 0.1.0 initial commit of property "dependency"
+		* 0.1.1 made the property subproperty of dependencyTrans
+    """@en ;
+   	rdfs:subPropertyOf nif:dependencyTrans ;
+    rdfs:domain nif:String ;
+    rdfs:range nif:String .
+
+nif:dependencyTrans
+	a owl:ObjectProperty ;
+    owl:versionInfo "0.1.0" ;
+    rdfs:label "transitive version of dependency"@en ;
+    rdfs:comment """
+		Changelog: 
+		* 0.1.0 initial commit of property
     """@en ;
    	rdfs:subPropertyOf nif:inter ;
     rdfs:domain nif:String ;

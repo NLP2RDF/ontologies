@@ -51,6 +51,10 @@ nif:String owl:hasKey (nif:referenceContext nif:beginIndex nif:endIndex) .
 # Transitivity
 ###################
 	
+nif:dependencyTrans	
+	a owl:TransitiveProperty .
+
+	
 nif:subStringTrans	
 	a owl:TransitiveProperty .
 nif:superStringTrans
