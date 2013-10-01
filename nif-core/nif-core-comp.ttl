@@ -1,0 +1,103 @@
+@prefix nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix marl: <http://purl.org/marl/ns#> .
+@prefix fise: <http://fise.iks-project.eu/ontology/> .
+@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix oa: <http://www.w3.org/ns/oa#> .
+
+###################
+# Imports
+###################  
+
+#<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#inf>  a owl:Ontology .
+#<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#comp>  owl:imports <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core.ttl> .
+#<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#inf>  owl:sameAs <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+
+
+
+###################
+# Mapping to FISE 
+###################
+
+nif:Context 
+	rdfs:subClassOf <http://stanbol.apache.org/ontology/enhancer/enhancer#ContentItem> .
+
+nif:Annotation
+    rdfs:subClassOf fise:Enhancement .  
+
+nif:String
+	rdfs:subClassOf fise:TextAnnotation .   
+nif:EntityAnnotation
+	rdfs:subClassOf fise:EntityAnnotation .   
+nif:TopicAnnotation	
+	rdfs:subClassOf fise:TopicAnnotation .   
+
+nif:anchorOf
+	rdfs:subPropertyOf fise:selected-text .
+nif:before
+	rdfs:subPropertyOf fise:selection-prefix .
+nif:after 
+	rdfs:subPropertyOf fise:selection-suffix .
+
+nif:head
+	rdfs:subPropertyOf fise:selection-head .
+nif:tail 
+	rdfs:subPropertyOf fise:selection-tail .
+nif:contextAsLiteral
+	rdfs:subPropertyOf fise:selection-context .
+
+itsrdf:taIdentRef  
+	rdfs:subPropertyOf fise:entity-reference .
+
+itsrdf:taClassRef  
+	rdfs:subPropertyOf fise:entity-type .
+	
+# ??? not sure about fise:entity-label
+# This should be dbpedia:London rdfs:label "London"@en ;
+#
+# fise:entity-label
+#    a owl:DatatypeProperty ;
+#    rdfs:comment "the label(s) of the referenced Entity"@en ;
+#    rdfs:domain :EntityAnnotation .
+
+
+# this is not functional and the "-" was removed as it causes problem, when generating Java bindings automatically. 
+nif:extractedFrom
+	rdfs:subPropertyOf fise:extracted-from .
+
+# nif is nonNegInteger, not int	
+nif:beginIndex
+	skos:closeMatch fise:start .
+		
+# nif is nonNegInteger, not int	
+nif:endIndex
+	skos:closeMatch fise:end . 
+	
+# nif is xsd:decimal, not float
+nif:confidence
+	skos:closeMatch fise:confidence . 
+
+
+
+
+##################
+# Mapping to OpenAnnotation
+##################
+nif:before
+	rdfs:subPropertyOf oa:prefix .
+	
+nif:after 
+	rdfs:subPropertyOf oa:suffix .
+	
+# nif is nonNegInteger, not int	
+nif:beginIndex
+	rdfs:subPropertyOf oa:start .
+		
+# nif is nonNegInteger, not int	
+nif:endIndex
+	rdfs:subPropertyOf oa:end . 

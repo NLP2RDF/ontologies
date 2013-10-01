@@ -28,45 +28,35 @@
 @prefix skosxl: <http://www.w3.org/2008/05/skos-xl#> .
 @prefix marl: <http://purl.org/marl/ns#> .
 
-<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> 
+<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-stanbol#> 
     a owl:Ontology ;
  
     <http://purl.org/vocab/vann/preferredNamespacePrefix> "nifs" ;
     <http://purl.org/vocab/vann/preferredNamespaceUri> "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-stanbol#" ;
     <http://purl.org/vocab/vann/changes> <https://github.com/NLP2RDF/persistence.uni-leipzig.org/commits/master/ontologies/nif-core> ;
     
-    owl:versionInfo "0.0.0" ;
+    owl:versionInfo "0.0.0 not versioned" ;
     owl:versionIRI <https://github.com/NLP2RDF/ontologies/blob/master/nif-core/nif-stanbol.ttl> ;
  
  
     dcterms:license <http://creativecommons.org/licenses/by/3.0/> ;		
     dcterms:license <http://www.apache.org/licenses/LICENSE-2.0> ;		
-    dcterms:title "NIF 2.0 Core Ontology"@en ;
+    dcterms:title "NIF 2.0 Stanbol Profile Ontology"@en ;
 
-    rdfs:label "NIF 2.0 Core Ontology"@en ;
-    rdfs:isDefinedBy <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core.ttl> ;
-    rdfs:isDefinedBy <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-inf.ttl> ;
-    rdfs:isDefinedBy <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-val.ttl> ;
+    rdfs:label "NIF 2.0  Stanbol Profile Ontology"@en ;
+    rdfs:isDefinedBy <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-stanbol.ttl> ;
+    rdfs:isDefinedBy <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-stanbol-inf.ttl> ;
+    rdfs:isDefinedBy <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-stanbol-val.ttl> ;
     rdfs:comment """"""@en ;
 
 	dc:creator "Sebastian Hellmann" ;
-    dc:contributor "TODO";
+    dc:contributor "Special thanks to  Rupert Westenthaler";
     dc:publisher "AKSW, University Leipzig" ;
     dc:rights """This ontology is licensed under Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0) and CC-BY (http://creativecommons.org/licenses/by/3.0/)"""@en ;
-	dc:description <http://svn.aksw.org/papers/2013/ISWC_NIF/public/portman_small.png> ;	
+	#dc:description <http://svn.aksw.org/papers/2013/ISWC_NIF/public/portman_small.png> ;	
     dc:description """
-    
-	Ontology models
-	This ontology is split in three parts:
-	* a terminological model (containing rdfs:comment, rdfs:label, rdfs:subClassOf, rdfs:subPropertyOf, rdfs:range and rdfs:domain statements)
-	* an inference model (containing owl:TransitiveProperty, owl:hasKey)
-	* a validation model (containing owl:FunctionalProperty, owl:DisjointWith)
-
-	Feedback
-	If you'd like to leave feedback, please open an issue on GitHub (https://github.com/NLP2RDF/ontologies/issues) and read the README (https://github.com/NLP2RDF/ontologies#readme) or write an email to the mailing list: http://lists.informatik.uni-leipzig.de/mailman/listinfo/nlp2rdf
-
-	Versioning process is explained here: http://persistence.uni-leipzig.org/nlp2rdf/specification/version.html
-	Changelog is written to rdfs:comment (resource level versioning).
+    This is a very rough draft of the ontology for the NIF 2.0 Stanbol Profile. It is far from finished
+	
 	
 # Relation to the FISE ontology
 FISE is an ontology originated from Apache Stanbol and found here: http://fise.iks-project.eu/ontology/
@@ -87,7 +77,7 @@ nif:String
     
 nifs:Annotation
     a owl:Class ;
-    dcterms:hasVersion "0.0.0" ;
+    owl:versionInfo "0.0.0" ;
     rdfs:label "Annotation"@en ;
     rdfs:comment """This class is an individual used in the NIF-Stanbol profile and can be a URN """@en .
 
@@ -98,7 +88,7 @@ nifs:Annotation
 
 nif:EntityAnnotation
     a owl:Class ;
-    dcterms:hasVersion "unversioned" ; 
+    owl:versionInfo "0.0.0-not_versioned" ; 
     rdfs:label "Entity Annotation"@en ;
     rdfs:comment """This anntotation is an entity. Only usable with the Apache Stanbol profile. disjointWith nif:String and fise:TextAnnotation."""@en ;
     rdfs:subClassOf nif:Annotation .
@@ -106,21 +96,14 @@ nif:EntityAnnotation
 
 nif:TopicAnnotation
     a owl:Class ;
-    dcterms:hasVersion "unversioned" ; 
+    owl:versionInfo "0.0.0-not_versioned" ; 
     rdfs:label "A Topic Annotation"@en ;
     rdfs:comment """This anntotation is TODO:???? . Only usable with the Apache Stanbol profile. disjointWith nif:String and fise:TextAnnotation. """@en ;
     rdfs:subClassOf nif:Annotation .
 
-nif:confidence
-    a owl:DatatypeProperty ;
-    dcterms:hasVersion "unversioned" ; 
-    rdfs:comment """The confidence of the nif:Annotation. If this property is attached to a nif:String, this property indicates the likelyness that the assigned indices and the nif:Structures are correct. If there are problems with URI minting use nif:ArbitraryString"""@en ;
-    rdfs:domain nif:Annotation ;
-    rdfs:label "confidence"@en ;
-    rdfs:range xsd:decimal .
     
-nif:extractedFrom
-	dcterms:hasVersion "unversioned" ; 
+nifs:extractedFrom
+	owl:versionInfo "0.0.0-not_versioned" ; 
     a owl:ObjectProperty ;
     rdfs:comment """links a nif:String to a nif:Annotation ."""@en ;
     rdfs:domain nif:String ;

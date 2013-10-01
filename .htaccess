@@ -10,7 +10,7 @@ AddCharset utf-8 .txt .log .ttl
 ##################
 # Rewrite rule if *.owl, .ttl or .ttl  files are requested
 ##################
-RewriteRule \.(owl|rdf|html|ttl|nt|txt|md)$ - [L]
+RewriteRule \.(owl|rdf|html|ttl|nt|txt|md|png)$ - [L]
 
 ##################
 # Rewrite rule to serve  text/html content if requested

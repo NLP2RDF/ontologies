@@ -5,6 +5,7 @@
 <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> 
 	:type "ontology" ;
 	rdfs:label "NIF 2.0 Core Ontology - Terminological Model"@en ;
+	:highlight "true" ;
 	:prefix "nif:" ;
 	:versioningLevel "IRI-level via owl:versionInfo" ;
 	:revisions	"GitHub, Changelog written to rdfs:comment" ;
@@ -87,6 +88,7 @@
 
 <http://persistence.uni-leipzig.org/nlp2rdf/specification/api.html> 
 	:type "specification" ;
+	:highlight "true" ;
 	rdfs:label "Public API Specification"@en ;
 	:versioningLevel "Document" ;
 	:versioningMethod "As specified in http://semver.org/" ;
@@ -94,9 +96,18 @@
 	:status "Under development" ;
 	:description """A document specifying the public API requirements of tools implementing NIF.""" .
 
+<http://persistence.uni-leipzig.org/nlp2rdf/specification/stanbol.html> 
+	:type "specification" ;
+	rdfs:label "NIF 2.0 Stanbol Profile Specification"@en ;
+	:versioningLevel "Document" ;
+	:versioningMethod "As specified in http://semver.org/" ;
+	:revisions	"GitHub, previous versions are kept on the server, persistently." ;
+	:status "Under development" ;
+	:description """Early description of the NIF Stanbol profile. """ .
 
 <http://persistence.uni-leipzig.org/nlp2rdf/specification/core.html> 
 	:type "specification" ;
+	:highlight "true" ;
 	rdfs:label "NIF 2.0 Core Specification"@en ;
 	:versioningLevel "Document" ;
 	:versioningMethod "As specified in http://semver.org/" ;
@@ -104,22 +115,26 @@
 	:status "Under development" ;
 	:description """ A document specifying the core of NIF.""" .
 	
-<http://nlp2rdf.lod2.eu/releases/stanford-core-beta-with-lemma-pos-cccollapseddependencies.jar> 
+<http://nlp2rdf.lod2.eu/releases/nif-2.0-stanford-core-cli-beta.jar> 
 	:type "software" ;
+	:highlight "true" ;
 	rdfs:label "NIF 2.0 Stanford Core Implementation"@en ;
 	:versioningLevel "not versioned, just an early release, but working" ;
 	:versioningMethod "none" ;
 	:revisions	"GitHub" ;
-	:status "Working, undocumented beta, just cli" ;
+	:status "Working, undocumented beta, cli, jetty web server via Maven" ;
 	:code "https://github.com/NLP2RDF/software/tree/master/java-maven/implementation/stanford-core" ;
-	:description """Code can be found here: <a href="https://github.com/NLP2RDF/software/tree/master/java-maven/implementation/stanford-core">https://github.com/NLP2RDF/software/tree/master/java-maven/implementation/stanford-core</a>
-	Start with  echo "This is a testing sentence." | ./stanford-core-beta-with-lemma-pos-cccollapseddependencies.jar -f text
+	:example """ echo \"My favourite actress is Natalie Portman.\" | ./nif-2.0-stanford-core-cli-beta.jar -f text """ ;
+	:description """Download the jar from <href=\"http://nlp2rdf.lod2.eu/releases/nif-2.0-stanford-core-cli-beta.jar\">http://nlp2rdf.lod2.eu/releases/nif-2.0-stanford-core-cli-beta.jar</a>. 
+	Code can be found here: <a href=\"https://github.com/NLP2RDF/software/tree/master/java-maven/implementation/stanford-core\">https://github.com/NLP2RDF/software/tree/master/java-maven/implementation/stanford-core</a>
+	Clone the code and start the server with mvn jetty:run ,
 	See parameters with ./stanford-core-beta-with-lemma-pos-cccollapseddependencies.jar --help
 	""" .
 	
 	
 <https://github.com/NLP2RDF/software#nif-validator> 
 	:type "software" ;
+	:highlight "true" ;
 	rdfs:label "NIF 2.0 Validator Tool"@en ;
 	:versioningLevel "jar -jar validate.jar -v" ;
 	:versioningMethod "Versioning relies on NIF Validator TestCase Suite and the API specification" ;
@@ -127,6 +142,15 @@
 	:status "Mature" ;
 	:description """Documentation can be found here: <a href="https://github.com/NLP2RDF/software#nif-validator">https://github.com/NLP2RDF/software#nif-validator</a>""" .
 
+<https://github.com/dbpedia-spotlight/dbpedia-spotlight/wiki/Web-service>
+	:type "software" ;
+	:highlight "true" ;
+	rdfs:label "DBpedia Spotlight implementation of NIF"@en ;
+	:versioningLevel "n/a" ;
+	:versioningMethod "n/a" ;
+	:revisions	"GitHub" ;
+	:status "Mature" ;
+	:description """Documentation can be found here: <a href="https://github.com/NLP2RDF/software#nif-validator">https://github.com/NLP2RDF/software#nif-validator</a>""" .
 	
 	
 <https://github.com/NLP2RDF/software/wiki/How-to-publish-a-txt-corpora-with-NIF-as-Linked-Data> 
@@ -166,6 +190,17 @@
 	:code "https://github.com/NLP2RDF/software/blob/master/php/demo/demo.php" ;
 	:description """A GUI called the NIF Combinator, which allows to combine the output of the implemented NIF web services. http://svn.aksw.org/papers/2012/NIF/EKAW_DEMO/public_preprint.pdf‎""" .
 
+<http://nlp2rdf.lod2.eu/nif-ws.php> 
+	:type "demo" ;
+	:highlight "true" ;
+	rdfs:label "NIF Conversion Demo Service"@en ;
+	:versioningLevel "n/a" ;
+	:versioningMethod "n/a" ;
+	:revisions	"GitHub" ;
+	:status "working, implements 2.0, not yet complete, but already usefull" ;
+	:code "https://github.com/NLP2RDF/software/blob/master/php/nif-ws.php" ;
+	:description """Implements the new NIF 2.0 API specification, deployement of the reference implementation‎""" .
+
 
 	
 <http://wiki-link.nlp2rdf.org/> 
@@ -177,3 +212,11 @@
 	:status "working, some bugs" ;
 	:code "http://wiki-link.nlp2rdf.org/WikilinksNifConverter.jar" ;
 	:description """Data from the wikilinks corpus (https://code.google.com/p/wiki-link/) was converted to NIF""" .
+	
+<http://persistence.uni-leipzig.org/nlp2rdf/documents/2013-09-19-poster-meta-forum/nif2poster.png> 
+	:type "poster" ;
+	:highlight "true" ;
+	rdfs:label "Promotional poster for Meta Forum"@en ;
+	:status "A poster with images from the ISWC 2013 publication." ;
+	:description """The poster provides a good overview of NIF 2.0.""" .
+	
