@@ -1,0 +1,438 @@
+@prefix lexo: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/vm/lexo#> .
+@prefix stanford: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/vm/dep/stanford#> .
+@prefix olia: <http://purl.org/olia/olia.owl#> .
+@prefix nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+
+
+<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/vm/lexo#> a owl:Ontology ;
+    owl:versionInfo "0.0.0 (not versioned yet)" ;
+    rdfs:label "Axiom Description Vocabulary and Common Rules"@en ;
+    rdfs:comment "Learning Expressive Ontologies (LExO)"@en .
+
+#*********************************
+# Vocab for managing the rules
+#*********************************
+
+lexo:GenRule a owl:Class ;
+    rdfs:label "GenerationRule"@en ;
+    rdfs:comment "Describes the rules"@en .
+
+lexo:construct a owl:DatatypeProperty ;
+    rdfs:label "SPARQL construct query"@en ;
+    rdfs:comment "Put the valid SPARQL construct queries here."@en .
+
+
+#*********************************
+# Vocab for attaching the axioms and axiom part to the text
+#*********************************
+
+lexo:AxiomDescriptor a owl:Class ;
+    owl:equivalentClass [ owl:unionOf (lexo:Axiom  lexo:AxiomPart lexo:ClassPart) ] .
+lexo:Axiom a owl:Class .
+lexo:AxiomPart a owl:Class .
+lexo:ClassPart a owl:Class .
+
+
+lexo:axDesc a owl:ObjectProperty ;
+    rdfs:label "axiom descriptor "@en ;
+    rdfs:comment "The property is called axDesc because it describes what axioms are explicated by the rules and how the LExO engine should generate OWL axioms from it"@en ;
+    rdfs:range lexo:AxiomDescriptor ;
+    rdfs:subProperty nif:annotation .
+
+lexo:axSource a owl:ObjectProperty ;
+    rdfs:label "axiom source"@en ;
+    rdfs:comment "Please put the Generation Rule here in the construct query"@en ;
+    rdfs:range lexo:GenRule .
+
+lexo:axTarget a owl:ObjectProperty ;
+    rdfs:label "axiom target"@en ;
+    rdfs:comment "target for binary axioms".
+
+lexo:axProperty a owl:AnnotationProperty ;
+    rdfs:label "axiom property"@en ;
+    rdfs:comment "property for OWL property estrictions axioms"@en .
+
+
+lexo:skipped a owl:DatatypePropery ;
+    rdfs:comment "a simple marker to check whether this part was used"@en .
+
+lexo:uncovered a owl:DatatypePropery ;
+    rdfs:comment "A reason, why this part was not yet covered."@en .
+
+#*********************************
+## Testing and quality control
+#*********************************
+
+#################################
+lexo:SkipDet a lexo:GenRule ;
+#################################
+    rdfs:label "Skip determiner" ;
+    rdfs:comment """
+    When counting coverage skip det
+    """@en ;
+    lexo:construct """
+CONSTRUCT  {
+    ?dep lexo:skipped "determiner not used currently" .
+} {
+    ?gov  stanford:det ?dep .
+}""".
+
+#################################
+lexo:SkipWhDeterminerinRelClause a lexo:GenRule ;
+#################################
+    rdfs:label "" ;
+    rdfs:comment """
+        Example
+        'An actor is a person that acts in a dramatic production.' -> [that] is skipped
+        'An actor is a person that acts in ... and works in ...' -> [Person]_gov and ( [acts_in ...]_dep or [works_in ...]_dep ) .
+    """@en ;
+lexo:construct """
+CONSTRUCT {
+    ?det lexo:skipped "This is the pronoun or determiner used in a relative clause." .
+} {
+    ?gov stanford:rcmod ?dep .
+    ?dep stanford:nsubj ?det .
+    ?det nif:oliaCategory olia:PronounOrDeterminer .
+}""".
+
+
+
+#*********************************
+# Class Part
+#*********************************
+
+#################################
+lexo:NonCompoundNoun a lexo:GenRule ;
+#################################
+    rdfs:label "Non-compound noun" ;
+    rdfs:comment """
+        The string (noun) is annotated directly with part of the class name
+        Example:
+        'An actor is a ... ' -> [Actor]  .
+        'An drama actor is a ...' ->  -- (other rule)
+        'An dramatic actor is a ...' ->  [Actor]
+        '... works in a movie' -> [Movie]
+        'An actor is a person that acts in ... and works in ...' -> [Person]_gov and ( [acts_in ...]_dep or [works_in ...]_dep ) .
+        """@en ;
+    lexo:construct """
+CONSTRUCT {
+    ?noun lexo:axDesc [
+        a lexo:ClassPart ;
+        lexo:cnPart ?name ;
+        lexo:cnOrder ?order ;
+        lexo:axSource lexo:NonCompoundNoun
+    ] ;
+} {
+    ?noun  nif:oliaCategory olia:Noun ;
+        nif:beginIndex ?order ;
+        nif:lemma ?lemma .
+    FILTER (NOT EXISTS { [] stanford:nn ?noun }) .
+    BIND (concat(ucase(substr(?lemma,1,1)),substr(?lemma,2)) AS ?name) .
+}""".
+
+#################################
+lexo:CompoundNoun a lexo:GenRule ;
+#################################
+    rdfs:label "Compound Noun" ;
+    rdfs:comment """
+        The gov is annotated directly with part of the class name
+        Example:
+        'An actor is a ... ' -> [Actor]  .
+        'An drama actor is a ...' ->  --
+        '... works in a movie' -> [Movie]
+        'An actor is a person that acts in ... and works in ...' -> [Person]_gov and ( [acts_in ...]_dep or [works_in ...]_dep ) .
+    """@en ;
+    lexo:construct """
+CONSTRUCT {
+    ?gov lexo:axDesc [
+        a lexo:ClassPart ;
+        lexo:cnPart ?name ;
+        lexo:cnOrder ?order ;
+        lexo:axSource lexo:SimpleNoun
+    ] .
+    ?compound lexo:skipped "we merged the NounCompoundModifier to the rightmost noun" .
+} {
+    ?gov  nif:oliaCategory olia:Noun ;
+        stanford:nn  ?compound    .
+    ?compound  nif:oliaCategory olia:Noun ;
+        nif:beginIndex ?order ;
+        nif:lemma ?lemma .
+    BIND (concat(ucase(substr(?lemma,1,1)),substr(?lemma,2)) AS ?name) .
+}""".
+
+
+#################################
+lexo:AdjectiveOrParticiple a lexo:GenRule ;
+#################################
+    rdfs:label "a or p" ;
+    rdfs:comment """
+        The string (noun) is annotated directly with part of the class name
+        Example:
+        'An living tree  ... ' -> Tree and [Living_Thing]  .
+        'An large tree  ... ' -> Tree and [Large_Thing] . (will be filtered by another rule
+        'An blue tree  ... ' -> Tree and [Blue_Thing] . (will be filtered by another rule
+        """@en ;
+    lexo:construct """
+CONSTRUCT {
+    ?dep lexo:axDesc [
+        a lexo:ClassPart ;
+        lexo:cnPart ?name ;
+        lexo:cnOrder ?order ;
+        lexo:axSource lexo:AdjectiveOrParticiple
+    ] ;
+} {
+    ?dep  nif:oliaCategory  ?adjectiveOrParticiple .
+    FILTER (?adjectiveOrParticiple IN (olia:Participle,olia:Adjective )) .
+    ?dep  nif:beginIndex ?order .
+    ?dep  nif:lemma ?lemma .
+    ?dep  nif:anchorOf ?anchorOf .
+    BIND (concat(ucase(substr(?lemma,1,1)),substr(if(?adjectiveOrParticiple=olia:Adjective, ?lemma, ?anchorOf),2),"_Thing") AS ?name) .
+}""".
+
+
+#*********************************
+# AxiomPart
+#*********************************
+
+#################################
+lexo:IntersectiveAdjective a lexo:GenRule ;
+#################################
+    rdfs:label "Intersective Adjective" ;
+    rdfs:comment """
+        gov is annotated with owl:intersectionOf dep
+        Example:
+        'public bus' -> X and Public_Thing .
+        'red and public bus -> X and (Public_Thing and Red_Thing) .
+    """@en ;
+    lexo:construct """
+CONSTRUCT  {
+    ?gov lexo:axDesc [
+        a lexo:AxiomPart ;
+        lexo:axSource lexo:IntersectiveAdjective ;
+        lexo:axSemantic  owl:intersectionOf ;
+        lexo:axMerge  owl:intersectionOf ;
+        lexo:axTarget ?dep
+    ] .
+    #?dep lexo:skipped "true" .
+} {
+    ?gov  ?dep ?dep .
+
+    ?dep  nif:oliaCategory  ?adjectiveOrParticiple .
+
+    FILTER (?adjectiveOrParticiple IN (olia:Participle,olia:Adjective )) .
+    FILTER (?dep IN (stanford:amod, stanford:partmod )) .
+    # ?gov  stanford:amod ?dep .
+    # ?dep  nif:lemma ?lemma .
+    # ?dep  nif:anchorOf ?anchorOf .
+    # BIND (IRI(concat("http://example.org/type#",ucase(substr(?lemma,1,1)), substr(if(?adjectiveOrParticiple=olia:Adjective,?lemma,?anchorOf),2),"_Thing")) AS ?name) .
+    # TODO FILTER NOT EXISTS { ?dep lexo:adjectiveType lexo:Subsective}.
+    # TODO FILTER NOT EXISTS { ?dep lexo:adjectiveType lexo:Privative}.
+}""".
+
+#################################
+lexo:ModifyingParticiple a lexo:GenRuleDEACTIVATED ;
+#################################
+    rdfs:label "Modifying Participle" ;
+    rdfs:comment """
+        gov is annotated with owl:intersectionOf dep
+        Example:
+        'flying circus' -> X and Flying_Thing .
+    """@en ;
+    lexo:construct """
+CONSTRUCT  {
+    ?gov lexo:axDesc [
+        a lexo:AxiomPart ;
+        lexo:axSource lexo:ModifyingParticiple ;
+        lexo:axSemantic  owl:intersectionOf ;
+        lexo:axMerge  owl:intersectionOf ;
+        lexo:axTarget ?dep
+    ] .
+} {
+    ?gov stanford:partmod ?dep .
+    ?dep nif:oliaCategory olia:Participle .
+}""".
+
+#################################
+lexo:DirectObject a lexo:GenRule ;
+#################################
+    rdfs:label "Direct Object" ;
+    rdfs:comment """Example:
+     ## TODO see whether this merges and how
+    """@en ;
+    lexo:construct """
+CONSTRUCT {
+    ?gov lexo:axDesc [
+        a lexo:AxiomPart ;
+        lexo:axSource lexo:DirectObject ;
+        lexo:axSemantic owl:someValuesFrom ;
+        lexo:axMerge owl:unionOf ;
+        lexo:axProperty ?name ;
+        lexo:axTarget ?dep
+    ] .
+} {
+    ?gov stanford:dobj ?dep .
+    ?gov nif:oliaCategory olia:Verb .
+    ?gov nif:lemma ?lemma .
+    BIND (IRI(concat("http://example.org/prop#",str(?lemma))) as ?name ) .
+}""".
+
+#################################
+lexo:RelativeClause a lexo:GenRule ;
+#################################
+    rdfs:label "Relative Clause" ;
+    rdfs:comment """
+        gov is annotated with owl:intersectionOf
+        dep are interrelated with owl:unionOf
+        Example:
+        'An actor is a person that acts in a dramatic production.' -> [Person]_gov and [acts_in ...]_dep  .
+        'An actor is a person that acts in ... and works in ...' -> [Person]_gov and ( [acts_in ...]_dep or [works_in ...]_dep ) .
+    """@en ;
+lexo:construct """
+CONSTRUCT {
+    ?gov lexo:axDesc [
+        lexo:axSource lexo:RelativeClause ;
+        lexo:axSemantic  owl:intersectionOf ;
+        lexo:axMerge  owl:unionOf ;
+        lexo:axTarget ?dep
+    ] .
+} {
+    ?gov stanford:rcmod ?dep .
+}""".
+
+
+#################################
+lexo:VerbWithPreposition a lexo:GenRule ;
+#################################
+    rdfs:comment """
+        Example:
+        # TODO
+    """@en ;
+    lexo:construct """
+CONSTRUCT {
+    ?verb lexo:axDesc [
+        a lexo:AxiomPart ;
+        lexo:axSource lexo:VerbWithPreposition ;
+        lexo:axSemantic  owl:someValuesFrom ;
+        # and / or
+        lexo:axMerge owl:unionOf ;
+        lexo:axProperty ?propertyName ;
+        lexo:axTarget ?target
+    ] .
+} {
+    ?verb  nif:oliaCategory olia:Verb ;
+        nif:lemma ?lemma  .
+    ?verb ?prep ?target .
+    FILTER (strStarts ( str(?prep), "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/vm/dep/stanford#prep_"  )) .
+
+    BIND (IRI(concat("http://example.org/prop#",str(?lemma), substr(str(?prep),75))) as ?propertyName ) .
+}""".
+
+#################################
+lexo:NounWithPreposition a lexo:GenRule ;
+#################################
+    rdfs:comment """
+        if the preposition is part of a dependency relation,
+        it needs to be skipped, but we are using Stanford's Collapsed CC-processed dependencies.
+        Example:
+        'branch of medicine' -> branch and [of some] medicine
+        'branch of medicine and biology' -> branch and [of some] ( medicine or biology)
+    """@en ;
+    lexo:construct """
+CONSTRUCT  {
+    ?noun lexo:axDesc [
+        a lexo:AxiomPart ;
+        lexo:axSource lexo:NounWithPreposition ;
+        lexo:axSemantic  owl:someValuesFrom ;
+        lexo:axMerge  owl:unionOf ;
+        lexo:axProperty ?propertyName ;
+        lexo:axTarget ?target
+    ] .
+    } {
+    ?noun  nif:oliaCategory olia:Noun ;
+        nif:lemma ?lemma  .
+    ?noun ?prep ?target .
+    FILTER (strStarts ( str (?prep), "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/vm/dep/stanford#prep_"  )) .
+
+    BIND (IRI(concat("http://example.org/prop#", substr(str(?prep),76))) as ?propertyName ) .
+}""".
+
+
+#*********************************
+# Full axioms below
+#*********************************
+
+
+#################################
+lexo:CoumpoundNounSubclass a lexo:GenRule ;
+#################################
+    rdfs:comment """
+        Example:
+        'An drama actor is a ...' ->  --
+        'transit system' -> [Transit_System] <= [System]
+    """@en ;
+    lexo:construct """
+CONSTRUCT {
+    ?noun lexo:axDesc [
+        a lexo:Axiom ;
+        lexo:axSource lexo:CoumpoundNounSubclass ;
+        lexo:axSemantic  rdfs:subClassOf ;
+        lexo:axTarget ?name
+    ] .
+} {
+    ?noun nif:oliaCategory olia:Noun ;
+        nif:lemma ?lemma  ;
+        stanford:nn  ?compound  .
+    ?compound  nif:oliaCategory olia:Noun .
+    BIND (IRI(concat("http://example.org/type#",ucase(substr(?lemma,1,1)),substr(?lemma,2))) AS ?name) .
+} """.
+
+#################################
+lexo:EquivalentDefinitions a lexo:GenRule ;
+#################################
+    rdfs:comment """Example:
+        'An actor or actress is a ...' -> Actor == Actress
+    """@en ;
+    lexo:construct """
+CONSTRUCT   {
+    ?terma lexo:axDesc [
+        a lexo:Axiom ;
+        lexo:axSource lexo:EquivalentDefinitions ;
+        lexo:axSemantic owl:equivalentClass ;
+        lexo:axTarget ?termb
+    ] .
+} {
+    ?definition stanford:nsubj ?terma , ?termb .
+    FILTER (?terma != ?termb ) .
+}""".
+
+##################################
+lexo:Copula a lexo:GenRule ;
+##################################
+    rdfs:comment """Example:
+        'An actor is a person that ...' -> Actor <=  Person
+        'An actor is a person and artist' -> Actor <=  Person and Artist
+        'An actor is a person that ...' -> Actor <=  Person and ...
+    """@en ;
+    lexo:construct """
+CONSTRUCT {
+    ?term lexo:axDesc [
+        a lexo:Axiom ;
+        lexo:axSource lexo:Copula ;
+        lexo:axSemantic rdfs:subClassOf ;
+        lexo:axTarget ?definition
+    ] .
+    ?cop lexo:skipped "copula is used in subClassOf axiom" .
+} {
+    ?definition stanford:nsubj ?term ;
+        stanford:cop ?cop .
+    ?cop nif:lemma "be" ;
+        nif:oliaCategory olia:Verb  .
+    FILTER ( NOT EXISTS { ?term nif:oliaCategory ?forbidden .
+                          FILTER (?forbidden IN (olia:Determiner, olia:Pronoun ) )
+                        }
+           )
+}""".
+
+# TODO is able to JJ with xcomp

@@ -1,6 +1,22 @@
 #!/bin/sh
+#clean
+mvn clean 
+
+
+ONTO="nif-core/nif-core.owl nif-core/nif-stanbol.owl rlog/rlog.owl testcase/stc.owl vm/dep/stanford.owl vm/lexo/lexo.owl"
+for doc in $ONTO
+	do 
+		curl "http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/""$doc" > /tmp/docu.html
+		if [ -s /tmp/docu.html ]
+		then
+		  cp /tmp/docu.html "$doc"
+		fi
+	done
+exit
+
+
 # update owl files:
-for f in `find . -name "*.ttl" | grep -v previous | grep -v format | grep -v misc | grep -v '/target/'`
+for f in `find . -name "*.ttl" | grep -v previous | grep -v format | grep -v misc `
 	do 
 		FILE=$(echo $f | sed 's/.ttl$//')
 		rapper -i turtle -o rdfxml-abbrev $f >  $FILE".owl" 
@@ -13,7 +29,6 @@ rsync -rav --delete testcase/ nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/w
 rsync -rav --delete vm nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies/
 rsync -rav --delete pom.xml nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies
 rsync -rav --delete dev/misc/resources.ttl nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies/dev/misc/resources.ttl
-rsync -rav --delete dev/misc/resources.json nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies/dev/misc/resources.json
 rsync -rav .htaccess nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies
 
 #docu

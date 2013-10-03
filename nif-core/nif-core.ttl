@@ -34,8 +34,7 @@
     <http://purl.org/vocab/vann/preferredNamespaceUri> "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#" ;
     <http://purl.org/vocab/vann/changes> <https://github.com/NLP2RDF/persistence.uni-leipzig.org/commits/master/ontologies/nif-core> ;
     
-    owl:versionInfo "Versioning done on resource level." ;
-    owl:versionIRI <https://github.com/NLP2RDF/ontologies/blob/master/nif-core/nif-core.ttl> ;
+    owl:versionInfo "Versioning done on resource level. See https://github.com/NLP2RDF/ontologies/blob/master/nif-core/nif-core.ttl" ;
  
  
     dcterms:license <http://creativecommons.org/licenses/by/3.0/> ;		
@@ -52,7 +51,7 @@
     dc:contributor "Martin Brümmer";
     dc:publisher "AKSW, University Leipzig" ;
     dc:rights """This ontology is licensed under Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0) and CC-BY (http://creativecommons.org/licenses/by/3.0/)"""@en ;
-	dc:description <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-ontology_web.png> ;	
+	
     dc:description """For a more concise description about NIF, we refer the reader to the ISWC 2013 in Use paper: Integrating NLP using Linked Data by Sebastian Hellmann, Jens Lehmann, Sören Auer, and Martin Brümmer available at: http://svn.aksw.org/papers/2013/ISWC_NIF/public.pdf Also the NLP2RDF project page (http://nlp2rdf.org) provides more general documentation and pointers.
     The NIF 2.0 Core Ontology (http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#) provides classes and properties to describe the relations between substrings, text, documents by assigning URIs to strings. These URIs can then be used as subjects in RDF triples and therefore they can be annotated easily. The NIF 2.0 Core Specification defines how such URIs are created and used: http://persistence.uni-leipzig.org/nlp2rdf/specification/core.html and it makes sense to read this document first, so you can understand the definitions in this ontology better. 
     
@@ -74,8 +73,8 @@
 	If you'd like to leave feedback, please open an issue on GitHub (https://github.com/NLP2RDF/ontologies/issues) and read the README (https://github.com/NLP2RDF/ontologies#readme) or write an email to the mailing list: http://lists.informatik.uni-leipzig.de/mailman/listinfo/nlp2rdf
 
 	Versioning process is explained here: http://persistence.uni-leipzig.org/nlp2rdf/specification/version.html Changelog is written to rdfs:comment (resource level versioning).
-"""@en  .
-
+"""@en  ;
+	dc:description <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-ontology_web.png> .
 
 
 ###################
