@@ -2,19 +2,6 @@
 #clean
 mvn clean 
 
-
-ONTO="nif-core/nif-core.owl nif-core/nif-stanbol.owl rlog/rlog.owl testcase/stc.owl vm/dep/stanford.owl vm/lexo/lexo.owl"
-for doc in $ONTO
-	do 
-		curl "http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/""$doc" > /tmp/docu.html
-		if [ -s /tmp/docu.html ]
-		then
-		  cp /tmp/docu.html "$doc"
-		fi
-	done
-exit
-
-
 # update owl files:
 for f in `find . -name "*.ttl" | grep -v previous | grep -v format | grep -v misc `
 	do 
@@ -32,31 +19,17 @@ rsync -rav --delete dev/misc/resources.ttl nlp2rdf@www.uni-leipzig.de:/data/home
 rsync -rav .htaccess nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies
 
 #docu
-curl http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core.owl > /tmp/docu.html
-if [ -s /tmp/docu.html ]
-then
-  cp /tmp/docu.html nif-core/nif-core.html
-fi
-curl http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-stanbol.owl > /tmp/docu.html
-if [ -s /tmp/docu.html ]
-then
-  cp /tmp/docu.html nif-core/nif-stanbol.html
-fi
-curl http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog/rlog.owl > /tmp/docu.html
-if [ -s /tmp/docu.html ]
-then
-  cp /tmp/docu.html rlog/rlog.html
-fi
-curl http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/testcase/stc.owl > /tmp/docu.html
-if [ -s /tmp/docu.html ]
-then
-  cp /tmp/docu.html testcase/stc.html
-fi
-curl http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/vm/dep/stanford.owl > /tmp/docu.html
-if [ -s /tmp/docu.html ]
-then
-  cp /tmp/docu.html vm/dep/stanford.html
-fi
+ONTO="nif-core/nif-core.owl nif-core/nif-stanbol.owl rlog/rlog.owl testcase/stc.owl vm/dep/stanford.owl vm/lexo/lexo.owl"
+for doc in $ONTO
+	do 
+		curl "http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/""$doc" > /tmp/docu.html
+		if [ -s /tmp/docu.html ]
+		then
+		  cp /tmp/docu.html "$doc"
+		fi
+	done
+exit
+
 
 
 
