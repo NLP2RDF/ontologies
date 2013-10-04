@@ -18,8 +18,8 @@ RewriteRule \.(owl|rdf|html|ttl|nt|txt|md|png)$ - [L]
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^(nif-core|nif-stanford)$ /nlp2rdf/ontologies/nif-core/$1.html [R=303,L]
 
-# RewriteCond %{HTTP_ACCEPT} text/html
-# RewriteRule ^nif-core$ /nlp2rdf/ontologies/nif-core/nif-core.html [R=303,L]
+## RewriteCond %{HTTP_ACCEPT} text/html
+## RewriteRule ^nif-core$ /nlp2rdf/ontologies/nif-core/nif-core.html [R=303,L]
 ## RewriteCond %{HTTP_ACCEPT} text/html
 ## RewriteRule ^nif-stanbol$ /nlp2rdf/ontologies/nif-core/nif-stanbol.html [R=303,L]
 

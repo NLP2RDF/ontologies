@@ -7,6 +7,8 @@
 
 
 <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/vm/lexo#> a owl:Ontology ;
+    <http://purl.org/vocab/vann/preferredNamespacePrefix> "lexo" ;
+    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/vm/lexo#" ;
     owl:versionInfo "0.0.0 (not versioned yet)" ;
     rdfs:label "Axiom Description Vocabulary and Common Rules"@en ;
     rdfs:comment "Learning Expressive Ontologies (LExO)"@en .
@@ -50,15 +52,25 @@ lexo:axTarget a owl:ObjectProperty ;
     rdfs:label "axiom target"@en ;
     rdfs:comment "target for binary axioms".
 
+lexo:axSemantic a owl:AnnotationProperty .
+
 lexo:axProperty a owl:AnnotationProperty ;
     rdfs:label "axiom property"@en ;
-    rdfs:comment "property for OWL property estrictions axioms"@en .
+    rdfs:comment "property for OWL property restrictions axioms"@en .
 
+lexo:className a owl:DatatypeProperty ;
+    rdfs:comment ""@en .
 
-lexo:skipped a owl:DatatypePropery ;
+lexo:cnPart a owl:DatatypeProperty ;
+    rdfs:comment "part which is used in the construction of class name"@en .
+
+lexo:cnOrder a owl:DatatypeProperty ;
+    rdfs:comment "gives the order of how the classname is constructed"@en .
+
+lexo:skipped a owl:DatatypeProperty ;
     rdfs:comment "a simple marker to check whether this part was used"@en .
 
-lexo:uncovered a owl:DatatypePropery ;
+lexo:uncovered a owl:DatatypeProperty ;
     rdfs:comment "A reason, why this part was not yet covered."@en .
 
 #*********************************
@@ -150,7 +162,7 @@ CONSTRUCT {
         a lexo:ClassPart ;
         lexo:cnPart ?name ;
         lexo:cnOrder ?order ;
-        lexo:axSource lexo:SimpleNoun
+        lexo:axSource lexo:CompoundNoun
     ] .
     ?compound lexo:skipped "we merged the NounCompoundModifier to the rightmost noun" .
 } {
@@ -215,20 +227,18 @@ CONSTRUCT  {
         lexo:axMerge  owl:intersectionOf ;
         lexo:axTarget ?dep
     ] .
-    #?dep lexo:skipped "true" .
 } {
-    ?gov  ?dep ?dep .
+    {?gov  stanford:amod ?dep .}
+    UNION
+    #TODO check whether this makes sense
+    {?gov  stanford:partmod ?dep .}
+    {?dep  nif:oliaCategory olia:Participle .}
+    UNION
+    {?dep  nif:oliaCategory  olia:Adjective .}
 
-    ?dep  nif:oliaCategory  ?adjectiveOrParticiple .
-
-    FILTER (?adjectiveOrParticiple IN (olia:Participle,olia:Adjective )) .
-    FILTER (?dep IN (stanford:amod, stanford:partmod )) .
-    # ?gov  stanford:amod ?dep .
-    # ?dep  nif:lemma ?lemma .
-    # ?dep  nif:anchorOf ?anchorOf .
-    # BIND (IRI(concat("http://example.org/type#",ucase(substr(?lemma,1,1)), substr(if(?adjectiveOrParticiple=olia:Adjective,?lemma,?anchorOf),2),"_Thing")) AS ?name) .
-    # TODO FILTER NOT EXISTS { ?dep lexo:adjectiveType lexo:Subsective}.
-    # TODO FILTER NOT EXISTS { ?dep lexo:adjectiveType lexo:Privative}.
+    # TODO implement
+    # FILTER NOT EXISTS { ?dep lexo:adjectiveType lexo:Subsective}.
+    # FILTER NOT EXISTS { ?dep lexo:adjectiveType lexo:Privative}.
 }""".
 
 #################################
@@ -322,7 +332,7 @@ CONSTRUCT {
     ] .
 } {
     ?verb  nif:oliaCategory olia:Verb ;
-        nif:lemma ?lemma  .
+           nif:lemma ?lemma  .
     ?verb ?prep ?target .
     FILTER (strStarts ( str(?prep), "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/vm/dep/stanford#prep_"  )) .
 

@@ -19,16 +19,15 @@ rsync -rav --delete dev/misc/resources.ttl nlp2rdf@www.uni-leipzig.de:/data/home
 rsync -rav .htaccess nlp2rdf@www.uni-leipzig.de:/data/homewww/nlp2rdf/webdir/ontologies
 
 #docu
-ONTO="nif-core/nif-core.owl nif-core/nif-stanbol.owl rlog/rlog.owl testcase/stc.owl vm/dep/stanford.owl vm/lexo/lexo.owl"
+ONTO="nif-core/nif-core nif-core/nif-stanbol rlog/rlog testcase/stc vm/dep/stanford vm/lexo/lexo"
 for doc in $ONTO
 	do 
-		curl "http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/""$doc" > /tmp/docu.html
+		curl "http://www.essepuntato.it/lode/http://persistence.uni-leipzig.org/nlp2rdf/ontologies/""$doc"".owl" > /tmp/docu.html
 		if [ -s /tmp/docu.html ]
 		then
-		  cp /tmp/docu.html "$doc"
+		  cp /tmp/docu.html "$doc"".html"
 		fi
 	done
-exit
 
 
 

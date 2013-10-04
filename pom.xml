@@ -42,7 +42,7 @@
           <goals>-Dmaven.test.skip=true deploy</goals>
         </configuration>
       </plugin>
-      <plugin>
+      <!--plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
         <version>2.1.2</version>
@@ -55,7 +55,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
+      </plugin-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -74,28 +74,28 @@
           <exclude>previous/**/*</exclude>
           <exclude>*.html</exclude>
         </excludes>
-        <targetPath>org/uni-leipzig/persistence/nlp2rdf/nif-core</targetPath>
+        <targetPath>org/uni-leipzig/persistence/nlp2rdf/ontologies/nif-core</targetPath>
       </resource>
       <resource>
         <directory>rlog</directory>
         <excludes>
           <exclude>*.html</exclude>
         </excludes>
-        <targetPath>org/uni-leipzig/persistence/nlp2rdf/rlog</targetPath>
+        <targetPath>org/uni-leipzig/persistence/nlp2rdf/ontologies/rlog</targetPath>
       </resource>
       <resource>
         <directory>testcase</directory>
         <excludes>
           <exclude>*.html</exclude>
         </excludes>
-        <targetPath>org/uni-leipzig/persistence/nlp2rdf/testcase</targetPath>
+        <targetPath>org/uni-leipzig/persistence/nlp2rdf/ontologies/testcase</targetPath>
       </resource>
       <resource>
-        <directory>vm/dep</directory>
+        <directory>vm</directory>
         <excludes>
           <exclude>*.html</exclude>
         </excludes>
-        <targetPath>org/uni-leipzig/persistence/nlp2rdf/vm/dep</targetPath>
+        <targetPath>org/uni-leipzig/persistence/nlp2rdf/ontologies/vm</targetPath>
       </resource>
     </resources>
   </build>
