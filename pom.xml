@@ -98,7 +98,7 @@
         <targetPath>org/uni-leipzig/persistence/nlp2rdf/ontologies/vm</targetPath>
       </resource>
     </resources>
-  </build>
+    </build>
   <repositories>
     <repository>
       <id>maven.aksw.internal</id>

@@ -1,0 +1,376 @@
+@prefix saplo:   <http://developer.saplo.com/method/text-tags#> .
+@prefix opencalais:  <http://www.opencalais.com/documentation/calais-web-service-api/api-metadata/entity-index-and-definitions#> .
+@prefix extractiv:  <http://wiki.extractiv.com/w/page/29179775/Entity-Extraction#> .
+@prefix nerd:    <http://nerd.eurecom.fr/ontology#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix semitags:  <http://ner2.lmcloud.vse.cz/SemiTags/app/static/types#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix dbpedia:  <http://dbpedia.org/ontology/> .
+@prefix wikimeta:  <http://www.wikimeta.com#> .
+@prefix alchemyapi:  <http://www.alchemyapi.com/api/entity/types.html#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix zemanta:  <http://developer.zemanta.com/docs/entity_type/> .
+@prefix yahoo:   <http://developer.yahoo.com/search/content/V2/contentAnalysis.html#> .
+
+nerd:isCoreClass 
+	rdfs:label "is core class" ;
+	rdfs:comment "1 if it is a core class (except nerd:Thing), non-existant otherwise." ;
+	a owl:AnnotationProperty ;
+	rdfs:range xsd:boolean .
+
+nerd:Amount nerd:isCoreClass "1" .
+nerd:Animal nerd:isCoreClass "1" .
+nerd:Event nerd:isCoreClass "1" .
+nerd:Function nerd:isCoreClass "1" .
+nerd:Location nerd:isCoreClass "1" .
+nerd:Organization nerd:isCoreClass "1" .
+nerd:Person nerd:isCoreClass "1" .
+nerd:Time nerd:isCoreClass "1" .
+
+nerd:SchoolNewspaper
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Product , alchemyapi:SchoolNewspaper .
+
+nerd:PhoneNumber
+      a       owl:Class ;
+      rdfs:subClassOf extractiv:PHONE_NUMBER , nerd:Product , opencalais:PhoneNumber .
+
+nerd:Country
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Location , extractiv:COUNTRY , alchemyapi:Country , opencalais:Country .
+
+nerd:Criminal
+      a       owl:Class ;
+      rdfs:subClassOf extractiv:CRIMINAL , nerd:Person .
+
+nerd:Valley
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Location , extractiv:VALLEY .
+
+nerd:River
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Location , alchemyapi:River , extractiv:RIVER .
+
+nerd:SoccerPlayer
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Person .
+
+nerd:Astronaut
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Person .
+
+nerd:Continent
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Location , opencalais:Continent , alchemyapi:Continent , extractiv:CONTINENT .
+
+nerd:ProgrammingLanguage
+      a       owl:Class ;
+      rdfs:subClassOf dbpedia:ProgrammingLanguage , nerd:Product , zemanta:programming_language , opencalais:ProgrammingLanguage .
+
+nerd:Person
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Thing ;
+      owl:equivalentClass opencalais:Person , semitags:person , saplo:Person , zemanta:person , extractiv:PERSON , yahoo:person , alchemyapi:Person , wikimeta:PERS , dbpedia:Person .
+
+nerd:EducationalInstitution
+      a       owl:Class ;
+      rdfs:subClassOf zemanta:educational_institution , nerd:Organization , extractiv:EDUCATIONAL_ORG .
+
+nerd:OperatingSystem
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Product , opencalais:OperatingSystem , zemanta:operating_system , alchemyapi:OperatingSystem , extractiv:OPERATING_SYSTEM .
+
+nerd:University
+      a       owl:Class ;
+      rdfs:subClassOf extractiv:UNIVERSITY , nerd:Organization .
+
+nerd:Athlete
+      a       owl:Class ;
+      rdfs:subClassOf extractiv:ATHLETE , nerd:Person .
+
+nerd:Legislature
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Organization .
+
+nerd:Aircraft
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Product , extractiv:AIRCRAFT .
+
+nerd:Thing
+      a       owl:Class .
+
+nerd:Company
+      a       owl:Class ;
+      rdfs:subClassOf zemanta:company , yahoo:company_name , nerd:Organization , opencalais:Company .
+
+nerd:Event
+      a       owl:Class ;
+      rdfs:subClassOf zemanta:event , nerd:Thing .
+
+nerd:VideoGame
+      a       owl:Class ;
+      rdfs:subClassOf zemanta:computer_videogame , nerd:Product , dbpedia:VideoGame , extractiv:VIDEO_GAME .
+
+nerd:Drug
+      a       owl:Class ;
+      rdfs:subClassOf extractiv:DRUG , nerd:Product , dbpedia:Drug , alchemyapi:Drug .
+
+nerd:Location
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Thing ;
+      owl:equivalentClass extractiv:LOCATION , yahoo:place , saplo:Location , yahoo:location , semitags:location , dbpedia:Place , wikimeta:LOC .
+
+nerd:Bird
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Animal , extractiv:BIRD .
+
+nerd:ComicsCharacter
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Person .
+
+nerd:EmailAddress
+      a       owl:Class ;
+      rdfs:subClassOf extractiv:EMAIL , nerd:Product .
+
+nerd:AdministrativeRegion
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Location , alchemyapi:GovernmentalJurisdiction , alchemyapi:AdministrativeDivision .
+
+nerd:Celebrity
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Person .
+
+nerd:Architect
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Person .
+
+nerd:Album
+      a       owl:Class ;
+      rdfs:subClassOf zemanta:album , dbpedia:Album , nerd:Product .
+
+nerd:MusicalArtist
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Person , yahoo:music_artist .
+
+nerd:Automobile
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Product , extractiv:AUTOMOBILE_MODEL , alchemyapi:Automobile , dbpedia:Automobile .
+
+nerd:TennisPlayer
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Person .
+
+nerd:Amount
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Thing ;
+      owl:equivalentClass wikimeta:AMOUNT .
+
+nerd:Artist
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Person , zemanta:artist .
+
+nerd:Airport
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Location , alchemyapi:Airport , extractiv:AIRPORT .
+
+nerd:City
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Location , extractiv:CITY , alchemyapi:City .
+
+nerd:Mountain
+      a       owl:Class ;
+      rdfs:subClassOf alchemyapi:Mountain , nerd:Location , extractiv:MOUNTAIN .
+
+nerd:SoccerClub
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Organization .
+
+nerd:Movie
+      a       owl:Class ;
+      rdfs:subClassOf alchemyapi:Movie , dbpedia:Film , yahoo:movie_name , extractiv:MOVIE , nerd:Product , zemanta:film , opencalais:Movie .
+
+nerd:Function
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Thing ;
+      owl:equivalentClass wikimeta:FONC , dbpedia:PersonFunction , opencalais:Position .
+
+nerd:Software
+      a       owl:Class ;
+      rdfs:subClassOf dbpedia:Software , zemanta:software , nerd:Product , extractiv:SOFTWARE .
+
+nerd:Broadcast
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Organization .
+
+nerd:Newspaper
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Product , dbpedia:Newspaper , alchemyapi:Newspaper , zemanta:newspaper .
+
+nerd:Road
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Location , extractiv:ROAD .
+
+nerd:Animal
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Thing ;
+      owl:equivalentClass dbpedia:Animal .
+
+nerd:Website
+      a       owl:Class ;
+      rdfs:subClassOf dbpedia:Website , nerd:Product , zemanta:website .
+
+nerd:Station
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Location , alchemyapi:Station .
+
+nerd:Politician
+      a       owl:Class ;
+      rdfs:subClassOf zemanta:politician , nerd:Person .
+
+nerd:Song
+      a       owl:Class ;
+      rdfs:subClassOf dbpedia:Song , nerd:Product , zemanta:track .
+
+nerd:Book
+      a       owl:Class ;
+      rdfs:subClassOf yahoo:book , nerd:Product , zemanta:book , dbpedia:Book .
+
+nerd:PoliticalEvent
+      a       owl:Class ;
+      rdfs:subClassOf zemanta:political_party , opencalais:PoliticalEvent , nerd:Event , alchemyapi:PoliticalParty .
+
+nerd:Spacecraft
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Product , dbpedia:Spacecraft , extractiv:SPACECRAFT .
+
+nerd:RadioStation
+      a       owl:Class ;
+      rdfs:subClassOf opencalais:RadioStation , nerd:Organization , extractiv:RADIO_STATION , alchemyapi:RadioStation .
+
+nerd:Restaurant
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Location , alchemyapi:Restaurant .
+
+nerd:Organization
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Thing ;
+      owl:equivalentClass wikimeta:ORG , saplo:Organization , alchemyapi:Organization , semitags:organization , opencalais:Organization , dbpedia:Organisation , zemanta:organization , yahoo:organization , extractiv:ORGANIZATION .
+
+nerd:Airline
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Organization , extractiv:AIRLINE .
+
+nerd:Time
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Thing ;
+      owl:equivalentClass extractiv:TIME , wikimeta:TIME , zemanta:time .
+
+nerd:NonProfitOrganization
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Organization .
+
+nerd:Insect
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Animal , extractiv:INSECT .
+
+nerd:SportEvent
+      a       owl:Class ;
+      rdfs:subClassOf dbpedia:SportsEvent , opencalais:SportsEvent , nerd:Event .
+
+nerd:FictionalCharacter
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Person .
+
+nerd:SportsTeam
+      a       owl:Class ;
+      rdfs:subClassOf extractiv:SPORTS_TEAM , nerd:Organization .
+
+nerd:Island
+      a       owl:Class ;
+      rdfs:subClassOf alchemyapi:Island , nerd:Location , extractiv:ISLAND .
+
+nerd:Hospital
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Location , alchemyapi:Hospital .
+
+nerd:TVStation
+      a       owl:Class ;
+      rdfs:subClassOf extractiv:TV_NETWORK , nerd:Organization , opencalais:TVStation .
+
+nerd:Product
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Thing ;
+      owl:equivalentClass yahoo:product , opencalais:Product , zemanta:consumer_product , wikimeta:PROD .
+
+nerd:Band
+      a       owl:Class ;
+      rdfs:subClassOf extractiv:BAND , alchemyapi:MusicGroup , nerd:Organization , opencalais:MusicGroup .
+
+nerd:Magazine
+      a       owl:Class ;
+      rdfs:subClassOf dbpedia:Magazine , alchemyapi:Magazine , nerd:Product , extractiv:MAGAZINE .
+
+nerd:Museum
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Location , zemanta:museum .
+
+nerd:MilitaryConflict
+      a       owl:Class ;
+      rdfs:subClassOf dbpedia:MilitaryConflict , extractiv:CONFLICT , nerd:Event .
+
+nerd:Lake
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Location , extractiv:LAKE , alchemyapi:Lake .
+
+nerd:Mayor
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Person .
+
+nerd:Ambassador
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Person , extractiv:AMBASSADOR .
+
+nerd:Weapon
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Product , dbpedia:Weapon , extractiv:WEAPON .
+
+nerd:URL
+      a       owl:Class ;
+      rdfs:subClassOf opencalais:URL , saplo:URL , nerd:Product , extractiv:URL .
+
+nerd:Park
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Location , alchemyapi:Park .
+
+nerd:Holiday
+      a       owl:Class ;
+      rdfs:subClassOf opencalais:Holiday , yahoo:holiday , nerd:Time , alchemyapi:Holiday , dbpedia:Holiday .
+
+nerd:Canal
+      a       owl:Class ;
+      rdfs:subClassOf extractiv:CANAL , nerd:Location .
+
+nerd:Lighthouse
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Location , alchemyapi:Lighthouse .
+
+nerd:SportsLeague
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Organization , extractiv:SPORTS_LEAGUE , opencalais:SportsLeague .
+
+nerd:Bridge
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Location , extractiv:BRIDGE , alchemyapi:Bridge .
+
+nerd:RadioProgram
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Product , zemanta:radio_program , opencalais:RadioProgram , alchemyapi:RadioProgram .
+
+nerd:ShoppingMall
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Location , alchemyapi:ShoppingMall .
+
+nerd:Stadium
+      a       owl:Class ;
+      rdfs:subClassOf nerd:Location , alchemyapi:Stadium .
