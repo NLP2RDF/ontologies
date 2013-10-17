@@ -1,3 +1,3 @@
 [submodule "vm/nerd"]
 	path = vm/nerd
-	url = git@github.com:NERD-project/nerd-ontology.git
+	url = git://github.com/NERD-project/nerd-ontology.git
