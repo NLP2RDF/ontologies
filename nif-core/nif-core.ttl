@@ -84,20 +84,27 @@
     
 nif:String
     a owl:Class ; 
-    owl:versionInfo "1.0.0" ;
+    owl:versionInfo "1.0.1" ;
     rdfs:label "String"@en ;
-    rdfs:comment """Individuals of this class are string, i.e. Unicode characters. 
+    rdfs:comment """Individuals of this class are a string, i.e. Unicode characters, who have been given a URI and are used in the subject of an RDF statement.  
+    This class is abstract and should not be serialized. 
     
     NIF-Stanbol (nif-stanbol.ttl):
     subclassOf nifs:Annotation because it "annotates" strings for example with begin and end index. The class is similar to fise:TextAnnotation
-     
+    
+    Changelog
+    * 1.0.1. improved documentation
     """@en .
     
 nif:Context
     a owl:Class ;
-    owl:versionInfo "1.0.0" ;
+    owl:versionInfo "1.0.1" ;
     rdfs:label "Context"@en ;
-    rdfs:comment """The string used to calculate the indexes for, if used with nif:referenceContext, see http://svn.aksw.org/papers/2013/ISWC_NIF/public.pdf """ ;
+    rdfs:comment """The string that serves as a context for its substrings.  The Unicode String given in the nif:isString property must be used to calculate the begin and endIndex for all nif:Strings that have a nif:referenceContext property to this URI. For further information, see http://svn.aksw.org/papers/2013/ISWC_NIF/public.pdf 
+    
+    Changelog
+    * 1.0.1. improved documentation
+    """@en ;
     rdfs:subClassOf nif:String . 
 
 nif:referenceContext
@@ -121,12 +128,16 @@ nif:referenceContext
 
 nif:isString
     a owl:DatatypeProperty ;
-    owl:versionInfo "1.0.0" ;
+    owl:versionInfo "1.0.1" ;
     rdfs:label "is string"@en ; 
     rdfs:comment """The reference text as rdf:Literal for this nif:Context resource.  
-    NIF highly recommends to always include the reference text (i.e. the context) as an rdf:Literal.
+    NIF requires that the reference text (i.e. the context) is always included in the RDF as an rdf:Literal.
     Note, that the isString property is *the* place to keep the string itself in RDF.
-    All other nif:Strings and nif:URISchemes relate to the text of this property to calculate character position and indices. """@en ;
+    All other nif:Strings and nif:URISchemes relate to the text of this property to calculate character position and indices. 
+    
+    Changelog
+    * 1.0.1 improved documentation
+    """@en ;
 	rdfs:subPropertyOf nif:anchorOf ;
     rdfs:domain nif:Context .
 
@@ -239,15 +250,28 @@ nif:inter
 
 nif:ContextCollection
     a owl:Class ;
-    owl:versionInfo "0.1.0" ;
+    owl:versionInfo "0.1.1" ;
     rdfs:label "Context Collection"@en ;
-    rdfs:comment """An entity grouping different nif:Context via the nif:context property. This is often the same as a dcoument collection, but is named Context in NIF, because NIF describes on Unicode Strings."""@en .
+    rdfs:comment """A collection of contexts used to create an unordered set of context via the nif:hasContext property. This can be compared to a document collection, but here it is a collection of nif:Context and therefore a collection of annotated strings, not documents. 
+    
+    Open Issues
+    Investigate ordered collections
+    
+    Changelog
+    * 0.1.1 improved documentation
+    """@en .
 
-nif:context
+nif:hasContext
     a owl:ObjectProperty ;
-    owl:versionInfo "0.1.0" ;
-    rdfs:label "link to context"@en ;
-    rdfs:comment """Links a nif:ContextCollection to its contexts. This is often the same as a dcoument collection, but is named Context in NIF, because NIF describes on Unicode Strings. """@en .
+    owl:versionInfo "0.2.0" ;
+    rdfs:label "has context"@en ;
+    rdfs:comment """Links a nif:ContextCollection to its contexts. 
+    
+    Changelog
+    * 0.2.0. renamed property since a lot of people where too confused by nif:context
+    """@en ;
+    rdfs:domain nif:ContextCollection ;
+    rdfs:range nif:Context .
 
 ########################################################################
         
@@ -278,7 +302,13 @@ nif:Structure
     a owl:Class ;
     owl:versionInfo "0.1.0" ;
     rdfs:label "Structure"@en ;
-    rdfs:comment """A structure is a more or less arbitrary label for a partitioning of a string. We do not follow a strict approach for what a word, phrase, sentence, title, paragraph is. These labels enable the definition processes for tool chains, e.g. tool analyses nif:Paragraph and calculates term frequency. """ ;
+    rdfs:comment """A structure is a more or less arbitrary label for a partitioning of a string. We do not follow a strict approach for what a word, phrase, sentence, title, paragraph is. These labels enable the definition processes for tool chains, e.g. tool analyses nif:Paragraph and calculates term frequency. 
+    
+    This is an abstract class and should not be serialized. 
+    
+    Changelog
+    0.1.1 not to be serialized comment
+    """ ;
     rdfs:subClassOf nif:String .
    
    
@@ -289,16 +319,20 @@ nif:Structure
 
 nif:sourceUrl
     a owl:ObjectProperty ;
-    owl:versionInfo "0.1.0" ;
+    owl:versionInfo "0.2.0" ;
     rdfs:label "source URL"@en ;	
-    rdfs:comment "The URL the context was extracted from, e.g. the blog or news article url. Doesn't matter whether it is HTML or XML or plain text. rdfs:range is foaf:Document, if the string comes form another NIF String, please use nif:wasConvertedFrom"@en ;
+    rdfs:comment """The URL the context was extracted from, e.g. the blog or news article url. Doesn't matter whether it is HTML or XML or plain text. rdfs:range is foaf:Document.  Subproperty of prov:hadPrimarySource. In case the the string comes from another NIF String, please use nif:wasConvertedFrom
+    Changelog:
+    * 0.2.0 added subPropertyOf prov:hadPrimarySource
+    """@en ;
+    rdfs:subPropertyOf prov:hadPrimarySource ;
     rdfs:domain nif:Context .
 
 nif:wasConvertedFrom
     a owl:ObjectProperty ;
     owl:versionInfo "0.1.0" ;
     rdfs:label "was converted from"@en ;	
-    rdfs:comment """This property should be used, when mapping one NIF String URIScheme to another.
+    rdfs:comment """This property should be used, when mapping one nif:String or nif:Context to another.
     It mainly is used to provide provenance during a conversion process, e.g. when removing tags from XHTML and then linking XPath URIs to NIF index based URIs (e.g.  RFC 5147 with char=x,y).
     An example of the usage of this property can be found here: http://www.w3.org/TR/its20/#conversion-to-nif
     """@en ;
@@ -387,7 +421,7 @@ nif:CStringInst
     a owl:Class ;
     owl:versionInfo "0.0.0" ;
     rdfs:label "Consecutive String Instantiation"@en ;
-    rdfs:comment """An abitrary URI (e.g. a URN) for an arbitrary string of the context. This is exactly the same as TextAnnotations are currently implemented in Stanbol."""@en ;
+    rdfs:comment """An abitrary URI (e.g. a URN) for an arbitrary string of the context. This is roughly the same as TextAnnotations are currently implemented in Stanbol."""@en ;
     rdfs:subClassOf nif:CString .
     
 
@@ -632,31 +666,31 @@ nif:previousWordTrans
 
 
 #TODO
-nif:OccurringString
-    a owl:Class ;
-    owl:versionInfo "0.0.0" ;
-    rdfs:label "Occurring String"@en ;
-	rdfs:comment """(NOTE: this is a real early draft) Instances of this class represent all occurring strings which match this string within the same context. Requires the presence of nif:anchorOf.  Definition: All strings in the context, that match, if you search for the literal of nif:anchorOf.  The pattern for this scheme is 'occ_'+urlencode($anchorOf) . 
+#nif:OccurringString
+#    a owl:Class ;
+#    owl:versionInfo "0.0.0" ;
+#    rdfs:label "Occurring String"@en ;
+#	rdfs:comment """(NOTE: this is a real early draft) Instances of this class represent all occurring strings which match this string within the same context. Requires the presence of nif:anchorOf.  Definition: All strings in the context, that match, if you search for the literal of nif:anchorOf.  The pattern for this scheme is 'occ_'+urlencode($anchorOf) . 
 	
-	To express that this string is a word or phrase combine with a "structure" class.
-	It is a scheme to refer to all substrings with an exact string match in one context. If such a URI is used, it implies, that the word occurs at least once in the given context. Otherwise nif:LabelString should be used. """@en ;
-    rdfs:subClassOf nif:String .
+#	To express that this string is a word or phrase combine with a "structure" class.
+#	It is a scheme to refer to all substrings with an exact string match in one context. If such a URI is used, it implies, that the word occurs at least once in the given context. Otherwise nif:LabelString should be used. """@en ;
+#    rdfs:subClassOf nif:String .
 
 #TODO
-nif:LabelString
-    a owl:Class ;
-    owl:versionInfo "0.0.0" ;
-    rdfs:label "Label String"@en ;
-	rdfs:comment """(NOTE: this is a real early draft) Instances of this class represent a label independent from any context. This class is a subClassOf skosxl:Label, but disjoint with nif:String (see nif-core-val.ttl). We included this class in nif-core, because we are proposing the following scheme for it: 'label_'+urlencode($term). Might be replaces with lemon in the future.  """@en ;
-    rdfs:subClassOf skosxl:Label .
+#nif:LabelString
+#    a owl:Class ;
+#    owl:versionInfo "0.0.0" ;
+#    rdfs:label "Label String"@en ;
+#	rdfs:comment """(NOTE: this is a real early draft) Instances of this class represent a label independent from any context. This class is a subClassOf skosxl:Label, but disjoint with nif:String (see nif-core-val.ttl). We included this class in nif-core, because we are proposing the following scheme for it: 'label_'+urlencode($term). Might be replaces with lemon in the future.  """@en ;
+#    rdfs:subClassOf skosxl:Label .
 
 #TODO
-nif:occurrence
-    a owl:ObjectProperty ;
-    owl:versionInfo "0.0.0" ;
-    rdfs:comment "(NOTE: this is a real early draft) This property links a URI of type OccurringString to other nif:String, that occur in the same context." ;
-    rdfs:domain nif:OccurringString ;
-    rdfs:range nif:String .
+#nif:occurrence
+#    a owl:ObjectProperty ;
+#    owl:versionInfo "0.0.0" ;
+#   rdfs:comment "(NOTE: this is a real early draft) This property links a URI of type OccurringString to other nif:String, that occur in the same context." ;
+#   rdfs:domain nif:OccurringString ;
+#   rdfs:range nif:String .
 
 ###############
 # Properties for common annotations
@@ -691,7 +725,8 @@ nif:oliaLink
     owl:versionInfo "0.1.1" ; 
     rdfs:label "OLiA link"@en ;
     rdfs:comment """This property links a string to a URI from one of the OLiA Annotation model, e.g. http://purl.org/olia/penn.owl#NNP 
-    Changelog:
+   
+    Changelog
     0.1.1 - added subproperty of nif:annotation as per http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 21 
     """@en ;
     ## rdfs:range TODO ;
@@ -702,12 +737,13 @@ nif:oliaLink
     
 nif:oliaCategory
     a owl:AnnotationProperty ;
-    owl:versionInfo "0.1.2" ; 
+    owl:versionInfo "0.1.3" ; 
     rdfs:label "OLiA Category"@en ;
-    rdfs:comment """This property links a string to the OLiA Reference model. It provides a direct link for querying, thus it is an optimization. 
+    rdfs:comment """This property links a string URI to classes of the OLiA Reference model. It provides a direct link for querying, thus it is a redundant optimization. 
     Changelog:
     0.1.1 - added subproperty of nif:classAnnotation as per http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 21 
     0.1.2 - removed domain axiom for annotationproperty
+    0.1.3 - improved documentation
     """@en ;
     rdfs:subPropertyOf nif:classAnnotation .
 
@@ -760,6 +796,16 @@ nif:category
 	* 0.2.0 changed nif:class to nif:category due to conflict with Java 
 	"""@en ;
 	a owl:AnnotationProperty .
+
+###############
+# enttity additions to the ITS RDF ontology
+###############
+
+nif:taMsClassRef
+	a owl:AnnotationProperty ;
+    owl:versionInfo "0.1.0" ; 
+	rdfs:label "most specific class reference"@en;
+	rdfs:comment """This property marks the most specific class from itsrdf:taClassRef. The rule is: from the set S of itsrdf:taClassRef attached to this resource taMscRef points to the one that does not have any subclasses in the set S except itself. So if taClassRef is owl:Thing, dbo:Agent, dbo:Person, dbp:Actor taMsClassRef is dbo:Actor """@en .
 
 ###############
 # Dependencies

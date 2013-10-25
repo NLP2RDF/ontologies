@@ -1,0 +1,276 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+
+<http://www.w3.org/2005/11/its/rdf#>
+    dc:rights <http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231> ;
+    a owl:Ontology ;
+    rdfs:comment """ This is the ITS 2.0 / RDF
+      Ontology version 18 April 2013. The ontology is used within the ITS 2.0 specification, see
+      http://www.w3.org/TR/its20/ It has been produced by the W3C MultilingualWeb-LT working group,
+      see http://www.w3.org/International/multilingualweb/lt/ Please note that this file may change
+      without notice. For updated information, please refer to the latest version of
+      Internationalization Tag Set (ITS) Version 2. specification at http://www.w3.org/TR/its20/ and
+      the MultilingualWeb-LT working group page at
+      http://www.w3.org/International/multilingualweb/lt/"""@en .
+
+
+itsrdf:LocQualityIssue
+    a owl:Class .
+
+itsrdf:ProvRecord
+    a owl:Class .
+
+itsrdf:allowedCharacters
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+itsrdf:dir
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+itsrdf:domains
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+itsrdf:externalResourceRef
+    a owl:ObjectProperty .
+
+itsrdf:hasLocQualityIssue
+    a owl:ObjectProperty ;
+    rdfs:range itsrdf:LocQualityIssue .
+
+itsrdf:hasProvRecord
+    a owl:ObjectProperty ;
+    rdfs:range itsrdf:ProvRecord .
+
+itsrdf:id
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+itsrdf:lineBreakType
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+itsrdf:locNote
+    a owl:DatatypeProperty .
+
+itsrdf:locNoteRef
+    a owl:ObjectProperty .
+
+itsrdf:locNoteType
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+itsrdf:locQualityIssueComment
+    a owl:DatatypeProperty ;
+    rdfs:domain itsrdf:LocQualityIssue .
+
+itsrdf:locQualityIssueEnabled
+    a owl:DatatypeProperty ;
+    rdfs:domain itsrdf:LocQualityIssue ;
+    rdfs:range xsd:string .
+
+itsrdf:locQualityIssueProfileRef
+    a owl:ObjectProperty ;
+    rdfs:domain itsrdf:LocQualityIssue .
+
+itsrdf:locQualityIssueSeverity
+    a owl:DatatypeProperty ;
+    rdfs:domain itsrdf:LocQualityIssue ;
+    rdfs:range xsd:decimal .
+
+itsrdf:locQualityIssueType
+    a owl:DatatypeProperty ;
+    rdfs:domain itsrdf:LocQualityIssue ;
+    rdfs:range xsd:string .
+
+itsrdf:locQualityRatingProfileRef
+    a owl:ObjectProperty .
+
+itsrdf:locQualityRatingScore
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:decimal .
+
+itsrdf:locQualityRatingScoreThreshold
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:decimal .
+
+itsrdf:locQualityRatingVote
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:integer .
+
+itsrdf:locQualityRatingVoteThreshold
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:integer .
+
+itsrdf:localeFilterList
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+itsrdf:localeFilterType
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+itsrdf:mtConfidence
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:decimal .
+
+itsrdf:mtConfidenceAnnotatorsRef
+    a owl:ObjectProperty .
+
+itsrdf:org
+    a owl:DatatypeProperty ;
+    rdfs:domain itsrdf:ProvRecord .
+
+itsrdf:orgRef
+    a owl:ObjectProperty ;
+    rdfs:domain itsrdf:ProvRecord .
+
+itsrdf:person
+    a owl:DatatypeProperty ;
+    rdfs:domain itsrdf:ProvRecord .
+
+itsrdf:personRef
+    a owl:ObjectProperty ;
+    rdfs:domain itsrdf:ProvRecord .
+
+itsrdf:provRef
+    a owl:ObjectProperty ;
+    rdfs:domain itsrdf:ProvRecord .
+
+itsrdf:revOrg
+    a owl:DatatypeProperty ;
+    rdfs:domain itsrdf:ProvRecord .
+
+itsrdf:revOrgRef
+    a owl:ObjectProperty ;
+    rdfs:domain itsrdf:ProvRecord .
+
+itsrdf:revPerson
+    a owl:DatatypeProperty ;
+    rdfs:domain itsrdf:ProvRecord .
+
+itsrdf:revPersonRef
+    a owl:ObjectProperty ;
+    rdfs:domain itsrdf:ProvRecord .
+
+itsrdf:revTool
+    a owl:DatatypeProperty ;
+    rdfs:domain itsrdf:ProvRecord .
+
+itsrdf:revToolRef
+    a owl:ObjectProperty ;
+    rdfs:domain itsrdf:ProvRecord .
+
+itsrdf:space
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+itsrdf:storageEncoding
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+itsrdf:storageSize
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:nonNegativeInteger .
+
+itsrdf:taAnnotatorsRef
+    a owl:ObjectProperty .
+
+itsrdf:taClassRef
+    a owl:AnnotationProperty .
+
+itsrdf:taConfidence
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:decimal .
+
+itsrdf:taIdent
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+itsrdf:taIdentRef
+    a owl:ObjectProperty .
+
+itsrdf:taPropRef
+    a owl:AnnotationProperty .
+
+itsrdf:taSource
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+itsrdf:target
+    a owl:DatatypeProperty .
+
+itsrdf:term
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+itsrdf:termAnnotatorsRef
+    a owl:ObjectProperty .
+
+itsrdf:termConfidence
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:decimal .
+
+itsrdf:termInfoRef
+    a owl:ObjectProperty .
+
+itsrdf:tool
+    a owl:DatatypeProperty ;
+    rdfs:domain itsrdf:ProvRecord .
+
+itsrdf:toolRef
+    a owl:ObjectProperty ;
+    rdfs:domain itsrdf:ProvRecord .
+
+itsrdf:translate
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+itsrdf:withinText
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+
+<http://example.com/exampledoc.html#char=0,29>
+    nif:anchorOf "Welcome to Dublin in Ireland!" ;
+    nif:isString "Welcome to Dublin in Ireland!" ;
+    nif:referenceContext <http://example.com/exampledoc.html#char=0,29> ;
+    nif:sourceUrl <http://example.com/exampledoc.html> ;
+    a nif:Context, nif:RFC5147String ;
+    itsrdf:translate "yes" ;
+    itsrdf:withinText "no" .
+
+<http://example.com/exampledoc.html#char=11,17>
+    nif:anchorOf "Dublin" ;
+    nif:referenceContext <http://example.com/exampledoc.html#char=0,29> ;
+    a nif:RFC5147String ;
+    itsrdf:taIdentRef <http://dbpedia.org/resource/Dublin> ;
+    itsrdf:translate "no" ;
+    itsrdf:withinText "yes" .
+
+<http://example.com/exampledoc.html#char=21,28>
+    nif:anchorOf "Ireland" ;
+    nif:referenceContext <http://example.com/exampledoc.html#char=0,29> ;
+    a nif:RFC5147String ;
+    itsrdf:translate "no" ;
+    itsrdf:withinText "yes" .
+
+<http://example.com/exampledoc.html#xpath(/html/body%5B1%5D/h2%5B1%5D)>
+    nif:convertedFrom <http://example.com/exampledoc.html#char=0,29> .
+
+<http://example.com/exampledoc.html#xpath(/html/body%5B1%5D/h2%5B1%5D/b%5B1%5D)>
+    nif:convertedFrom <http://example.com/exampledoc.html#char=21,28> .
+
+<http://example.com/exampledoc.html#xpath(/html/body%5B1%5D/h2%5B1%5D/span%5B1%5D)>
+    nif:convertedFrom <http://example.com/exampledoc.html#char=11,17> .
+
+
+
