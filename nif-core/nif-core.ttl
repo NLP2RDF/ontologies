@@ -84,7 +84,7 @@
     
 nif:String
     a owl:Class ; 
-    owl:versionInfo "1.0.1" ;
+    owl:versionInfo "1.0.2" ;
     rdfs:label "String"@en ;
     rdfs:comment """Individuals of this class are a string, i.e. Unicode characters, who have been given a URI and are used in the subject of an RDF statement.  
     This class is abstract and should not be serialized. 
@@ -94,21 +94,42 @@ nif:String
     
     Changelog
     * 1.0.1. improved documentation
-    """@en .
+    * 1.0.2. merged inf and val model
+    """@en ;
+    owl:hasKey (nif:referenceContext nif:beginIndex nif:endIndex) ;
+    rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty nif:referenceContext ;
+		owl:someValuesFrom nif:Context 
+	] ;
+	owl:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty nif:referenceContext ;
+		owl:allValuesFrom nif:Context 
+	] . 
+
     
 nif:Context
     a owl:Class ;
-    owl:versionInfo "1.0.1" ;
+    owl:versionInfo "1.0.2" ;
     rdfs:label "Context"@en ;
     rdfs:comment """The string that serves as a context for its substrings.  The Unicode String given in the nif:isString property must be used to calculate the begin and endIndex for all nif:Strings that have a nif:referenceContext property to this URI. For further information, see http://svn.aksw.org/papers/2013/ISWC_NIF/public.pdf 
     
     Changelog
     * 1.0.1. improved documentation
+    * 1.0.2. merged inf model
     """@en ;
-    rdfs:subClassOf nif:String . 
+    rdfs:subClassOf nif:String ;
+    # owl:hasKey ( nif:isString ) ;
+    rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty nif:referenceContext ;
+		owl:hasSelf "true"^^xsd:boolean 
+	] . 
 
 nif:referenceContext
     a owl:ObjectProperty ;
+    a owl:FunctionalProperty ;
     owl:versionInfo "1.0.0" ;
     rdfs:label "reference context"@en ;
     rdfs:comment """Links a URI of a string to its reference context of type nif:Context.  The reference context determines the calculation of begin and end index
@@ -122,13 +143,15 @@ nif:referenceContext
     
     Changelog:
     * 1.0.0: Introduced stable version.
+    * 1.0.1: merged val model
     """@en ;
     rdfs:domain nif:String ;
     rdfs:range nif:Context .
 
 nif:isString
     a owl:DatatypeProperty ;
-    owl:versionInfo "1.0.1" ;
+    a owl:FunctionalProperty  ;
+    owl:versionInfo "1.0.2" ;
     rdfs:label "is string"@en ; 
     rdfs:comment """The reference text as rdf:Literal for this nif:Context resource.  
     NIF requires that the reference text (i.e. the context) is always included in the RDF as an rdf:Literal.
@@ -136,7 +159,9 @@ nif:isString
     All other nif:Strings and nif:URISchemes relate to the text of this property to calculate character position and indices. 
     
     Changelog
+    * 1.0.0: Introduced stable version.
     * 1.0.1 improved documentation
+    * 1.0.2: merged val+inf
     """@en ;
 	rdfs:subPropertyOf nif:anchorOf ;
     rdfs:domain nif:Context .
@@ -144,7 +169,8 @@ nif:isString
     
 nif:beginIndex
     a owl:DatatypeProperty ;
-    owl:versionInfo "1.0.0" ;
+    a owl:FunctionalProperty ;
+    owl:versionInfo "1.0.1" ;
     rdfs:label "begin index"@en ;
     rdfs:comment """The begin index of a character range as defined in http://tools.ietf.org/html/rfc5147#section-2.2.1 and http://tools.ietf.org/html/rfc5147#section-2.2.2, measured as the gap between two characters, starting to count from 0 (the position before the first character of a text). 
     Example: Index "2" is the postion between "Mr" and "."  in "Mr. Sandman".
@@ -154,17 +180,19 @@ nif:beginIndex
     
     Changelog: 
     * 1.0.0: Introduced stable version.
+    * 1.0.1: merged val+inf, added range
     """ ;
     # still being discussed:
     # rdfs:subPropertyOf oa:start ;
-    # rdfs:range <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
+    rdfs:range <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
     rdfs:domain nif:String .
     
 
 
 nif:endIndex
     a owl:DatatypeProperty ;
-    owl:versionInfo "1.0.0" ;
+    a owl:FunctionalProperty ;
+    owl:versionInfo "1.0.2" ;
     rdfs:label "end index"@en ;
     rdfs:comment """The end index of a character range as defined in http://tools.ietf.org/html/rfc5147#section-2.2.1 and http://tools.ietf.org/html/rfc5147#section-2.2.2, measured as the gap between two characters, starting to count from 0 (the position before the first character of a text). 
     Example: Index "2" is the postion between "Mr" and "."  in "Mr. Sandman".
@@ -173,7 +201,7 @@ nif:endIndex
     Requirement (2): The index of the subject string MUST be calculated relative to the nif:referenceContext of the subject. If available, this is the rdf:Literal of the nif:isString property.""" ;
     # still being discussed:
     # rdfs:subPropertyOf oa:end ;
-    # rdfs:range <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
+    rdfs:range <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
     rdfs:domain nif:String  .
 
 nif:anchorOf
@@ -201,6 +229,17 @@ nif:ContextHashBasedString
     rdfs:label "Context Hash Based String"@en ;
     rdfs:comment " cf. https://www.google.de/search?q=Linked-Data+Aware+URI+Schemes+for+Referencing+Text" ;
     rdfs:subClassOf nif:URIScheme .
+
+###################
+# Disjointness
+###################
+[] a owl:AllDisjointClasses ; 
+	owl:members nif:RFC5147String, nif:ContextHashBasedString , nif:OffsetBasedString ,  nif:CStringInst .
+
+	
+# experimental	
+#[] a owl:AllDisjointClasses ; 
+#	owl:members nif:String, nif:LabelString .
 
 ########################################################################
 
@@ -514,7 +553,8 @@ nif:Title
 
 nif:subString
     a owl:ObjectProperty ;
-    owl:versionInfo "0.1.0" ;
+    owl:inverseOf nif:superString ;
+    owl:versionInfo "0.1.1" ;
     rdfs:label "sub string"@en ;
     rdfs:comment """This property together with nif:subString, nif:superString, and their transitive extension can be used to express that one string is contained in another one. Examples: "a" nif:subString "apple" , "apple" nif:subString "apple".  The transitivity axioms are included in nif-core-inf.ttl and need to be included separately to keep a low reasoning profile. They are modeled after skos:broader and skos:broaderTransitive"""@en ;
     rdfs:domain nif:String ;
@@ -523,7 +563,8 @@ nif:subString
 
 nif:subStringTrans
     a owl:ObjectProperty  ;
-    owl:versionInfo "0.1.0" ;
+    a owl:TransitiveProperty ;
+    owl:versionInfo "0.1.1" ;
     rdfs:label "transitive version of subString"@en ;
     rdfs:comment """transitive version of subString
     
@@ -531,7 +572,8 @@ nif:subStringTrans
     Transitive definition kept in a different ontology
     
     Changelog:
-    * 0.1.0: Initial version.
+    * 0.1.0: Initial version
+    * 0.1.1: merged inf
     """@en ;
     rdfs:domain nif:String ;
     rdfs:range nif:String .
@@ -547,7 +589,8 @@ nif:superString
 
 nif:superStringTrans
     a owl:ObjectProperty ;
-    owl:versionInfo "0.1.0" ;
+    a owl:TransitiveProperty ;
+    owl:versionInfo "0.1.1" ;
     rdfs:label "transitive version of superString"@en ;
     rdfs:comment """see nif:subStringTrans""" ;
     rdfs:domain nif:String ;
@@ -559,22 +602,28 @@ nif:superStringTrans
 
 nif:nextSentence
     a owl:ObjectProperty ;
-    owl:versionInfo "0.1.0" ;
-    rdfs:comment """This property (and nif:previousSentence, nif:nextWord, nif:previousWord and their transitive extension) can be used to make resources of nif:Sentence and nif:Word traversable, it can not be assumed that no gaps or whitespaces between sentences or words exist, i.e. string adjacency is not mandatory. The transitivity axioms are included in nif-core-inf.ttl and need to be included separately to keep a low reasoning profile. They are modeled after skos:broader and skos:broaderTransitive"""@en ;
+    a owl:FunctionalProperty ;
+    owl:versionInfo "0.1.1" ;
+    
+    rdfs:comment """This property (and nif:previousSentence, nif:nextWord, nif:previousWord and their transitive extension) can be used to make resources of nif:Sentence and nif:Word traversable, it can not be assumed that no gaps or whitespaces between sentences or words exist, i.e. string adjacency is not mandatory. The transitivity axioms are included in nif-core-inf.ttl and need to be included separately to keep a low reasoning profile. They are modeled after skos:broader and skos:broaderTransitive
+    """@en ;
     rdfs:domain nif:Sentence ;
     rdfs:range nif:Sentence ;
+    owl:inverseOf nif:previousSentence ;
     rdfs:subPropertyOf nif:nextSentenceTrans .
 
 nif:nextSentenceTrans
     a owl:ObjectProperty ;
-    owl:versionInfo "0.1.0" ;
+    a owl:TransitiveProperty ;
+    owl:versionInfo "0.1.1" ;
     rdfs:comment "see nif:nextSentence"@en ;
     rdfs:domain nif:Sentence ;
     rdfs:range nif:Sentence  .
 
 nif:previousSentence
 	a owl:ObjectProperty ;
-	owl:versionInfo "0.1.0" ;
+	a owl:FunctionalProperty ;
+	owl:versionInfo "0.1.1" ;
     rdfs:comment "see nif:nextSentence"@en ;
     rdfs:domain nif:Sentence ;
     rdfs:range nif:Sentence ;
@@ -582,7 +631,8 @@ nif:previousSentence
 
 nif:previousSentenceTrans
     a owl:ObjectProperty ;
-    owl:versionInfo "0.1.0" ;
+    a owl:TransitiveProperty ;
+    owl:versionInfo "0.1.1" ;
     rdfs:comment "see nif:nextSentence"@en ;
     rdfs:domain nif:Sentence ;
     rdfs:range nif:Sentence .
@@ -598,20 +648,26 @@ nif:word
 
 nif:firstWord
     a owl:ObjectProperty ;
-    owl:versionInfo "0.1.0" ;
+    a owl:FunctionalProperty ;
+    owl:versionInfo "0.1.1" ;
     rdfs:label "has first word"@en ;
-    rdfs:comment "This property links sentences to their first word."@en ;
+    rdfs:comment """This property links sentences to their first word.
+    Changelog:
+    * 0.1.1 merged inf+val
+    """@en ;
     rdfs:domain nif:Sentence ;
     rdfs:range nif:Word ;
     rdfs:subPropertyOf nif:word .
 
 nif:lastWord
     a owl:ObjectProperty ;
-    owl:versionInfo "0.1.1" ;
+    a owl:FunctionalProperty ;
+    owl:versionInfo "0.1.2" ;
     rdfs:label "has last word"@en ;
     rdfs:comment """This property links sentences to their last word.
 	 Changelog:
-	 0.1.1 fixed label
+	 * 0.1.1 fixed label
+	 * 0.1.2 merged inf+val
     """@en ;
     rdfs:domain nif:Sentence ;
     rdfs:range nif:Word ;
@@ -626,20 +682,24 @@ nif:sentence
     owl:versionInfo "0.1.0" ;
     rdfs:comment "This property links words to their sentence." ;
     rdfs:domain nif:Word ;
+    owl:inverseOf nif:word ;
     rdfs:range nif:Sentence .
 
 nif:nextWord
     a owl:ObjectProperty ;
-    owl:versionInfo "0.1.0" ;
+    a owl:FunctionalProperty ;
+    owl:versionInfo "0.1.1" ;
     rdfs:comment "see nif:nextSentence"@en ;
     rdfs:domain nif:Word ;
     rdfs:range nif:Word ;
+    owl:inverseOf nif:previousWord ;
     rdfs:subPropertyOf nif:nextWordTrans .
  
 
 nif:nextWordTrans
     a owl:ObjectProperty ;
-    owl:versionInfo "0.1.0" ;
+    a owl:TransitiveProperty ;
+    owl:versionInfo "0.1.1" ;
     rdfs:comment "see nif:nextSentence"@en ;
     rdfs:domain nif:Word ;
     rdfs:range nif:Word .
@@ -647,7 +707,8 @@ nif:nextWordTrans
 
 nif:previousWord
     a owl:ObjectProperty ;
-    owl:versionInfo "0.1.0" ;
+    a owl:FunctionalProperty ;
+    owl:versionInfo "0.1.1" ;
     rdfs:comment "see nif:nextSentence"@en ;
     rdfs:domain nif:Word ;
     rdfs:range nif:Word ;
@@ -655,7 +716,8 @@ nif:previousWord
 
 nif:previousWordTrans
     a owl:ObjectProperty ;
-    owl:versionInfo "0.1.0" ;
+    a owl:TransitiveProperty ;
+    owl:versionInfo "0.1.1" ;
     rdfs:comment "see nif:nextSentence"@en ;
     rdfs:domain nif:Word ;
     rdfs:range nif:Word .
@@ -827,11 +889,13 @@ nif:dependency
 
 nif:dependencyTrans
 	a owl:ObjectProperty ;
-    owl:versionInfo "0.1.0" ;
+	a owl:TransitiveProperty ;
+    owl:versionInfo "0.1.1" ;
     rdfs:label "transitive version of dependency"@en ;
     rdfs:comment """
 		Changelog: 
 		* 0.1.0 initial commit of property
+		* 0.1.1 merged inf model
     """@en ;
    	rdfs:subPropertyOf nif:inter ;
     rdfs:domain nif:String ;
@@ -862,6 +926,7 @@ nif:sentimentValue
 nif:opinion 
 	a owl:ObjectProperty ;
 	owl:versionInfo "0.0.0" ; 
+	owl:inverseOf marl:extractedFrom  ;
 	rdfs:label "opinion";
 	rdfs:comment """This property is used to link to a marl:Opinion. We have not investigated marl, so it might be replaced. http://marl.gi2mo.org/?page_id=1#overview . InverseOf marl:extractedFrom"""@en ;
 	rdfs:domain nif:String ;
