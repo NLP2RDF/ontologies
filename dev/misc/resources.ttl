@@ -136,7 +136,7 @@
 	:type "software" ;
 	:highlight "true" ;
 	rdfs:label "NIF 2.0 Validator Tool"@en ;
-	:versioningLevel "jar -jar validate.jar -v" ;
+	:versioningLevel "java -jar validate.jar -v" ;
 	:versioningMethod "Versioning relies on NIF Validator TestCase Suite and the API specification" ;
 	:revisions	"GitHub" ;
 	:status "Mature" ;
