@@ -212,7 +212,17 @@
 	:status "working, some bugs" ;
 	:code "http://wiki-link.nlp2rdf.org/WikilinksNifConverter.jar" ;
 	:description """Data from the wikilinks corpus (https://code.google.com/p/wiki-link/) was converted to NIF""" .
+
+<https://github.com/AKSW/n3-collection/> 
+	:type "corpus" ;
+	rdfs:label "n3-collection"@en ;
+	:versioningLevel "n/a" ;
+	:versioningMethod "n/a" ;
+	:revisions	"n/a" ;
+	:status "working" ;
+	:description """Extracting Linked Data following the Semantic Web paradigm from unstructured sources has become a key driver for scientific research as well as new business models. Named Entity Recognition and Disambiguation are two basic steps in this extraction process. One key driver to realize the vision of the Semantic Web and develop highly accurate tools is the availability of data for performance validation. In this article, we present three novel, manually curated and annotated corpora, N3. Furthermore, we based them on a free licence and stored in the NLP Interchange Format for interoperability reasons. See http://aksw.org/Projects/N3NERNEDNIF.html""" .
 	
+
 <http://persistence.uni-leipzig.org/nlp2rdf/documents/2013-09-19-poster-meta-forum/nif2poster.png> 
 	:type "poster" ;
 	:highlight "true" ;
