@@ -209,19 +209,69 @@
 	:versioningLevel "n/a" ;
 	:versioningMethod "n/a" ;
 	:revisions	"n/a" ;
-	:status "working, some bugs" ;
-	:code "http://wiki-link.nlp2rdf.org/WikilinksNifConverter.jar" ;
+	:status "working" ;
+	:code "" ;
 	:description """Data from the wikilinks corpus (https://code.google.com/p/wiki-link/) was converted to NIF""" .
 
-<https://github.com/AKSW/n3-collection/> 
+<http://brown.nlp2rdf.org/> 
 	:type "corpus" ;
-	rdfs:label "n3-collection"@en ;
+	rdfs:label "Brown Corpus in RDF"@en ;
 	:versioningLevel "n/a" ;
 	:versioningMethod "n/a" ;
 	:revisions	"n/a" ;
 	:status "working" ;
+	:code "" ;
+	:description """Data from the Brown corpus (http://icame.uib.no/brown/bcm.html) was converted to NIF""" .
+
+<https://raw.github.com/AKSW/n3-collection/master/News-100.ttl> 
+	:type "corpus" ;
+	rdfs:label "News-100 NER Corpus in NIF"@en ;
+	:versioningLevel "n/a" ;
+	:versioningMethod "n/a" ;
+	:revisions	"n/a" ;
+	:status "working" ;
+	:code "" ;
 	:description """Extracting Linked Data following the Semantic Web paradigm from unstructured sources has become a key driver for scientific research as well as new business models. Named Entity Recognition and Disambiguation are two basic steps in this extraction process. One key driver to realize the vision of the Semantic Web and develop highly accurate tools is the availability of data for performance validation. In this article, we present three novel, manually curated and annotated corpora, N3. Furthermore, we based them on a free licence and stored in the NLP Interchange Format for interoperability reasons. See http://aksw.org/Projects/N3NERNEDNIF.html""" .
-	
+
+<https://raw.github.com/AKSW/n3-collection/master/RSS-500.ttl> 
+	:type "corpus" ;
+	rdfs:label "RSS-500 NER Corpus in NIF"@en ;
+	:versioningLevel "n/a" ;
+	:versioningMethod "n/a" ;
+	:revisions	"n/a" ;
+	:status "working" ;
+	:code "" ;
+	:description """Extracting Linked Data following the Semantic Web paradigm from unstructured sources has become a key driver for scientific research as well as new business models. Named Entity Recognition and Disambiguation are two basic steps in this extraction process. One key driver to realize the vision of the Semantic Web and develop highly accurate tools is the availability of data for performance validation. In this article, we present three novel, manually curated and annotated corpora, N3. Furthermore, we based them on a free licence and stored in the NLP Interchange Format for interoperability reasons. See http://aksw.org/Projects/N3NERNEDNIF.html""" .
+
+<https://raw.github.com/AKSW/n3-collection/master/Reuters-128.ttl> 
+	:type "corpus" ;
+	rdfs:label "Reuters-128 NER Corpus in NIF"@en ;
+	:versioningLevel "n/a" ;
+	:versioningMethod "n/a" ;
+	:revisions	"n/a" ;
+	:status "working" ;
+	:code "" ;
+	:description """Extracting Linked Data following the Semantic Web paradigm from unstructured sources has become a key driver for scientific research as well as new business models. Named Entity Recognition and Disambiguation are two basic steps in this extraction process. One key driver to realize the vision of the Semantic Web and develop highly accurate tools is the availability of data for performance validation. In this article, we present three novel, manually curated and annotated corpora, N3. Furthermore, we based them on a free licence and stored in the NLP Interchange Format for interoperability reasons. See http://aksw.org/Projects/N3NERNEDNIF.html""" .
+
+<http://www.yovisto.com/labs/ner-benchmarks/data/dbpedia-spotlight-nif.ttl>
+	:type "corpus" ;
+	rdfs:label "DBpedia Spotlight evaluation datasets"@en ;
+	:versioningLevel "n/a" ;
+	:versioningMethod "n/a" ;
+	:revisions	"n/a" ;
+	:status "working" ;
+	:code "" ;
+	:description """Conversion of evaluation datasets into NIF. See also http://ceur-ws.org/Vol-1064/Steinmetz_Statistical.pdf""" .
+
+<http://www.yovisto.com/labs/ner-benchmarks/data/kore50-nif.ttl>
+	:type "corpus" ;
+	rdfs:label "KORE 50 evaluation dataset in NIF"@en ;
+	:versioningLevel "n/a" ;
+	:versioningMethod "n/a" ;
+	:revisions	"n/a" ;
+	:status "working" ;
+	:code "" ;
+	:description """Conversion of evaluation datasets into NIF. See also http://ceur-ws.org/Vol-1064/Steinmetz_Statistical.pdf""" .
 
 <http://persistence.uni-leipzig.org/nlp2rdf/documents/2013-09-19-poster-meta-forum/nif2poster.png> 
 	:type "poster" ;
