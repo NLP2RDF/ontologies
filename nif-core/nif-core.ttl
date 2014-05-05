@@ -26,6 +26,10 @@
 # not sure
 @prefix skosxl: <http://www.w3.org/2008/05/skos-xl#> .
 @prefix marl: <http://purl.org/marl/ns#> .
+@prefix fise: <http://fise.iks-project.eu/ontology/> .
+@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix oa: <http://www.w3.org/ns/oa#> .
 
 <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> 
     a owl:Ontology ;
