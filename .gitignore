@@ -1,3 +1,4 @@
 *.owl
 .project
 target/
+*.html
