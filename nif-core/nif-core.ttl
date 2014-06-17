@@ -343,12 +343,12 @@ nif:CString
     rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty nif:endIndex ;
-		owl:cardinality "1"^^xsd;nonNegativeInteger
+		owl:cardinality "1"^^xsd:nonNegativeInteger
 	] ; 
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty nif:beginIndex ;
-		owl:cardinality "1"^^xsd;nonNegativeInteger
+		owl:cardinality "1"^^xsd:nonNegativeInteger
 	] ; 
     rdfs:subClassOf nif:URIScheme .    
 
@@ -934,7 +934,7 @@ nif:dependencyTrans
 #    rdfs:label "OLiA property link"@en ;
 #    rdfs:comment """This property links a property of type inter or other to a URI from one of the OLiA Annotation model, e.g. http://purl.org/olia/stanford.owl#prep 
 #    Changelog:
-#    0.1.0 - added subproperty of nif:annotation as per http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 21 
+#    0.1.0 - added subproperty of nif:annotation as per http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf
 #    """@en .
     
     
