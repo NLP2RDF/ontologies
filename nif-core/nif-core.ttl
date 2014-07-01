@@ -130,6 +130,10 @@ nif:Context
 		a owl:Restriction ;
 		owl:onProperty nif:referenceContext ;
 		owl:hasSelf "true"^^xsd:boolean 
+	],[
+		a owl:Restriction ;
+		owl:onProperty nif:isString ;
+		owl:cardinality "1"^^xsd:nonNegativeInteger
 	] . 
 
 nif:referenceContext
