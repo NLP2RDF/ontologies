@@ -22,6 +22,7 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix lvont: <http://lexvo.org/ontology#> .
 
 # not sure 
 @prefix skosxl: <http://www.w3.org/2008/05/skos-xl#> .
@@ -461,6 +462,45 @@ nif:contextAsLiteral
       The string that the nif:anchorOf is embedded in. FILTER ( strlen (nif:referenceContext [ nif:isString ] ) ) 
     """@en ;
     rdfs:domain nif:String .
+
+nif:predominantLanguage
+	a owl:ObjectProperty ;
+	owl:versionInfo "0.0.0" ;
+	rdfs:label "predominant language" ;
+	rdfs:comment """
+	Defines the predominant language of the text. If this annotation is given on a nif:Context, all NIF tools have to treat the text to be in this language unless specified differently for a subpart. To change the language for a smaller substring nif:lang must be used.
+	
+	This property requires a uri as an argument. We expect this to be a URI from the lexvo.org namespace, e.g. http://lexvo.org/id/iso639-3/eng using ISO639-3 
+	
+	
+	Examples
+	"The dealer says: "Rien ne va plus!" "
+	has nif:predomintLanguage http://lexvo.org/id/iso639-3/eng and nif:lang http://www.lexvo.org/page/iso639-3/fra
+	
+	see also: http://www.w3.org/TR/its20/#selection-local
+	
+	Tests for RDFUnit (not written yet):
+	- write a test for RDFUnit, so people do not use http://www.lexvo.org/page/iso639-3/eng 
+	"""@en ;
+	rdfs:domain nif:Context ;
+	rdfs:range  lvont:Language .
+	
+nif:lang 
+	a owl:ObjectProperty ;
+	owl:versionInfo "0.0.0" ;
+	rdfs:label "language of the string" ;
+	rdfs:comment """
+	Defines the language of a substring of the context. If the language for the nif:Context should be specified, nif:predominantLanguage must be used. 
+	see nif:predominantLanguage for more info.
+	"""@en ;
+
+	rdfs:range  lvont:Language ;
+	# in manchester: "String and not Context"
+	rdfs:domain nif:String ;
+	# additional constraint, must not be used on a nif:Context.
+	rdfs:domain [ rdf:type owl:Class ; owl:complementOf nif:Context ] . 
+	
+	# too complex: rdfs:domain [ owl:intersectionOf (  nif:String  [ rdf:type owl:Class ; owl:complementOf nif:Context ]     ) ] . 
 
 
 ###################
