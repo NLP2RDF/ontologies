@@ -463,7 +463,7 @@ nif:contextAsLiteral
     """@en ;
     rdfs:domain nif:String .
 
-nif:predominantLanguage
+nif:predLang
 	a owl:ObjectProperty ;
 	owl:versionInfo "0.0.0" ;
 	rdfs:label "predominant language" ;
@@ -481,6 +481,7 @@ nif:predominantLanguage
 	
 	Tests for RDFUnit (not written yet):
 	- write a test for RDFUnit, so people do not use http://www.lexvo.org/page/iso639-3/eng 
+	
 	"""@en ;
 	rdfs:domain nif:Context ;
 	rdfs:range  lvont:Language .
