@@ -115,56 +115,56 @@ rlog:priority
 
 rlog:ALL 
 	a rlog:Level ;
-	a owl:Thing ;
+	a owl:NamedIndividual ;
 	rlog:priority "0"^^xsd:int ;
 	rdfs:comment "The ALL has the lowest possible rank and is intended to turn on all logging."@en ;
     rdfs:label "ALL"@en .
     
 rlog:TRACE 
 	a rlog:Level ;
-	a owl:Thing ;
+	a owl:NamedIndividual ;
 	rlog:priority "1"^^xsd:int ;
 	rdfs:comment "The TRACE Level designates finer-grained informational events than the DEBUG."@en ;
     rdfs:label "TRACE"@en .
     
 rlog:DEBUG 
 	a rlog:Level ;
-	a owl:Thing ;
+	a owl:NamedIndividual ;
 	rlog:priority "2"^^xsd:int ;
 	rdfs:comment "The DEBUG Level designates fine-grained informational events that are most useful to debug an application."@en ;
     rdfs:label "TRACE"@en .
 
 rlog:INFO 
 	a rlog:Level ;
-	a owl:Thing ;
+	a owl:NamedIndividual ;
 	rlog:priority "3"^^xsd:int ;
 	rdfs:comment "The INFO level designates informational messages that highlight the progress of the application at coarse-grained level."@en ;
     rdfs:label "INFO"@en .
 
 rlog:WARN 
 	a rlog:Level ;
-	a owl:Thing ;
+	a owl:NamedIndividual ;
 	rlog:priority "4"^^xsd:int ;
 	rdfs:comment "The WARN level designates potentially harmful situations."@en ;
     rdfs:label "WARN"@en .
     
 rlog:ERROR 
 	a rlog:Level ;
-	a owl:Thing ;
+	a owl:NamedIndividual ;
 	rlog:priority "5"^^xsd:int ;
 	rdfs:comment "The ERROR level designates error events that might still allow the application to continue running."@en ;
     rdfs:label "ERROR"@en .
     
 rlog:FATAL 
 	a rlog:Level ;
-	a owl:Thing ;
+	a owl:NamedIndividual ;
 	rlog:priority "6"^^xsd:int ;
 	rdfs:comment "The FATAL level designates very severe error events that will presumably lead the application to abort."@en ;
     rdfs:label "FATAL"@en .
  
 rlog:OFF
 	a rlog:Level ;
-	a owl:Thing ;
+	a owl:NamedIndividual ;
 	rlog:priority "7"^^xsd:int ;
 	rdfs:comment "The OFF has the highest possible rank and is intended to turn off logging."@en ;
     rdfs:label "OFF"@en .
