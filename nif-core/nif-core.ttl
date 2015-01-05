@@ -475,7 +475,7 @@ nif:predLang
 	
 	Examples
 	"The dealer says: "Rien ne va plus!" "
-	has nif:predomintLanguage http://lexvo.org/id/iso639-3/eng and nif:lang http://www.lexvo.org/page/iso639-3/fra
+	has nif:predomintLanguage http://lexvo.org/id/iso639-3/eng and nif:lang http://www.lexvo.org/id/iso639-3/fra
 	
 	see also: http://www.w3.org/TR/its20/#selection-local
 	
