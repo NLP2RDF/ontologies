@@ -97,8 +97,8 @@ rlog:message
 rlog:date
     a owl:DatatypeProperty ;
     rdfs:domain rlog:Entry ;  
-    rdfs:range xsd:datetime ;  
-    rdfs:label "Logging date in datetime"@en .   
+    rdfs:range xsd:dateTime ;  
+    rdfs:label "Logging datetime (or just date)"@en .   
 
 rlog:level
     a owl:ObjectProperty ;
@@ -177,7 +177,7 @@ rlog:OFF
  rlog:mylog1 
 	a rlog:Entry ;
 	rlog:level rlog:INFO ;
-	rlog:date "2013-06-08T17:00:00Z"^^xsd:datetime ;
+	rlog:date "2013-06-08T17:00:00Z"^^xsd:dateTime ;
 	rlog:className "org.nlp2rdf.core.SPARQLValidator";
 	rlog:resource <http://example.org/aResourceRelatedToThisLogEntry> ;
 	rlog:message "Example log message, put whatever you want."@en . 
