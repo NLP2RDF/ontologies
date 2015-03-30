@@ -180,7 +180,7 @@
 	:status "W3C Last Call Working Draft 20 August 2013" ;
 	:description """The conversion from International TagSet (ITS) 2.0 to NIF is a possible basis for a natural language processing (NLP) application that creates, for example, named entity annotations. A non-normative algorithm to integrate these annotations into the original input document is given in Appendix G: Conversion NIF2ITS. Many decisions to be made in this algorithm depend on the particular NLP application being used.""" .
 	
-<http://nlp2rdf.lod2.eu/demo.php> 
+<http://demo.nlp2rdf.aksw.org/> 
 	:type "demo" ;
 	rdfs:label "NIF Combinator Demo"@en ;
 	:versioningLevel "n/a" ;
