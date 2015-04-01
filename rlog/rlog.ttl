@@ -132,7 +132,7 @@ rlog:DEBUG
 	a owl:NamedIndividual ;
 	rlog:priority "2"^^xsd:int ;
 	rdfs:comment "The DEBUG Level designates fine-grained informational events that are most useful to debug an application."@en ;
-    rdfs:label "TRACE"@en .
+    rdfs:label "DEBUG"@en .
 
 rlog:INFO 
 	a rlog:Level ;
