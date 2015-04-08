@@ -67,13 +67,13 @@
     
     Another important  subclass of nif:String is the nif:Context OWL class. This class is assigned to the whole string of the text (i.e. all characters). The purpose of an individual of this class is special, because the string of this individual is used to calculate the indices for all substrings. Therefore, all substrings have to have a relation nif:referenceContext pointing to an instance of nif:Context. Furthermore, the datatype property nif:isString can be used to include the reference text as a literal within the RDF as is required for the web service scenario. An example of NIF Core can be seen on the top left of the example Figure.  
 	
-	Ontology models
-	This ontology is split in different complimentary parts:
-	* a terminological model (containing rdfs:comment, rdfs:label, rdfs:subClassOf, rdfs:subPropertyOf, rdfs:range and rdfs:domain statements)
-	* an inference model (containing owl:TransitiveProperty, owl:hasKey), see nif-core-inf.ttl
-	* a validation model (containing owl:FunctionalProperty, owl:DisjointWith), see nif-core-val.ttl
-	* a Stanford profile model (containing a more complex structure)
-	An overview is given at the bottom of: http://persistence.uni-leipzig.org/nlp2rdf/ 
+    Additional Resources
+    The project also provides serveral additional resources:
+    * various NIF representations of corpora
+    * different demos for NIF Webservices and a NIF Web Service Combinator
+    * a validation service for NIF RDF documents
+    * a draft of a Stanbol Profile Specification
+    Please find references to these (and other) resources in the NIF Dashboard: http://dashboard.nlp2rdf.aksw.org/
 
 	Feedback
 	If you'd like to leave feedback, please open an issue on GitHub (https://github.com/NLP2RDF/ontologies/issues) and read the README (https://github.com/NLP2RDF/ontologies#readme) or write an email to the mailing list: http://lists.informatik.uni-leipzig.de/mailman/listinfo/nlp2rdf
