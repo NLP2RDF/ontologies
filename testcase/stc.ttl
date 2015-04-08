@@ -39,7 +39,7 @@
     * 0.0.0 - this ontology is not versionend
     * 1.0.0 - there is an implementation using it
 	
-    """@en
+    """@en .
 
 ##########  
 #The Suite
