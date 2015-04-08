@@ -4,7 +4,7 @@
 
 <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> 
 	:type "ontology" ;
-	rdfs:label "NIF 2.0 Core Ontology - Terminological Model"@en ;
+	rdfs:label "NIF 2.0 Core Ontology"@en ;
 	:highlight "true" ;
 	:prefix "nif:" ;
 	:versioningLevel "IRI-level via owl:versionInfo" ;
@@ -12,39 +12,7 @@
 	:example """ """; 
 	:status "Mature core vocabulary. Persistent hosting." ;
 	:versioningMethod """The version number (loosely) follows http://semver.org/ . All classes and properties starting with 0.x.y are not stable and might be removed anytime. As soon as a class or property reaches 1.x.y it will not be deleted anymore and will remain in the ontology.  This means it will be terminological stable. The version number will be incremented to 2.x.y if use of the URL is deprecated. Further increments (<= 3 ) are not used. """ ;
-	:description """ We like to keep as much information as possible within the ontology itself, please have a look there. Additional models:<br><ol>
-	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#">Terminological model</a></li>
-	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-inf.ttl">Inference model</a></li>
-	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-val.ttl">Validation model</a></li>
-</ol>""" .
-	
-<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-inf.ttl> 
-	:type "ontology" ;
-	rdfs:label "NIF 2.0 Core Ontology - Inference Model"@en ;
-	:versioningLevel "done in terminological model at IRI-level" ;
-	:revisions	"GitHub, Changelog written to rdfs:comment in terminological model" ;
-	:example """ """; 
-	:status "Contrary to the terminological model, this ontology may still change a lot." ;
-	:versioningMethod """done in terminological model at IRI-level""" ;
-	:description """ We like to keep as much information as possible within the ontology itself, please have a look there. Additional models:<br><ol>
-	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#">Terminological model</a></li>
-	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-inf.ttl">Inference model</a></li>
-	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-val.ttl">Validation model</a></li>
-</ol>""" .
-
-<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-val.ttl> 
-	:type "ontology" ;
-	rdfs:label "NIF 2.0 Core Ontology - Validation Model"@en ;
-	:versioningLevel "done in terminological model at IRI-level" ;
-	:revisions	"GitHub, Changelog written to rdfs:comment in terminological model" ;
-	:example """ """; 
-	:status "Contrary to the terminological model, this ontology may still change a lot." ;
-	:versioningMethod """done in terminological model at IRI-level""" ;
-	:description """ We like to keep as much information as possible within the ontology itself, please have a look there. Additional models:<br><ol>
-	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#">Terminological model</a></li>
-	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-inf.ttl">Inference model</a></li>
-	<li><a href="http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-val.ttl">Validation model</a></li>
-</ol>""" .
+	:description """Classes and properties to describe the relations between substrings, text, documents by assigning URIs to strings. Also provides additional vocabulary to attach (linguistic) annotations to substrings, optionally linking into Linked Data representations of linguistic concepts and phenomena (e.g. OLiA or lemon).""" .
 
 <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> 
 	:type "ontology" ;
@@ -55,7 +23,6 @@
 	:revisions	"GitHub" ;
 	:status "Mature" ;
 	:description """ We prefer to keep as much information as possible within the ontology itself, please have a look there. """ .
-
 
 <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/stc#> 
 	:type "ontology" ;
