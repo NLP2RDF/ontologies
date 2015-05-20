@@ -54,6 +54,7 @@
 
 	dc:creator "Sebastian Hellmann" ;
     dc:contributor "Martin Brümmer";
+    dc:contributor "Markus Ackermann" ;
     dc:contributor "Navid Nourbakhsh";
     dc:publisher "AKSW, University Leipzig" ;
     dc:rights """This ontology is licensed under Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0) and CC-BY (http://creativecommons.org/licenses/by/3.0/)"""@en ;
@@ -794,38 +795,6 @@ nif:previousWordTrans
     rdfs:domain nif:Word ;
     rdfs:range nif:Word .
 
-##############
-# Here are some properties, which collect statistics
-##############
-
-
-#TODO
-#nif:OccurringString
-#    a owl:Class ;
-#    owl:versionInfo "0.0.0" ;
-#    rdfs:label "Occurring String"@en ;
-#	rdfs:comment """(NOTE: this is a real early draft) Instances of this class represent all occurring strings which match this string within the same context. Requires the presence of nif:anchorOf.  Definition: All strings in the context, that match, if you search for the literal of nif:anchorOf.  The pattern for this scheme is 'occ_'+urlencode($anchorOf) . 
-	
-#	To express that this string is a word or phrase combine with a "structure" class.
-#	It is a scheme to refer to all substrings with an exact string match in one context. If such a URI is used, it implies, that the word occurs at least once in the given context. Otherwise nif:LabelString should be used. """@en ;
-#    rdfs:subClassOf nif:String .
-
-#TODO
-#nif:LabelString
-#    a owl:Class ;
-#    owl:versionInfo "0.0.0" ;
-#    rdfs:label "Label String"@en ;
-#	rdfs:comment """(NOTE: this is a real early draft) Instances of this class represent a label independent from any context. This class is a subClassOf skosxl:Label, but disjoint with nif:String (see nif-core-val.ttl). We included this class in nif-core, because we are proposing the following scheme for it: 'label_'+urlencode($term). Might be replaces with lemon in the future.  """@en ;
-#    rdfs:subClassOf skosxl:Label .
-
-#TODO
-#nif:occurrence
-#    a owl:ObjectProperty ;
-#    owl:versionInfo "0.0.0" ;
-#   rdfs:comment "(NOTE: this is a real early draft) This property links a URI of type OccurringString to other nif:String, that occur in the same context." ;
-#   rdfs:domain nif:OccurringString ;
-#   rdfs:range nif:String .
-
 ###############
 # Properties for common annotations
 ###############
@@ -978,16 +947,6 @@ nif:dependencyTrans
    	rdfs:subPropertyOf nif:inter ;
     rdfs:domain nif:String ;
     rdfs:range nif:String .
-
-#nif:oliaPropLink
-#    a owl:AnnotationProperty ;
-#    owl:versionInfo "0.1.0" ; 
-#    rdfs:label "OLiA property link"@en ;
-#    rdfs:comment """This property links a property of type inter or other to a URI from one of the OLiA Annotation model, e.g. http://purl.org/olia/stanford.owl#prep 
-#    Changelog:
-#    0.1.0 - added subproperty of nif:annotation as per http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf
-#    """@en .
-    
     
 ###############
 # Sentiment
@@ -1051,12 +1010,3 @@ nif:Annotation
 	rdfs:comment """Individuals of this class are annotations of strings. This class can be used if an annotation statement has to be annotated with further information, like confidence or annotation provenance (like which tool produced the annotation). 
     Changelog:
     * 0.0.1 initial commit of class"""@en .
-
-# experimental
-#nif:HTMLString
-#    a owl:Class ;
-#    owl:versionInfo "0.0.0" ;
-#    owl:versionInfo "experimental" ;
-#    rdfs:label "HTML String"@en ;
-#    rdfs:comment """experimental, a subspecialisation of String (a string with HTML markup). """@en ;
-#    rdfs:subClassOf nif:String .
