@@ -998,7 +998,7 @@ nif:topic
     rdfs:comment """The topic of a string
     Changelog:
     * 0.0.1 initial commit of property
-    * 0.1.0 corrected property type to ObjectPropery"""@en ;
+    * 0.1.0 corrected property type to ObjectProperty"""@en ;
     rdfs:domain nif:String ;
     rdfs:range nif:Annotation .
 
