@@ -97,7 +97,7 @@ nif:String
     This class is abstract and should not be serialized. 
     
     NIF-Stanbol (nif-stanbol.ttl):
-    subclassOf nifs:Annotation because it "annotates" strings for example with begin and end index. The class is similar to fise:TextAnnotation
+    subclassOf nif:Annotation because it "annotates" strings for example with begin and end index. The class is similar to fise:TextAnnotation
     
     Changelog
     * 1.0.1. improved documentation
@@ -109,7 +109,7 @@ nif:String
 		owl:onProperty nif:referenceContext ;
 		owl:someValuesFrom nif:Context 
 	] ;
-	owl:subClassOf [
+	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty nif:referenceContext ;
 		owl:allValuesFrom nif:Context 
@@ -120,23 +120,40 @@ nif:Context
     a owl:Class ;
     owl:versionInfo "1.0.2" ;
     rdfs:label "Context"@en ;
-    rdfs:comment """The string that serves as a context for its substrings.  The Unicode String given in the nif:isString property must be used to calculate the begin and endIndex for all nif:Strings that have a nif:referenceContext property to this URI. For further information, see http://svn.aksw.org/papers/2013/ISWC_NIF/public.pdf 
+    rdfs:comment """The string that serves as a context for its substrings.  The Unicode String given in the nif:isString or the content obtained by dereferencing nif:contextStringRef property must be used to calculate the begin and endIndex for all nif:Strings that have a nif:referenceContext property to this URI. For further information, see http://svn.aksw.org/papers/2013/ISWC_NIF/public.pdf 
     
     Changelog
-    * 1.0.1. improved documentation
-    * 1.0.2. merged inf model
+    * 1.0.1: improved documentation
+    * 1.0.2: merged inf model
+    * 1.1.0: changes restrictions and documentation to allow for contextStringRef as alternative to isString
     """@en ;
     rdfs:subClassOf nif:String ;
-    # owl:hasKey ( nif:isString ) ;
     rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty nif:referenceContext ;
-		owl:hasSelf "true"^^xsd:boolean 
-	],[
-		a owl:Restriction ;
-		owl:onProperty nif:isString ;
-		owl:cardinality "1"^^xsd:nonNegativeInteger
-	] . 
+		owl:hasSelf "true"^^xsd:boolean
+	] , [
+        owl:unionOf ([
+		    a owl:Restriction ;
+		    owl:onProperty nif:isString ;
+		    owl:cardinality "1"^^xsd:nonNegativeInteger
+	    ] [
+            a owl:Restriction ;
+		    owl:onProperty nif:contextStringRef ;
+		    owl:cardinality "1"^^xsd:nonNegativeInteger
+        ])
+    ] .
+
+nif:contextStringRef
+    a owl:ObjectProperty, owl:FunctionalProperty ;
+    owl:versionInfo "0.1.0"@en ;
+    rdfs:label "external context reference" ;
+    rdfs:comment """Provides the reference to a location where the text for a Context can be retrieved in case it cannot be embedded via isString directly due to licence restrictions or similar reasons. This allow a pure 'stand-off' paradigm for text annotations with NIF. The content obtained by dereferencing the provided URI MUST be just the plain UTF-8 text data in NFC as equivalent for the string literal that would be otherwise provided directly by nif:isString.
+
+    Changelog:
+    * 0.1.0: created"""@en ;
+    rdfs:domain nif:Context ;
+    rdfs:range rdfs:Resource .
 
 nif:referenceContext
     a owl:ObjectProperty ;
@@ -163,7 +180,7 @@ nif:isString
     a owl:DatatypeProperty ;
     a owl:FunctionalProperty  ;
     owl:versionInfo "1.0.2" ;
-    rdfs:label "is string"@en ; 
+    rdfs:label "is string"@en ;
     rdfs:comment """The reference text as rdf:Literal for this nif:Context resource.  
     NIF requires that the reference text (i.e. the context) is always included in the RDF as an rdf:Literal.
     Note, that the isString property is *the* place to keep the string itself in RDF.
@@ -171,20 +188,20 @@ nif:isString
     
     Changelog
     * 1.0.0: Introduced stable version.
-    * 1.0.1 improved documentation
+    * 1.0.1: improved documentation
     * 1.0.2: merged val+inf
+    * 1.1.0: range restriction to xsd:string
     """@en ;
 	rdfs:subPropertyOf nif:anchorOf ;
-    rdfs:domain nif:Context .
-
+    rdfs:domain nif:Context ;
+    rdfs:range xsd:string .
     
 nif:beginIndex
-    a owl:DatatypeProperty ;
-    a owl:FunctionalProperty ;
-    owl:versionInfo "1.0.1" ;
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    owl:versionInfo "1.0.2" ;
     rdfs:label "begin index"@en ;
     rdfs:comment """The begin index of a character range as defined in http://tools.ietf.org/html/rfc5147#section-2.2.1 and http://tools.ietf.org/html/rfc5147#section-2.2.2, measured as the gap between two characters, starting to count from 0 (the position before the first character of a text). 
-    Example: Index "2" is the postion between "Mr" and "."  in "Mr. Sandman".
+    Example: Index "2" is the position between "Mr" and "."  in "Mr. Sandman".
     Note: RFC 5147 is re-used for the definition of character ranges. RFC 5147 is assuming a text/plain MIME type. NIF builds upon Unicode and is content agnostic. 
     Requirement (1): This property has the same value the "Character position" of RFC 5147 and it MUST therefore be castable to xsd:nonNegativeInteger, i.e. it MUST not have negative values.  
     Requirement (2): The index of the subject string MUST be calculated relative to the nif:referenceContext of the subject. If available, this is the rdf:Literal of the nif:isString property.
@@ -192,13 +209,10 @@ nif:beginIndex
     Changelog: 
     * 1.0.0: Introduced stable version.
     * 1.0.1: merged val+inf, added range
-    """ ;
-    # still being discussed:
-    # rdfs:subPropertyOf oa:start ;
-    rdfs:range <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
+    * 1.0.2: subPropertyOf oa:start, range changed to xsd:int""" ;
+    rdfs:subPropertyOf oa:start ;
+    rdfs:range xsd:int ;
     rdfs:domain nif:String .
-    
-
 
 nif:endIndex
     a owl:DatatypeProperty ;
@@ -206,33 +220,45 @@ nif:endIndex
     owl:versionInfo "1.0.2" ;
     rdfs:label "end index"@en ;
     rdfs:comment """The end index of a character range as defined in http://tools.ietf.org/html/rfc5147#section-2.2.1 and http://tools.ietf.org/html/rfc5147#section-2.2.2, measured as the gap between two characters, starting to count from 0 (the position before the first character of a text). 
-    Example: Index "2" is the postion between "Mr" and "."  in "Mr. Sandman".
+    Example: Index "2" is the position between "Mr" and "."  in "Mr. Sandman".
     Note: RFC 5147 is re-used for the definition of character ranges. RFC 5147 is assuming a text/plain MIME type. NIF builds upon Unicode and is content agnostic. 
-    Requirement (1): This property has the same value the "Character position" of RFC 5147 and it must therefore be an xsd:nonNegativeInteger .  
-    Requirement (2): The index of the subject string MUST be calculated relative to the nif:referenceContext of the subject. If available, this is the rdf:Literal of the nif:isString property.""" ;
-    # still being discussed:
-    # rdfs:subPropertyOf oa:end ;
-    rdfs:range <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> ;
-    rdfs:domain nif:String  .
+    Requirement (1): This property has the same value the "Character position" of RFC 5147 and it must therefore be castable to xsd:nonNegativeInteger, i.e. it MUST not have negative values.
+    Requirement (2): The index of the subject string MUST be calculated relative to the nif:referenceContext of the subject. If available, this is the rdf:Literal of the nif:isString property.
+
+    Changelog: 
+    * 1.0.0: Introduced stable version.
+    * 1.0.1: merged val+inf, added range
+    * 1.0.2: subPropertyOf oa:end, range changed to xsd:int
+"""@en ;
+    rdfs:subPropertyOf oa:end ;
+    rdfs:range xsd:int ;
+    rdfs:domain nif:String .
 
 nif:anchorOf
     a owl:DatatypeProperty ;
     owl:versionInfo "1.0.0" ;
     rdfs:label "anchor of"@en ;
-    rdfs:comment "The string, which the URI is representing as an RDF Literal. Some use cases require this property, as it is necessary for certain sparql queries. " ;
-    rdfs:domain nif:String .
+    rdfs:comment """The string, which the URI is representing as an RDF Literal. Some use cases require this property, as it is necessary for certain sparql queries.
+    
+    Changelog:
+    * 1.1.0: range restriction to xsd:string
+"""@en ;
+    rdfs:domain nif:String ;
+    rdfs:range xsd:string .
 
 nif:RFC5147String
-    a owl:Class ;
-    owl:versionInfo "1.1.0" ;
+    a owl:DeprecatedClass ;
+    owl:versionInfo "1.2.0" ;
     rdfs:label "RFC 5147 String"@en ;
     rdfs:comment """cf. http://tools.ietf.org/html/rfc5147 URIs of this class have to conform with the syntax of RFC 5147 in a way that the end on a valid identifier, if you remove the prefix. Note that unlike RFC 5147 NIF does not requrire '#' URIs. So valid URIs are http://example.org#char=0,28 , http://example.org/whatever/char=0,28 , http://example.org/nif?char=0,28
+    Further use of this class is discouraged, since the RFC 5147 ignores line endings.
+
     Changelog:
-    * 1.1.0 changed subclass to CString .
-    * 1.1.1 typo in rdfs:label and extension of comment
+    * 1.1.0: changed subclass to CString .
+    * 1.1.1: typo in rdfs:label and extension of comment
+    * 1.2.0: deprecated for reasons provided in the comment
     """ ;
     rdfs:subClassOf nif:CString .
-    
 
 nif:ContextHashBasedString
     a owl:Class ;
@@ -244,13 +270,9 @@ nif:ContextHashBasedString
 ###################
 # Disjointness
 ###################
-[] a owl:AllDisjointClasses ; 
-	owl:members nif:RFC5147String, nif:ContextHashBasedString , nif:OffsetBasedString ,  nif:CStringInst .
 
-	
-# experimental	
-#[] a owl:AllDisjointClasses ; 
-#	owl:members nif:String, nif:LabelString .
+[] a owl:AllDisjointClasses ;
+    owl:members nif:RFC5147String, nif:ContextHashBasedString , nif:OffsetBasedString ,  nif:CStringInst .
 
 ########################################################################
 
@@ -497,7 +519,6 @@ nif:lang
 	"""@en ;
 
 	rdfs:range  lvont:Language ;
-	# in manchester: "String and not Context"
 	rdfs:domain nif:String ;
 	# additional constraint, must not be used on a nif:Context.
 	rdfs:domain [ rdf:type owl:Class ; owl:complementOf nif:Context ] . 
@@ -520,10 +541,11 @@ nif:OffsetBasedString
 	requires the existence of begin, endIndex and referenceContext
 	
 	Changelog: 
-	* 1.0.0 originally a plain text string was attached to this uri scheme, but this was removed later, because of complaints and complexity. 
-	* 1.1.0 subclassing of nif:CString
+	* 1.0.0: originally a plain text string was attached to this uri scheme, but this was removed later, because of complaints and complexity. 
+	* 1.1.0: subclassing of nif:CString
+    * 1.2.0: subclassing oa:TextPositionSelector
     """@en ;
-    rdfs:subClassOf nif:CString .
+    rdfs:subClassOf nif:CString, oa:TextPositionSelector .
     
 nif:CStringInst
     a owl:Class ;
@@ -897,16 +919,6 @@ nif:category
 	* 0.2.0 changed nif:class to nif:category due to conflict with Java 
 	"""@en ;
 	a owl:AnnotationProperty .
-
-###############
-# enttity additions to the ITS RDF ontology
-###############
-
-nif:taMsClassRef
-	a owl:AnnotationProperty ;
-    owl:versionInfo "0.1.0" ; 
-	rdfs:label "most specific class reference"@en;
-	rdfs:comment """This property marks the most specific class from itsrdf:taClassRef. The rule is: from the set S of itsrdf:taClassRef attached to this resource taMscRef points to the one that does not have any subclasses in the set S except itself. So if taClassRef is owl:Thing, dbo:Agent, dbo:Person, dbp:Actor taMsClassRef is dbo:Actor """@en .
 
 ###############
 # Dependencies
