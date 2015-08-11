@@ -132,7 +132,7 @@ nif:Context
         a owl:Restriction ;
         owl:onProperty nif:referenceContext ;
         owl:hasSelf "true"^^xsd:boolean
-    ] , [
+    ] , [ a owl:Class;
         owl:unionOf ([
             a owl:Restriction ;
             owl:onProperty nif:isString ;
@@ -281,30 +281,37 @@ nif:annotation
     owl:versionInfo "0.1.1" ;
     rdfs:label "annotation"@en ;
     rdfs:comment """
-      see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 21 .
+      see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf page 21 .
       Changelog:
       * 0.1.1 Fixed page number
-    """@en .
+    """@en ;
+    rdf:domain nif:PropertyAssertionAnnotation .
 
 nif:literalAnnotation
     a owl:DatatypeProperty ;
-    owl:versionInfo "0.1.1" ;
+    owl:versionInfo "0.2" ;
     rdfs:label "literalAnnotation"@en ;
     rdfs:comment """
-      see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 21 .
+      see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf page 21 .
       Changelog:
       * 0.1.1 Fixed page number
-    """@en .
+      * 0.2 added domain restriction
+    """@en ;
+    rdf:domain nif:PropertyAssertionAnnotation .
 
 nif:classAnnotation
-    a owl:AnnotationProperty ;
-    owl:versionInfo "0.1.1" ;
+    a owl:ObjectProperty ;
+    owl:versionInfo "0.2" ;
     rdfs:label "classAnnotation"@en ;
     rdfs:comment """
-      see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 12 .
+    ancestor property for annotation properties that refer to OWL classes (using OWL 2 punning).
+
+      see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf page 12 .
       Changelog:
       * 0.1.1 Fixed page number
-    """@en .
+      * 0.2 changed to ObjectProperty (possible due to OWL 2 punning), domain restriction
+    """@en ;
+    rdfs:domain nif:PropertyAssertionAnnotation .
 
 nif:inter
     a owl:ObjectProperty ;
@@ -481,6 +488,7 @@ nif:tail
     rdfs:domain nif:String .
 
 nif:contextAsLiteral
+    a owl:DatatypeProperty ;
     owl:versionInfo "0.1.0" ;
     rdfs:label "contextAsLiteral"@en ;
     rdfs:comment """
@@ -854,21 +862,22 @@ nif:oliaLink
     rdfs:comment """This property links a string to a URI from one of the OLiA Annotation model, e.g. http://purl.org/olia/penn.owl#NNP 
    
     Changelog
-    0.1.1 - added subproperty of nif:annotation as per http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 21 
+    0.1.1 - added subproperty of nif:annotation as per http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf page 21
     """@en ;
     ## rdfs:range TODO ;
     rdfs:domain nif:String ;
     rdfs:subPropertyOf nif:annotation .
 
 nif:oliaCategory
-    a owl:AnnotationProperty ;
-    owl:versionInfo "0.1.3" ;
+    a owl:ObjectProperty ;
+    owl:versionInfo "0.1.4" ;
     rdfs:label "OLiA Category"@en ;
     rdfs:comment """This property links a string URI to classes of the OLiA Reference model. It provides a direct link for querying, thus it is a redundant optimization. 
     Changelog:
-    0.1.1 - added subproperty of nif:classAnnotation as per http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf‎ page 21 
+    0.1.1 - added subproperty of nif:classAnnotation as per http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf page 21 
     0.1.2 - removed domain axiom for annotationproperty
     0.1.3 - improved documentation
+    0.1.4 - changed to ObjectProperty to align with change of nif:classAnnotation
     """@en ;
     rdfs:subPropertyOf nif:classAnnotation .
 
@@ -1023,9 +1032,62 @@ nif:confidence
     rdfs:range xsd:decimal .
 
 nif:Annotation
-    a owl:Class ;
-    owl:versionInfo "0.0.1" ;
-    rdfs:label "keyword" ;
-    rdfs:comment """Individuals of this class are annotations of strings. This class can be used if an annotation statement has to be annotated with further information, like confidence or annotation provenance (like which tool produced the annotation). 
+	a owl:Class ;
+	owl:versionInfo "0.2.0" ;
+	rdfs:label "Annotation" ;
+	rdfs:comment """NIF String that also either carry annotation property assertions implicitly or mark implicitly of a text spans themselves (see nif:TextSpanAnnotation).
+
     Changelog:
-    * 0.0.1 initial commit of class"""@en .
+    * 0.0.1 initial commit of class
+    * 0.2.0 adjusted, more specific semantics"""@en .
+
+nif:PropertyAssertionAnnotation
+    a owl:Class;
+    owl:versionInfo "0.1.0" ;
+    rdfs:label "PropertyAssertionAnnotation" ;
+    rdfs:comment """Annotation for text spans expressed using a property assertion.
+
+    Changelog:
+    * 0.1.0 created"""@en ;
+    rdfs:subClassOf nif:Annotation .
+
+nif:TextSpanAnnotation
+    a owl:Class;
+    owl:versionInfo "0.1.0" ;
+    rdfs:label "TextSpanAnnotation" ;
+    rdfs:comment """Subclasses of nif:TextSpanAnnocations implicitly highlight text spans to annotate them as a certain occurrence.
+
+    Changelog:
+    * 0.1.0 created"""@en ;
+    rdfs:subClassOf nif:Annotation .
+
+nif:AnnotationUnit
+    a owl:Class ;
+	owl:versionInfo "0.1.0" ;
+	rdfs:label "AnnotationUnit" ;
+    rdfs:comment """Individuals of this class group unambiguously a single annotation assertions (either by a property assertion or an implicit annoation via nif:TextSpanAnnotation) together with provenance and/or confidence information. (A nif:String indivudual can also be an instance of nif:AnnotationUnit when a single annotion assertions is attached to it directly.)
+
+    Changelog:
+    * 0.1.0 created"""@en ;
+    rdfs:subClassOf nif:Annotation .
+
+nif:annotationUnit
+    a owl:ObjectProperty ;
+    owl:versionInfo "0.1.0" ;
+    rdfs:label "annotation" ;
+    rdfs:comment """Links a nif:String to nif:AnnotationUnit.
+
+    Changelog:
+    * 0.1.0 created"""@en ;
+    rdfs:domain nif:String ;
+    rdfs:range nif:AnnotationUnit .
+
+nif:EntityMention
+	a owl:Class ;
+	owl:versionInfo "0.1.0" ;
+	rdfs:label "EntityMention" ;
+	rdfs:comment """Text span annotation denoting that a word or phrase has been detected as occurrence of a named entity. (Use this without further annotaion property assertions if you just want to express the detection of the occurrence when neither the mentioned entity nor its category was identified.)
+
+    Changelog:
+    * 0.1.0 created"""@en ;
+    rdfs:subClassOf nif:TextSpanAnnotation .
