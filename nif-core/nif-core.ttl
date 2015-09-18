@@ -1055,7 +1055,7 @@ nif:TextSpanAnnotation
     a owl:Class;
     owl:versionInfo "0.1.0" ;
     rdfs:label "TextSpanAnnotation" ;
-    rdfs:comment """Subclasses of nif:TextSpanAnnocations implicitly highlight text spans to annotate them as a certain occurrence.
+    rdfs:comment """Subclasses of nif:TextSpanAnnotations implicitly highlight text spans to mark them as a certain occurrence.
 
     Changelog:
     * 0.1.0 created"""@en ;
