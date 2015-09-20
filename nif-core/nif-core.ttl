@@ -1086,7 +1086,7 @@ nif:EntityMention
 	a owl:Class ;
 	owl:versionInfo "0.1.0" ;
 	rdfs:label "EntityMention" ;
-	rdfs:comment """Text span annotation denoting that a word or phrase has been detected as occurrence of a named entity. (Use this without further annotaion property assertions if you just want to express the detection of the occurrence when neither the mentioned entity nor its category was identified.)
+	rdfs:comment """Text span annotation denoting that a word or phrase has been detected as occurrence of a named entity. (Use this without further annotation property assertions if you just want to express the detection of the occurrence when neither the mentioned entity nor its category was identified.)
 
     Changelog:
     * 0.1.0 created"""@en ;
