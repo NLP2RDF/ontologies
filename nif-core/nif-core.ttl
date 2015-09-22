@@ -364,18 +364,19 @@ nif:predLang
 This property requires a uri as an argument. We expect this to be a URI from the lexvo.org namespace, e.g. http://lexvo.org/id/iso639-3/eng using ISO639-3 
 Examples
 "The dealer says: "Rien ne va plus!" "
-has nif:predomintLanguage http://lexvo.org/id/iso639-3/eng and nif:lang http://www.lexvo.org/id/iso639-3/fra
+has nif:predLang http://lexvo.org/id/iso639-3/eng and nif:lang http://www.lexvo.org/id/iso639-3/fra
 see also: http://www.w3.org/TR/its20/#selection-local
 Tests for RDFUnit (not written yet):
 - write a test for RDFUnit, so people do not use http://www.lexvo.org/page/iso639-3/eng"""@en ;
+    rdfs:seeAlso <http://www.w3.org/TR/its20/#selection-local> ;
     rdfs:domain nif:Context ;
     rdfs:range  lvont:Language .
 
 nif:lang
     a owl:ObjectProperty ;
     rdfs:label "language of the string"@en ;
-    rdfs:comment """Defines the language of a substring of the context. If the language for the nif:Context should be specified, nif:predominantLanguage must be used.
-see nif:predominantLanguage for more info."""@en ;
+    rdfs:comment """Defines the language of a substring of the context. If the language for the nif:Context should be specified, nif:predLang must be used.
+see nif:predLang for more info."""@en ;
 
     rdfs:range  lvont:Language ;
     rdfs:domain nif:String ;
@@ -480,6 +481,7 @@ nif:superString
     a owl:ObjectProperty ;
     rdfs:label "super String"@en ;
     rdfs:comment "see nif:subString"@en ;
+    rdfs:seeAlso nif:subString ;
     rdfs:domain nif:String ;
     rdfs:range nif:String ;
     rdfs:subPropertyOf nif:superStringTrans .
@@ -489,6 +491,7 @@ nif:superStringTrans
     a owl:TransitiveProperty ;
     rdfs:label "transitive version of superString"@en ;
     rdfs:comment "see nif:subStringTrans"@en ;
+    rdfs:seeAlso nif:subStringTrans ;
     rdfs:domain nif:String ;
     rdfs:range nif:String .
 
@@ -510,12 +513,15 @@ nif:nextSentenceTrans
     a owl:ObjectProperty ;
     a owl:TransitiveProperty ;
     rdfs:comment "see nif:nextSentence"@en ;
+    rdfs:seeAlso nif:nextSentence ;
     rdfs:domain nif:Sentence ;
     rdfs:range nif:Sentence .
+
 nif:previousSentence
     a owl:ObjectProperty ;
     a owl:FunctionalProperty ;
     rdfs:comment "see nif:nextSentence"@en ;
+    rdf:seeAlso nif:nextSentence ;
     rdfs:domain nif:Sentence ;
     rdfs:range nif:Sentence ;
     rdfs:subPropertyOf nif:previousSentenceTrans .
@@ -524,6 +530,7 @@ nif:previousSentenceTrans
     a owl:ObjectProperty ;
     a owl:TransitiveProperty ;
     rdfs:comment "see nif:nextSentence"@en ;
+    rdfs:seeAlso nif:nextSentence
     rdfs:domain nif:Sentence ;
     rdfs:range nif:Sentence .
 
@@ -566,6 +573,7 @@ nif:nextWord
     a owl:ObjectProperty ;
     a owl:FunctionalProperty ;
     rdfs:comment "see nif:nextSentence"@en ;
+    rdfs:seeAlso nif:nextSentence ;
     rdfs:domain nif:Word ;
     rdfs:range nif:Word ;
     owl:inverseOf nif:previousWord ;
@@ -576,6 +584,7 @@ nif:nextWordTrans
     a owl:ObjectProperty ;
     a owl:TransitiveProperty ;
     rdfs:comment "see nif:nextSentence"@en ;
+    rdfs:seeAlso nif:nextSentence ;
     rdfs:domain nif:Word ;
     rdfs:range nif:Word .
 
@@ -584,6 +593,7 @@ nif:previousWord
     a owl:ObjectProperty ;
     a owl:FunctionalProperty ;
     rdfs:comment "see nif:nextSentence"@en ;
+    rdfs:seeAlso nif:nextSentence ;
     rdfs:domain nif:Word ;
     rdfs:range nif:Word ;
     rdfs:subPropertyOf nif:previousWordTrans .
@@ -592,6 +602,7 @@ nif:previousWordTrans
     a owl:ObjectProperty ;
     a owl:TransitiveProperty ;
     rdfs:comment "see nif:nextSentence"@en ;
+    rdfs:seeAlso nif:nextSentence ;
     rdfs:domain nif:Word ;
     rdfs:range nif:Word .
 
@@ -751,7 +762,8 @@ nif:confidence
 nif:Annotation
 	a owl:Class ;
 	rdfs:label "Annotation"@en ;
-	rdfs:comment """NIF String that also either carry annotation property assertions implicitly or mark implicitly of a text spans themselves (see nif:TextSpanAnnotation)."""@en .
+	rdfs:comment """NIF String that also either carry annotation property assertions implicitly or mark implicitly of a text spans themselves (see nif:TextSpanAnnotation)."""@en ;
+	rdfs:seeAlso nif:PropertyAssertionAnnotation, nif:TextSpanAnnotation .
 
 nif:PropertyAssertionAnnotation
     a owl:Class ;
