@@ -530,7 +530,7 @@ nif:previousSentenceTrans
     a owl:ObjectProperty ;
     a owl:TransitiveProperty ;
     rdfs:comment "see nif:nextSentence"@en ;
-    rdfs:seeAlso nif:nextSentence
+    rdfs:seeAlso nif:nextSentence ;
     rdfs:domain nif:Sentence ;
     rdfs:range nif:Sentence .
 
