@@ -189,7 +189,7 @@ nif:RFC5147String
     a owl:DeprecatedClass ;
     rdfs:label "RFC 5147 String"@en ;
     rdfs:comment """cf. http://tools.ietf.org/html/rfc5147 URIs of this class have to conform with the syntax of RFC 5147 in a way that the end on a valid identifier, if you remove the prefix. Note that unlike RFC 5147 NIF does not requrire '#' URIs. So valid URIs are http://example.org#char=0,28 , http://example.org/whatever/char=0,28 , http://example.org/nif?char=0,28
-Further use of this class is discouraged, since the RFC 5147 ignores line endings."""@en ;
+Further use of this class is discouraged, since text positions according to RFC 5147 differs from Unicode character counts used by NIF when \r\n newlines occur in the source text."""@en ;
     rdfs:subClassOf nif:CString .
 
 nif:ContextHashBasedString
