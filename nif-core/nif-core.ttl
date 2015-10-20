@@ -23,8 +23,6 @@
 @prefix nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix lvont: <http://lexvo.org/ontology#> .
-
-# not sure
 @prefix skosxl: <http://www.w3.org/2008/05/skos-xl#> .
 @prefix marl: <http://purl.org/marl/ns#> .
 @prefix fise: <http://fise.iks-project.eu/ontology/> .
@@ -165,7 +163,7 @@ Note: RFC 5147 is re-used for the definition of character ranges. RFC 5147 is as
 Requirement (1): This property has the same value the "Character position" of RFC 5147 and it MUST therefore be castable to xsd:nonNegativeInteger, i.e. it MUST not have negative values.  
 Requirement (2): The index of the subject string MUST be calculated relative to the nif:referenceContext of the subject. If available, this is the rdf:Literal of the nif:isString property."""@en ;
     rdfs:subPropertyOf oa:start ;
-    rdfs:range xsd:int ;
+    rdfs:range xsd:nonNegativeInteger ;
     rdfs:domain nif:String .
 
 nif:endIndex
@@ -178,7 +176,7 @@ Note: RFC 5147 is re-used for the definition of character ranges. RFC 5147 is as
 Requirement (1): This property has the same value the "Character position" of RFC 5147 and it must therefore be castable to xsd:nonNegativeInteger, i.e. it MUST not have negative values.
 Requirement (2): The index of the subject string MUST be calculated relative to the nif:referenceContext of the subject. If available, this is the rdf:Literal of the nif:isString property."""@en ;
     rdfs:subPropertyOf oa:end ;
-    rdfs:range xsd:int ;
+    rdfs:range xsd:nonNegativeInteger ;
     rdfs:domain nif:String .
 
 nif:anchorOf
