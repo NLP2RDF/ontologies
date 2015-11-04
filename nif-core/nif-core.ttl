@@ -85,7 +85,7 @@ nif:String
     rdfs:comment """Individuals of this class are a string, i.e. Unicode characters, who have been given a URI and are used in the subject of an RDF statement.  
 This class is abstract and should not be serialized. 
 NIF-Stanbol (nif-stanbol.ttl):
-subclassOf nif:Annotation because it "annotates" strings for example with begin and end index. The class is similar to fise:TextAnnotation"""@en ;
+The class is similar to fise:TextAnnotation"""@en ;
     owl:hasKey (nif:referenceContext nif:beginIndex nif:endIndex) ;
     rdfs:subClassOf [
         a owl:Restriction ;
