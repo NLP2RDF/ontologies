@@ -774,21 +774,27 @@ nif:TextSpanAnnotation
     rdfs:comment """Subclasses of nif:TextSpanAnnotations implicitly highlight text spans to mark them as a certain occurrence."""@en ;
     rdfs:subClassOf nif:Annotation .
 
-nif:AnnotationUnit
+nif:AnnotationGroup
     a owl:Class ;
-	rdfs:label "AnnotationUnit"@en ;
-    rdfs:comment """Individuals of this class group unambiguously a single annotation assertions (either by a property assertion or an implicit annoation via nif:TextSpanAnnotation) together with provenance and/or confidence information. (A nif:String individual can also be an instance of nif:AnnotationUnit when a single annotion assertions is attached to it directly.)"""@en ;
+	rdfs:label "AnnotationGroup"@en ;
+    rdfs:comment """Individuals of this class group unambiguously a set of annotation assertions (either by a property assertion or an implicit annoation via nif:TextSpanAnnotation). A typical use case to introcude annotation sets is provision of provenance and/or confidence information for multiple statements for the same kind of annoation information (e.g. several itsrdf:taIdentRef assertions) in an unambiguous manner."""@en ;
     rdfs:subClassOf nif:Annotation .
 
-nif:annotationUnit
+nif:annotationGroup
     a owl:ObjectProperty ;
-    rdfs:label "annotation"@en ;
-    rdfs:comment """Links a nif:String to nif:AnnotationUnit."""@en ;
+    rdfs:label "annotationGroup"@en ;
+    rdfs:comment """Links a nif:String to nif:AnnotationGroup."""@en ;
     rdfs:domain nif:String ;
-    rdfs:range nif:AnnotationUnit .
+    rdfs:range nif:AnnotationGroup .
 
-nif:EntityMention
+nif:EntityOccurrence
 	a owl:Class ;
-	rdfs:label "EntityMention"@en ;
+	rdfs:label "EntityOccurrence"@en ;
 	rdfs:comment """Text span annotation denoting that a word or phrase has been detected as occurrence of a named entity. (Use this without further annotation property assertions if you just want to express the detection of the occurrence when neither the mentioned entity nor its category was identified.)"""@en ;
+    rdfs:subClassOf nif:TextSpanAnnotation .
+
+nif:TermOccurrence
+	a owl:Class ;
+	rdfs:label "TermOccurrence"@en ;
+	rdfs:comment """Text span annotation denoting that a word or phrase has been detected as occurrence of a term. (Use this without further annotation property assertions if you just want to express the detection of the occurrence when neither the mentioned entity nor its category was identified.)"""@en ;
     rdfs:subClassOf nif:TextSpanAnnotation .
