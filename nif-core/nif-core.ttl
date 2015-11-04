@@ -207,7 +207,7 @@ nif:ContextHashBasedString
 
 ########################################################################
 
-nif:annotation
+nif:objectAnnotation
     a owl:ObjectProperty ;
     rdfs:label "annotation"@en ;
     rdfs:comment """see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf page 21 ."""@en ;
@@ -635,7 +635,7 @@ nif:oliaLink
     rdfs:comment """This property links a string to a URI from one of the OLiA Annotation model, e.g. http://purl.org/olia/penn.owl#NNP"""@en ;
     ## rdfs:range TODO ;
     rdfs:domain nif:String ;
-    rdfs:subPropertyOf nif:annotation .
+    rdfs:subPropertyOf nif:objectAnnotation .
 
 nif:oliaCategory
     a owl:ObjectProperty ;
