@@ -211,20 +211,20 @@ nif:objectAnnotation
     a owl:ObjectProperty ;
     rdfs:label "annotation"@en ;
     rdfs:comment """see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf page 21 ."""@en ;
-    rdf:domain nif:PropertyAssertionAnnotation .
+    rdf:domain nif:PropertyBasedAnnotation .
 
 nif:literalAnnotation
     a owl:DatatypeProperty ;
     rdfs:label "literalAnnotation"@en ;
     rdfs:comment """see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf page 21 ."""@en ;
-    rdf:domain nif:PropertyAssertionAnnotation .
+    rdf:domain nif:PropertyBasedAnnotation .
 
 nif:classAnnotation
     a owl:ObjectProperty ;
     rdfs:label "classAnnotation"@en ;
     rdfs:comment """ancestor property for annotation properties that refer to OWL classes (using OWL 2 punning).
 see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf page 12 ."""@en ;
-    rdfs:domain nif:PropertyAssertionAnnotation .
+    rdfs:domain nif:PropertyBasedAnnotation .
 
 nif:inter
     a owl:ObjectProperty ;
@@ -759,10 +759,10 @@ nif:confidence
 nif:Annotation
 	a owl:Class ;
 	rdfs:label "Annotation"@en ;
-	rdfs:comment """NIF String that also either carry annotation property assertions implicitly or mark implicitly of a text spans themselves (see nif:TextSpanAnnotation)."""@en ;
-	rdfs:seeAlso nif:PropertyAssertionAnnotation, nif:TextSpanAnnotation .
+	rdfs:comment """NIF String that also either carries annotation property assertions (see nif:PropertyBasedAnnotation) or mark implicitly of a text spans themselves (see nif:TextSpanAnnotation)."""@en ;
+	rdfs:seeAlso nif:PropertyBasedAnnotation, nif:TextSpanAnnotation .
 
-nif:PropertyAssertionAnnotation
+nif:PropertyBasedAnnotation
     a owl:Class ;
     rdfs:label "PropertyAssertionAnnotation"@en ;
     rdfs:comment """Annotation for text spans expressed using a property assertion."""@en ;
