@@ -124,7 +124,7 @@ nif:contextStringRef
     a owl:ObjectProperty, owl:FunctionalProperty ;
     owl:versionInfo "0.1.0"@en ;
     rdfs:label "external context reference"@en ;
-    rdfs:comment """Provides the reference to a location where the text for a Context can be retrieved in case it cannot be embedded via isString directly due to licence restrictions or similar reasons. This allow a pure 'stand-off' paradigm for text annotations with NIF. The content obtained by dereferencing the provided URI MUST be just the plain UTF-8 text data and SHOULD be in NFC as equivalent for the string literal that would be otherwise provided directly by nif:isString."""@en ;
+    rdfs:comment """Provides the reference to a location where the text for a Context can be retrieved in case it cannot be embedded via isString directly due to licence restrictions or similar reasons. This allow a pure 'stand-off' paradigm for text annotations with NIF. The content obtained by dereferencing the provided URI MUST be just the plain Unicode text data and SHOULD be in NFC as equivalent for the string literal that would be otherwise provided directly by nif:isString."""@en ;
     rdfs:domain nif:Context ;
     rdfs:range rdfs:Resource .
 
