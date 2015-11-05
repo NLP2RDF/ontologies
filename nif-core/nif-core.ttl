@@ -209,9 +209,15 @@ nif:ContextHashBasedString
 
 nif:objectAnnotation
     a owl:ObjectProperty ;
-    rdfs:label "annotation"@en ;
+    rdfs:label "objectAnnotation"@en ;
     rdfs:comment """see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf page 21 ."""@en ;
     rdf:domain nif:PropertyBasedAnnotation .
+
+nif:annotation
+    a owl:ObjectProperty, owl:DeprecatedProperty;
+    rdfs:comment """former identifier for nif:objectAnnotation"""@en ;
+    rdf:domain nif:PropertyBasedAnnotation ;
+    rdfs:seeAlso nif:ObjectProperty .
 
 nif:literalAnnotation
     a owl:DatatypeProperty ;
