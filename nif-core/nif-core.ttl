@@ -621,14 +621,14 @@ nif:lemma
     a owl:DatatypeProperty ;
     rdfs:label "lemma"@en ;
     rdfs:comment "The lemma(s) of the nif:String."@en ;
-    rdfs:domain nif:String ;
+    rdfs:domain nif:PropertyBasedAnnotation ;
     rdfs:range xsd:string .
 
 nif:stem
     a owl:DatatypeProperty ;
     rdfs:label "stem"@en ;
     rdfs:comment "The stem(s) of the nif:String."@en ;
-    rdfs:domain nif:String ;
+    rdfs:domain nif:PropertyBasedAnnotation ;
     rdfs:range xsd:string .
 
 ###############
@@ -640,13 +640,14 @@ nif:oliaLink
     rdfs:label "OLiA link"@en ;
     rdfs:comment """This property links a string to a URI from one of the OLiA Annotation model, e.g. http://purl.org/olia/penn.owl#NNP"""@en ;
     ## rdfs:range TODO ;
-    rdfs:domain nif:String ;
+    rdfs:domain nif:PropertyBasedAnnotation ;
     rdfs:subPropertyOf nif:objectAnnotation .
 
 nif:oliaCategory
     a owl:ObjectProperty ;
     rdfs:label "OLiA Category"@en ;
     rdfs:comment """This property links a string URI to classes of the OLiA Reference model. It provides a direct link for querying, thus it is a redundant optimization."""@en ;
+    rdfs:domain nif:PropertyBasedAnnotation ;
     rdfs:subPropertyOf nif:classAnnotation .
 
 nif:oliaConf
@@ -654,13 +655,13 @@ nif:oliaConf
     rdfs:label "Confidence of OLiA tag"@en ;
     rdfs:comment """The confidence is relative to the tool and can be between 0.0 and 1.0, it is for nif:oliaLink and therefore also for nif:oliaCategory."""@en ;
     rdfs:range xsd:decimal ;
-    rdfs:domain nif:String .
+    rdfs:domain nif:Annotation .
 
 nif:oliaProv
     a owl:ObjectProperty ;
     rdfs:label "Provenance of OLiA annotation"@en ;
     rdfs:comment """Links to the URI describing the provenance"""@en ;
-    rdfs:domain nif:String ;
+    rdfs:domain nif:Annotation ;
     rdfs:range prov:Activity .
 
 # use only, if no other option is available:
@@ -668,7 +669,7 @@ nif:posTag
     a owl:DatatypeProperty ;
     rdfs:label "Part of speech tag"@en ;
     rdfs:comment "To include the pos tag as it comes out of the NLP tool as RDF Literal. This property is discouraged to use alone, please use oliaLink and oliaCategory.  We included it, because some people might still want it and will even create their own property, if the string variant is missing "@en ;
-    rdfs:domain nif:String ;
+    rdfs:domain nif:PropertyBasedAnnotation ;
     rdfs:range xsd:string .
 
 ###################
@@ -706,7 +707,7 @@ nif:dependencyRelationType
     a owl:DatatypeProperty ;
     rdfs:label "dependency relation type"@en ;
     rdfs:comment """String denoting the kind of dependency relation"""@en ;
-    rdfs:domain nif:String ;
+    rdfs:domain nif:PropertyBasedAnnotation ;
     rdfs:range xsd:string .
 
 nif:dependencyTrans
@@ -726,7 +727,7 @@ nif:sentimentValue
     a owl:DatatypeProperty ;
     rdfs:label "sentiment value"@en ;
     rdfs:comment """Between -1 negative and 1 positive"""@en ;
-    rdfs:domain nif:String ;
+    rdfs:domain nif:PropertyBasedAnnotation ;
     rdfs:range xsd:decimal .
 
 nif:opinion
@@ -734,7 +735,7 @@ nif:opinion
     owl:inverseOf marl:extractedFrom  ;
     rdfs:label "opinion"@en ;
     rdfs:comment """This property is used to link to a marl:Opinion. We have not investigated marl, so it might be replaced. http://marl.gi2mo.org/?page_id=1#overview . InverseOf marl:extractedFrom"""@en ;
-    rdfs:domain nif:String ;
+    rdfs:domain nif:PropertyBasedAnnotation ;
     rdfs:range marl:Opinion .
 
 ###############
@@ -745,14 +746,14 @@ nif:topic
     a owl:ObjectProperty ;
     rdfs:label "topic"@en ;
     rdfs:comment """The topic of a string"""@en ;
-    rdfs:domain nif:String ;
-    rdfs:range nif:Annotation .
+    rdfs:domain nif:PropertyBasedAnnotation ;
+    rdfs:range rdfs:Resource .
 
 nif:keyword
     a owl:DatatypeProperty ;
     rdfs:label "keyword"@en ;
     rdfs:comment """A general keyword associated with a string"""@en ;
-    rdfs:domain nif:String ;
+    rdfs:domain nif:PropertyBasedAnnotation ;
     rdfs:range xsd:string .
 
 nif:confidence
