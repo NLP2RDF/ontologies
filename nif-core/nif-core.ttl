@@ -112,11 +112,13 @@ nif:Context
         owl:unionOf ([
             a owl:Restriction ;
             owl:onProperty nif:isString ;
-            owl:cardinality "1"^^xsd:nonNegativeInteger
+            owl:cardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onDataRange xsd:string
         ] [
             a owl:Restriction ;
             owl:onProperty nif:contextStringRef ;
-            owl:cardinality "1"^^xsd:nonNegativeInteger
+            owl:cardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass rdfs:Resource 
         ])
     ] .
 
