@@ -320,14 +320,14 @@ nif:wasConvertedFrom
 
 nif:broaderContext
     a owl:ObjectProperty ;
-    rdfs:label "broader Context"@en ;
+    rdfs:label "broader context"@en ;
     rdfs:comment "This property should be used to express that one Context is contained in another Context, e.g. several sentences of a document are modelled indivudally and refer to the broader context of the whole document."@en ;
     rdfs:domain nif:Context ;
     rdfs:range nif:Context .
 
 nif:narrowerContext
     a owl:ObjectProperty ;
-    rdfs:label "narrower Context"@en ;
+    rdfs:label "narrower context"@en ;
     rdfs:comment "The inverse of nif:narrowerContext"@en ;
     rdfs:domain nif:Context ;
     rdfs:range nif:Context .
@@ -721,9 +721,9 @@ nif:dependencyTrans
     rdfs:domain nif:String ;
     rdfs:range nif:String .
 
-###############
+############
 # Sentiment
-###############
+############
 
 nif:sentimentValue
     a owl:DatatypeProperty ;
@@ -740,9 +740,37 @@ nif:opinion
     rdfs:domain nif:PropertyBasedAnnotation ;
     rdfs:range marl:Opinion .
 
+
 ###############
+# Translations
+###############
+
+nif:Translation
+    a owl:Class ;
+    rdfs:label "Translation"@en ;
+    rdfs:comment """A context representing string data for a translation in a target language obtained by a tranlation process (both manually or semi-automatically) of a nif:String."""@en ;
+    rdfs:subClassOf nif:Context .
+
+
+nif:wasTranslatedFrom
+    a owl:ObjectProperty ;
+    rdfs:label "was translated from" ;
+    rdfs:comment """Links from a context representing a translation to the nif:String with the corresponding string in the source language."""@en ;
+    rdfs:subPropertyOf nif:wasConvertedFrom ;
+    rdfs:domain nif:Translation ;
+    rdfs:range nif:String .
+
+nif:translation
+    a owl:ObjectProperty ;
+    rdfs:label "translation of"@en ;
+    rdfs:comment """Links from a nif:String to a nif:Translation context representing a language equivalent/translation in a specific target language""" ;
+    rdfs:domain nif:String ;
+    rdfs:range nif:Translation .
+
+
+#######################################
 # Document / Context level annotations
-###############
+#######################################
 
 nif:topic
     a owl:ObjectProperty ;
