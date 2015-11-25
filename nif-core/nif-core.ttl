@@ -806,13 +806,6 @@ nif:keyword
     rdfs:domain nif:PropertyBasedAnnotation ;
     rdfs:range xsd:string .
 
-nif:confidence
-    a owl:DatatypeProperty ;
-    rdfs:label "keyword"@en ;
-    rdfs:comment """The confidence of an annotation as decimal between 0 and 1"""@en ;
-    rdfs:domain nif:Annotation ;
-    rdfs:range xsd:decimal .
-
 nif:EntityOccurrence
 	a owl:Class ;
 	rdfs:label "EntityOccurrence"@en ;
@@ -841,3 +834,35 @@ nif:annotationGroup
     rdfs:comment """Links a nif:String to nif:AnnotationGroup."""@en ;
     rdfs:domain nif:String ;
     rdfs:range nif:AnnotationGroup .
+
+#########################################
+# Provenance & Confidence of Annotations
+#########################################
+
+nif:provenance
+    a owl:ObjectProperty ;
+    rdfs:label "provenance"@en ;
+    rdfs:comment """Provenance of an annotation, specified either a complete activity description capturing the agent, used entities and the time (preferred) or just the agent that creted the annotation (e.g. a human annotator or an NLP service)."""@en ;
+    rdfs:domain nif:Annotation ;
+    rdfs:range [ a owl:Class;
+        owl:unionOf (prov:Activity prov:Agent ) ].
+
+nif:confidence
+    a owl:DatatypeProperty ;
+    rdfs:label "confidence"@en ;
+    rdfs:comment """Confidence of an annotation as decimal between 0 and 1"""@en ;
+    rdfs:domain nif:Annotation ;
+    rdfs:range xsd:decimal .
+
+nif:provenanceProperty 
+    a owl:ObjectProperty ;
+    rdfs:label "provenance property"@en ;
+    rdfs:comment """Declares a companion provenance property for a property used for annotation or a subclass of nif:TextSpanAnnotation. Establishing this vocabluary meta-information explicity allows creating tool that can consume and validate NIF more effectively. The domain of this property is a (punned) subclass of nif:TextSpanAnnotation or a (punned) object or datatype property. The range of this property is a (punned) property (usually a sub-property of nif:provenance)."""@en ;
+    rdfs:seeAlso nif:confidenceProperty .
+
+nif:confidenceProperty
+    a owl:ObjectProperty ;
+    rdfs:label "confidence property"@en ;
+    rdfs:comment """Declares a companion confidence property for a property used for annotation or a subclass of nif:TextSpanAnnotation. Establishing this vocabluary meta-information explicity allows creating tool that can consume and validate NIF more effectively. The domain of this property is a (punned) subclass of nif:TextSpanAnnotation or a (punned) object or datatype property. The range of this property is a (punned) property (usually a sub-property of nif:confidence)."""@en ;
+    rdfs:seeAlso nif:provenanceProperty .
+
