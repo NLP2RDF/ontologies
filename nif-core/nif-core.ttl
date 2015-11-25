@@ -664,28 +664,35 @@ nif:oliaLink
     rdfs:comment """This property links a string to a URI from one of the OLiA Annotation model, e.g. http://purl.org/olia/penn.owl#NNP"""@en ;
     ## rdfs:range TODO ;
     rdfs:domain nif:PropertyBasedAnnotation ;
-    rdfs:subPropertyOf nif:objectAnnotation .
+    rdfs:subPropertyOf nif:objectAnnotation ;
+    nif:provenanceProperty nif:oliaProv ;
+    nif:confidenceProperty nif:oliaConf .
 
 nif:oliaCategory
     a owl:ObjectProperty ;
     rdfs:label "OLiA Category"@en ;
     rdfs:comment """This property links a string URI to classes of the OLiA Reference model. It provides a direct link for querying, thus it is a redundant optimization."""@en ;
     rdfs:domain nif:PropertyBasedAnnotation ;
-    rdfs:subPropertyOf nif:classAnnotation .
+    rdfs:subPropertyOf nif:classAnnotation ;
+    nif:provenanceProperty nif:oliaProv ;
+    nif:confidenceProperty nif:oliaConf .
 
 nif:oliaConf
     a owl:DatatypeProperty ;
     rdfs:label "Confidence of OLiA tag"@en ;
     rdfs:comment """The confidence is relative to the tool and can be between 0.0 and 1.0, it is for nif:oliaLink and therefore also for nif:oliaCategory."""@en ;
     rdfs:range xsd:decimal ;
-    rdfs:domain nif:Annotation .
+    rdfs:domain nif:Annotation ;
+    rdfs:subPropertyOf nif:confidence .
 
 nif:oliaProv
     a owl:ObjectProperty ;
     rdfs:label "Provenance of OLiA annotation"@en ;
     rdfs:comment """Links to the URI describing the provenance"""@en ;
     rdfs:domain nif:Annotation ;
-    rdfs:range prov:Activity .
+    rdfs:range [ a owl:Class;
+        owl:unionOf (prov:Activity prov:Agent ) ] ;
+    rdfs:subPropertyOf nif:provenance .
 
 # use only, if no other option is available:
 nif:posTag
