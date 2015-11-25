@@ -74,10 +74,9 @@ Changelog is written to rdfs:comment (resource level versioning)."""@en  ;
     dc:description <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-ontology_web.png> .
 
 
-###################
+##############################
 # Base Classes and Properties
-###################
-
+##############################
 
 nif:String
     a owl:Class ;
@@ -187,83 +186,12 @@ nif:anchorOf
     rdfs:domain nif:String ;
     rdfs:range xsd:string .
 
-nif:RFC5147String
-    a owl:DeprecatedClass ;
-    rdfs:label "RFC 5147 String"@en ;
-    rdfs:comment """cf. http://tools.ietf.org/html/rfc5147 URIs of this class have to conform with the syntax of RFC 5147 in a way that the end on a valid identifier, if you remove the prefix. Note that unlike RFC 5147 NIF does not requrire '#' URIs. So valid URIs are http://example.org#char=0,28 , http://example.org/whatever/char=0,28 , http://example.org/nif?char=0,28
-Further use of this class is discouraged, since text positions according to RFC 5147 differs from Unicode character counts used by NIF when \r\n newlines occur in the source text."""@en ;
-    rdfs:subClassOf nif:CString .
-
-nif:ContextHashBasedString
-    a owl:Class ;
-    rdfs:label "Context Hash Based String"@en ;
-    rdfs:comment " cf. https://www.google.de/search?q=Linked-Data+Aware+URI+Schemes+for+Referencing+Text"@en ;
-    rdfs:subClassOf nif:URIScheme .
-
-###################
-# Disjointness
-###################
-
-[] a owl:AllDisjointClasses ;
-    owl:members (nif:RFC5147String nif:ContextHashBasedString nif:OffsetBasedString nif:CStringInst) .
-
-########################################################################
-
-nif:objectAnnotation
-    a owl:ObjectProperty ;
-    rdfs:label "objectAnnotation"@en ;
-    rdfs:comment """see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf page 21 ."""@en ;
-    rdf:domain nif:PropertyBasedAnnotation .
-
-nif:annotation
-    a owl:ObjectProperty, owl:DeprecatedProperty;
-    rdfs:comment """former identifier for nif:objectAnnotation"""@en ;
-    rdf:domain nif:PropertyBasedAnnotation ;
-    rdfs:seeAlso nif:ObjectProperty .
-
-nif:literalAnnotation
-    a owl:DatatypeProperty ;
-    rdfs:label "literalAnnotation"@en ;
-    rdfs:comment """see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf page 21 ."""@en ;
-    rdf:domain nif:PropertyBasedAnnotation .
-
-nif:classAnnotation
-    a owl:ObjectProperty ;
-    rdfs:label "classAnnotation"@en ;
-    rdfs:comment """ancestor property for annotation properties that refer to OWL classes (using OWL 2 punning).
-see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf page 12 ."""@en ;
-    rdfs:domain nif:PropertyBasedAnnotation .
-
-nif:inter
-    a owl:ObjectProperty ;
-    rdfs:label "inter"@en ;
-    rdfs:comment """This object property models a relation between two nif:Strings. The name "inter" is kept generic and can be used to express any kind of relation in between (inter) two nif:Strings. Extensions can create rdfs:subPropertyOf for "head", "dependent", nif:substring and nif:nextWord."""@en ;
-    rdfs:domain nif:String ;
-    rdfs:range nif:String .
-
-nif:ContextCollection
-    a owl:Class ;
-    rdfs:label "Context Collection"@en ;
-    rdfs:comment """A collection of contexts used to create an unordered set of context via the nif:hasContext property. This can be compared to a document collection, but here it is a collection of nif:Context and therefore a collection of annotated strings, not documents. 
-Open Issues
-Investigate ordered collections"""@en .
-
-nif:hasContext
-    a owl:ObjectProperty ;
-    rdfs:label "has context"@en ;
-    rdfs:comment """Links a nif:ContextCollection to its contexts."""@en ;
-    rdfs:domain nif:ContextCollection ;
-    rdfs:range nif:Context .
-
-########################################################################
-
 nif:URIScheme
     a owl:Class ;
     rdfs:label "URI Scheme"@en ;
     rdfs:comment """A URI Scheme for NIF, subclasses need to define guidelines on the URI Scheme as well as the text it refers to. This class is just to keep some order, and should not be serialized. 
 This is an abstract class and should not be serialized."""@en ;
     rdfs:subClassOf nif:String .
-
 
 nif:CString
     a owl:Class ;
@@ -289,6 +217,59 @@ nif:Structure
 This is an abstract class and should not be serialized."""@en ;
     rdfs:subClassOf nif:String .
 
+###############
+# Disjointness
+###############
+
+[] a owl:AllDisjointClasses ;
+    owl:members (nif:RFC5147String nif:ContextHashBasedString nif:OffsetBasedString nif:CStringInst) .
+
+
+############################
+# Abstract Annotation Vocab
+############################
+
+nif:Annotation
+	a owl:Class ;
+	rdfs:label "Annotation"@en ;
+	rdfs:comment """NIF String that also either carries annotation property assertions (see nif:PropertyBasedAnnotation) or mark implicitly of a text spans themselves (see nif:TextSpanAnnotation)."""@en ;
+	rdfs:seeAlso nif:PropertyBasedAnnotation, nif:TextSpanAnnotation .
+
+nif:PropertyBasedAnnotation
+    a owl:Class ;
+    rdfs:label "PropertyAssertionAnnotation"@en ;
+    rdfs:comment """Annotation for text spans expressed using a property assertion."""@en ;
+    rdfs:subClassOf nif:Annotation .
+
+nif:TextSpanAnnotation
+    a owl:Class ;
+    rdfs:label "TextSpanAnnotation"@en ;
+    rdfs:comment """Subclasses of nif:TextSpanAnnotations implicitly highlight text spans to mark them as a certain occurrence."""@en ;
+    rdfs:subClassOf nif:Annotation .
+nif:objectAnnotation
+    a owl:ObjectProperty ;
+    rdfs:label "objectAnnotation"@en ;
+    rdfs:comment """see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf page 21 ."""@en ;
+    rdf:domain nif:PropertyBasedAnnotation .
+
+nif:annotation
+    a owl:ObjectProperty, owl:DeprecatedProperty;
+    rdfs:comment """former identifier for nif:objectAnnotation"""@en ;
+    rdf:domain nif:PropertyBasedAnnotation ;
+    rdfs:seeAlso nif:objectAnnotation .
+
+nif:literalAnnotation
+    a owl:DatatypeProperty ;
+    rdfs:label "literalAnnotation"@en ;
+    rdfs:comment """see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf page 21 ."""@en ;
+    rdf:domain nif:PropertyBasedAnnotation .
+
+nif:classAnnotation
+    a owl:ObjectProperty ;
+    rdfs:label "classAnnotation"@en ;
+    rdfs:comment """ancestor property for annotation properties that refer to OWL classes (using OWL 2 punning).
+see Towards Web-Scale Collaborative Knowledge Extraction  http://svn.aksw.org/papers/2012/PeoplesWeb/public_preprint.pdf page 12 ."""@en ;
+    rdfs:domain nif:PropertyBasedAnnotation .
 
 
 ###################
@@ -317,6 +298,30 @@ nif:wasConvertedFrom
     rdfs:domain nif:String ;
     rdfs:range nif:String .
 
+#########################
+# Inter-String Relations
+#########################
+
+nif:ContextCollection
+    a owl:Class ;
+    rdfs:label "Context Collection"@en ;
+    rdfs:comment """A collection of contexts used to create an unordered set of context via the nif:hasContext property. This can be compared to a document collection, but here it is a collection of nif:Context and therefore a collection of annotated strings, not documents. 
+Open Issues
+Investigate ordered collections"""@en .
+
+nif:hasContext
+    a owl:ObjectProperty ;
+    rdfs:label "has context"@en ;
+    rdfs:comment """Links a nif:ContextCollection to its contexts."""@en ;
+    rdfs:domain nif:ContextCollection ;
+    rdfs:range nif:Context .
+
+nif:inter
+    a owl:ObjectProperty ;
+    rdfs:label "inter"@en ;
+    rdfs:comment """This object property models a relation between two nif:Strings. The name "inter" is kept generic and can be used to express any kind of relation in between (inter) two nif:Strings. Extensions can create rdfs:subPropertyOf for "head", "dependent", nif:substring and nif:nextWord."""@en ;
+    rdfs:domain nif:String ;
+    rdfs:range nif:String .
 
 nif:broaderContext
     a owl:ObjectProperty ;
@@ -356,6 +361,10 @@ nif:tail
     rdfs:comment """The last few chars of the nif:anchorOf. Typically used if the nif:anchorOf is to long for inclusion as RDF literal."""@en ;
     rdfs:domain nif:String .
 
+################################
+# Additional String Information
+################################
+
 nif:contextAsLiteral
     a owl:DatatypeProperty ;
     rdfs:label "contextAsLiteral"@en ;
@@ -391,10 +400,22 @@ see nif:predLang for more info."""@en ;
     # too complex: rdfs:domain [ owl:intersectionOf (  nif:String  [ rdf:type owl:Class ; owl:complementOf nif:Context ]     ) ] .
 
 
-###################
-# more URI Schemes
-###################
+#######################
+# concrete URI Schemes
+#######################
 
+
+nif:CStringInst
+    a owl:Class ;
+    rdfs:label "Consecutive String Instantiation"@en ;
+    rdfs:comment """An abitrary URI (e.g. a URN) for an arbitrary string of the context. This is roughly the same as TextAnnotations are currently implemented in Stanbol."""@en ;
+    rdfs:subClassOf nif:CString .
+
+nif:ContextHashBasedString
+    a owl:Class ;
+    rdfs:label "Context Hash Based String"@en ;
+    rdfs:comment " cf. https://www.google.de/search?q=Linked-Data+Aware+URI+Schemes+for+Referencing+Text"@en ;
+    rdfs:subClassOf nif:URIScheme .
 
 nif:OffsetBasedString
     a owl:Class ;
@@ -404,10 +425,11 @@ nif:OffsetBasedString
 requires the existence of begin, endIndex and referenceContext"""@en ;
     rdfs:subClassOf nif:CString, oa:TextPositionSelector .
 
-nif:CStringInst
-    a owl:Class ;
-    rdfs:label "Consecutive String Instantiation"@en ;
-    rdfs:comment """An abitrary URI (e.g. a URN) for an arbitrary string of the context. This is roughly the same as TextAnnotations are currently implemented in Stanbol."""@en ;
+nif:RFC5147String
+    a owl:DeprecatedClass ;
+    rdfs:label "RFC 5147 String"@en ;
+    rdfs:comment """cf. http://tools.ietf.org/html/rfc5147 URIs of this class have to conform with the syntax of RFC 5147 in a way that the end on a valid identifier, if you remove the prefix. Note that unlike RFC 5147 NIF does not requrire '#' URIs. So valid URIs are http://example.org#char=0,28 , http://example.org/whatever/char=0,28 , http://example.org/nif?char=0,28
+Further use of this class is discouraged, since text positions according to RFC 5147 differs from Unicode character counts used by NIF when \r\n newlines occur in the source text."""@en ;
     rdfs:subClassOf nif:CString .
 
 
@@ -421,11 +443,9 @@ nif:CStringInst
 #    rdfs:subClassOf nif:HTMLString .
 
 
-
-
-###################
+############
 # Structure
-###################
+############
 
 nif:Word
     a owl:Class ;
@@ -459,9 +479,10 @@ nif:Title
     rdfs:label "Title"@en ;
     rdfs:comment """A title within a text."""@en ;
     rdfs:subClassOf nif:Structure .
-###################
+
+###############
 # String level
-###################
+###############
 
 nif:subString
     a owl:ObjectProperty ;
@@ -751,7 +772,6 @@ nif:Translation
     rdfs:comment """A context representing string data for a translation in a target language obtained by a tranlation process (both manually or semi-automatically) of a nif:String."""@en ;
     rdfs:subClassOf nif:Context .
 
-
 nif:wasTranslatedFrom
     a owl:ObjectProperty ;
     rdfs:label "was translated from" ;
@@ -793,23 +813,21 @@ nif:confidence
     rdfs:domain nif:Annotation ;
     rdfs:range xsd:decimal .
 
-nif:Annotation
+nif:EntityOccurrence
 	a owl:Class ;
-	rdfs:label "Annotation"@en ;
-	rdfs:comment """NIF String that also either carries annotation property assertions (see nif:PropertyBasedAnnotation) or mark implicitly of a text spans themselves (see nif:TextSpanAnnotation)."""@en ;
-	rdfs:seeAlso nif:PropertyBasedAnnotation, nif:TextSpanAnnotation .
+	rdfs:label "EntityOccurrence"@en ;
+	rdfs:comment """Text span annotation denoting that a word or phrase has been detected as occurrence of a named entity. (Use this without further annotation property assertions if you just want to express the detection of the occurrence when neither the mentioned entity nor its category was identified.)"""@en ;
+    rdfs:subClassOf nif:TextSpanAnnotation .
 
-nif:PropertyBasedAnnotation
-    a owl:Class ;
-    rdfs:label "PropertyAssertionAnnotation"@en ;
-    rdfs:comment """Annotation for text spans expressed using a property assertion."""@en ;
-    rdfs:subClassOf nif:Annotation .
+nif:TermOccurrence
+	a owl:Class ;
+	rdfs:label "TermOccurrence"@en ;
+	rdfs:comment """Text span annotation denoting that a word or phrase has been detected as occurrence of a term. (Use this without further annotation property assertions if you just want to express the detection of the occurrence when neither the mentioned entity nor its category was identified.)"""@en ;
+    rdfs:subClassOf nif:TextSpanAnnotation .
 
-nif:TextSpanAnnotation
-    a owl:Class ;
-    rdfs:label "TextSpanAnnotation"@en ;
-    rdfs:comment """Subclasses of nif:TextSpanAnnotations implicitly highlight text spans to mark them as a certain occurrence."""@en ;
-    rdfs:subClassOf nif:Annotation .
+######################
+# Annotation Grouping
+######################
 
 nif:AnnotationGroup
     a owl:Class ;
@@ -823,15 +841,3 @@ nif:annotationGroup
     rdfs:comment """Links a nif:String to nif:AnnotationGroup."""@en ;
     rdfs:domain nif:String ;
     rdfs:range nif:AnnotationGroup .
-
-nif:EntityOccurrence
-	a owl:Class ;
-	rdfs:label "EntityOccurrence"@en ;
-	rdfs:comment """Text span annotation denoting that a word or phrase has been detected as occurrence of a named entity. (Use this without further annotation property assertions if you just want to express the detection of the occurrence when neither the mentioned entity nor its category was identified.)"""@en ;
-    rdfs:subClassOf nif:TextSpanAnnotation .
-
-nif:TermOccurrence
-	a owl:Class ;
-	rdfs:label "TermOccurrence"@en ;
-	rdfs:comment """Text span annotation denoting that a word or phrase has been detected as occurrence of a term. (Use this without further annotation property assertions if you just want to express the detection of the occurrence when neither the mentioned entity nor its category was identified.)"""@en ;
-    rdfs:subClassOf nif:TextSpanAnnotation .
