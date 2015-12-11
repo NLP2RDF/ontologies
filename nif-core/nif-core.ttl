@@ -776,7 +776,7 @@ nif:opinion
 nif:Translation
     a owl:Class ;
     rdfs:label "Translation"@en ;
-    rdfs:comment """A context representing string data for a translation in a target language obtained by a tranlation process (both manually or semi-automatically) of a nif:String."""@en ;
+    rdfs:comment """A context representing string data for a translation in a target language obtained by a tranlation process (both manually or (semi-)automatically) of a nif:String."""@en ;
     rdfs:subClassOf nif:Context .
 
 nif:wasTranslatedFrom
