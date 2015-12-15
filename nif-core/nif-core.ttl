@@ -773,7 +773,12 @@ nif:Translation
     a owl:Class ;
     rdfs:label "Translation"@en ;
     rdfs:comment """A context representing string data for a translation in a target language obtained by a tranlation process (both manually or (semi-)automatically) of a nif:String."""@en ;
-    rdfs:subClassOf nif:Context .
+    rdfs:subClassOf nif:Context ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty nif:wasTranslatedFrom ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+    ] .
 
 nif:wasTranslatedFrom
     a owl:ObjectProperty ;
@@ -790,6 +795,18 @@ nif:translation
     rdfs:domain nif:String ;
     rdfs:range nif:Translation .
 
+nif:translationProv
+    a owl:ObjectProperty ;
+    rdfs:label "translationProv"@en ;
+    rdfs:domain nif:Translation ;
+    rdfs:range [ a owl:Class;
+        owl:unionOf (prov:Activity prov:Agent ) ].
+
+nif:translationConf
+    a owl:ObjectProperty ;
+    rdfs:label "translationConf"@en ;
+    rdfs:domain nif:Translation ;
+    rdfs:range xsd:decimal .
 
 #######################################
 # Document / Context level annotations
