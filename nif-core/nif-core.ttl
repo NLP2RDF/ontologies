@@ -896,7 +896,7 @@ nif:confidence
 nif:provenanceCompanion
     a owl:ObjectProperty ;
     rdfs:label "provenance companion property"@en ;
-    rdfs:comment """Abstract provenance property for companion properties to express provenance. Values specify either a complete activity description capturing the agent, used entities and the time (preferred) or just the agent that creted the annotation (e.g. a human annotator or an NLP service). Usage Note: in order to use this property, you need to create a new property which is a rdfs:subPropertyOf nif:confidenceCompanion. This subproperty may follow the naming pattern ${targetproperty}"Prov". The following statements give a usage example:
+    rdfs:comment """Abstract provenance property for companion properties to express provenance. Values specify either a complete activity description capturing the agent, used entities and the time (preferred) or just the agent that creted the annotation (e.g. a human annotator or an NLP service). Usage Note: in order to use this property, you need to create a new property which is a rdfs:subPropertyOf nif:confidenceCompanion. This subproperty may follow the naming pattern "${targetproperty}Prov". The following statements give a usage example:
 nif:oliaProv rdfs:subPropertyOf nif:provenanceCompanion .
 nif:oliaLink nif:provenanceProperty nif:oliaProv ."""@en ;
     rdfs:domain nif:Annotation ;
@@ -906,7 +906,7 @@ nif:oliaLink nif:provenanceProperty nif:oliaProv ."""@en ;
 nif:confidenceCompanion
     a owl:DatatypeProperty ;
     rdfs:label "confidence companion"@en ;
-    rdfs:comment """Abstract confidence property for companion properties to express confidence. Values must be decimal between 0 and 1 inclusive. Usage Note: in order to use this property, you need to create a new property which is a rdfs:subPropertyOf nif:confidenceCompanion. This subproperty may follow the naming pattern ${targetproperty}"Conf". The following statements give a usage example:
+    rdfs:comment """Abstract confidence property for companion properties to express confidence. Values must be decimal between 0 and 1 inclusive. Usage Note: in order to use this property, you need to create a new property which is a rdfs:subPropertyOf nif:confidenceCompanion. This subproperty may follow the naming pattern "${targetproperty}Conf". The following statements give a usage example:
 nif:oliaConf rdfs:subPropertyOf nif:confidenceCompanion .
 nif:oliaLink nif:confidenceProperty nif:oliaConf ."""@en ;
     rdfs:domain nif:Annotation ;
