@@ -861,18 +861,18 @@ nif:oliaProv
 # Annotation Grouping
 ######################
 
-nif:AnnotationGroup
+nif:AnnotationUnit
     a owl:Class ;
-	rdfs:label "AnnotationGroup"@en ;
+	rdfs:label "AnnotationUnit"@en ;
     rdfs:comment """Individuals of this class group unambiguously a set of annotation assertions (either by a property assertion or an implicit annoation via nif:TextSpanAnnotation). A typical use case to introcude annotation sets is provision of provenance and/or confidence information for multiple statements for the same kind of annoation information (e.g. several itsrdf:taIdentRef assertions) in an unambiguous manner."""@en ;
     rdfs:subClassOf nif:Annotation .
 
-nif:annotationGroup
+nif:annotationUnit
     a owl:ObjectProperty ;
-    rdfs:label "annotationGroup"@en ;
-    rdfs:comment """Links a nif:String to nif:AnnotationGroup."""@en ;
+    rdfs:label "annotationUnit"@en ;
+    rdfs:comment """Links a nif:String to nif:AnnotationUnit."""@en ;
     rdfs:domain nif:String ;
-    rdfs:range nif:AnnotationGroup .
+    rdfs:range nif:AnnotationUnit .
 
 #########################################
 # Provenance & Confidence of Annotations
