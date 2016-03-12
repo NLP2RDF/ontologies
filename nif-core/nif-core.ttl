@@ -28,14 +28,15 @@
 @prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix oa: <http://www.w3.org/ns/oa#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
 
 <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#>
     a owl:Ontology ;
     owl:versionInfo "2.1.0" ;
 
-    <http://purl.org/vocab/vann/preferredNamespacePrefix> "nif" ;
-    <http://purl.org/vocab/vann/preferredNamespaceUri> "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#" ;
-    <http://purl.org/vocab/vann/changes> <https://github.com/NLP2RDF/persistence.uni-leipzig.org/commits/master/ontologies/nif-core> ;
+    vann:preferredNamespacePrefix "nif" ;
+    vann:preferredNamespaceUri "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#" ;
+    vann:changes <https://github.com/NLP2RDF/persistence.uni-leipzig.org/commits/master/ontologies/nif-core> ;
 
     dcterms:license <http://creativecommons.org/licenses/by/3.0/> ;
     dcterms:license <http://www.apache.org/licenses/LICENSE-2.0> ;
@@ -43,8 +44,6 @@
 
     rdfs:label "NIF 2.1 Core Ontology"@en ;
     rdfs:isDefinedBy <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core.ttl> ;
-    rdfs:isDefinedBy <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-inf.ttl> ;
-    rdfs:isDefinedBy <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core/nif-core-val.ttl> ;
     rdfs:comment """The NLP Interchange Format (NIF) is an RDF/OWL-based format that aims to achieve interoperability between Natural Language Processing (NLP) tools, language resources and annotations. NIF consists of specifications, ontologies and software, which are combined under the version identifier "2.1", but are versioned individually. This ontology is developed by the NLP2RDF project (http://nlp2rdf.org) and provided as part of NIF 2.1 under CC-BY license as well as Apache 2.0. The ontology contains seven core URIs (String, OffsetBasedString, Context, isString, referenceContext, beginIndex, endIndex) that provide the foundation  to express NLP annotations effectively in RDF."""@en ;
 
     dc:creator "Sebastian Hellmann" ;
