@@ -833,11 +833,45 @@ nif:EntityOccurrence
 	rdfs:comment """Text span annotation denoting that a word or phrase has been detected as occurrence of a named entity. (Use this without further annotation property assertions if you just want to express the detection of the occurrence when neither the mentioned entity nor its category was identified.)"""@en ;
     rdfs:subClassOf nif:TextSpanAnnotation .
 
+nif:entityOccurrenceConf
+    a owl:DatatypeProperty ;
+    rdfs:label "entity occurrence confidence (companion property)"@en ;
+    rdfs:domain nif:Annotation ;
+    rdfs:range xsd:decimal ;
+    rdfs:subPropertyOf nif:confidenceCompanion .
+
+nif:entityOccurrenceProv
+    a owl:ObjectProperty ;
+    rdfs:label "entity occurrence provenance (companion property)"@en ;
+    rdfs:domain nif:Annotation ;
+    rdfs:range [ a owl:Class;
+        owl:unionOf (prov:Activity prov:Agent ) ] ;
+    rdfs:subPropertyOf nif:provenanceCompanion .
+
 nif:TermOccurrence
 	a owl:Class ;
 	rdfs:label "TermOccurrence"@en ;
 	rdfs:comment """Text span annotation denoting that a word or phrase has been detected as occurrence of a term. (Use this without further annotation property assertions if you just want to express the detection of the occurrence when neither the mentioned entity nor its category was identified.)"""@en ;
     rdfs:subClassOf nif:TextSpanAnnotation .
+
+nif:termOccurrenceConf
+    a owl:DatatypeProperty ;
+    rdfs:label """term occurrence confidence (companion property)
+Taking semantics of itsrdf:termConfidence into regard individually, one could see this property as a sub-property of it. However, since ITS normatively demands a corresponding itsrdf:termAnnotatorsRef for each occurrence of itsrdf:termConfidence on the one hand with no corrensponding strict 'confidence implies provenance' policy in NIF on the other, no formal rdfs:subPropertyOf assertion is declared due to this slight mismatch in the properties semantics."""@en ;
+    rdfs:domain nif:Annotation ;
+    rdfs:range xsd:decimal ;
+    rdfs:subPropertyOf nif:confidenceCompanion ;
+    rdfs:seeAlso itsrdf:termConfidence .
+
+nif:termOccurrenceProv
+    a owl:ObjectProperty ;
+    rdfs:label """term occurrence provenance (companion property)
+This is property specialises itsrdf:termAnnotatorRef with regard to domain and range."""@en ;
+    rdfs:domain nif:Annotation ;
+    rdfs:range [ a owl:Class;
+        owl:unionOf (prov:Activity prov:Agent ) ] ;
+    rdfs:subPropertyOf nif:provenanceCompanion ;
+    rdfs:subPropertyOf itsrdf:termAnnotatorRef .
 
 nif:oliaConf
     a owl:DatatypeProperty ;
@@ -925,6 +959,80 @@ nif:confidenceProperty
     rdfs:comment """Declares a companion confidence property for a property used for annotation or a subclass of nif:TextSpanAnnotation. Establishing this vocabluary meta-information explicity allows creating tool that can consume and validate NIF more effectively. The domain of this property is a (punned) subclass of nif:TextSpanAnnotation or a (punned) object or datatype property. The range of this property is a (punned) property (usually a sub-property of nif:confidenceCompanion)."""@en ;
     rdfs:seeAlso nif:confidenceCompanion .
 
+
+####################################################################################
+# Provenance and Confidence Companion Properties for external annotation vocabulary
+####################################################################################
+
+nif:taIdentConf
+    a owl:DatatypeProperty ;
+    rdfs:label """text analysis identity reference confidence (companion property)
+This property is closely related to itstdf:taConfidence, but only refers to the confidence of the link to a concrete entity."""@en ;
+    rdfs:domain nif:Annotation ;
+    rdfs:range xsd:decimal ;
+    rdfs:subPropertyOf nif:confidenceCompanion .
+
+nif:taIdentProv
+    a owl:ObjectProperty ;
+    rdfs:label """text analysis identity reference provenance (companion property)
+This property is closely related to itstdf:taAnnotatorRef, but only refers to the provenance of the link to a concrete entity."""@en ;
+    rdfs:domain nif:Annotation ;
+    rdfs:range [ a owl:Class;
+        owl:unionOf (prov:Activity prov:Agent ) ] ;
+    rdfs:subPropertyOf nif:provenanceCompanion ;
+    rdfs:seeAlso itsrdf:taAnnotatorRef .
+
+nif:taClassConf
+    a owl:DatatypeProperty ;
+    rdfs:label """text analysis entity type reference confidence (companion property)
+This property is closely related to itstdf:taConfidence, but only refers to the confidence of the categorisation into an entity type."""@en ;
+    rdfs:domain nif:Annotation ;
+    rdfs:range xsd:decimal ;
+    rdfs:subPropertyOf nif:confidenceCompanion ;
+    rdfs:seeAlso itsrdf:taConfidence .
+
+nif:taClassProv
+    a owl:ObjectProperty ;
+    rdfs:label """text analysis entity type reference provenance (companion property)
+This property is closely related to itstdf:taAnnotatorRef, but only refers to the provenance of the categorisation into an entity type."""@en ;
+    rdfs:domain nif:Annotation ;
+    rdfs:range [ a owl:Class;
+        owl:unionOf (prov:Activity prov:Agent ) ] ;
+    rdfs:subPropertyOf nif:provenanceCompanion ;
+    rdfs:seeAlso itsrdf:taAnnotatorRef .
+
+nif:taIdentConf rdfs:subPropertyOf  itsrdf:taConfidence .
+[ owl:annotatedSource nif:taIdentConf ;
+  owl:annotatedProperty rdfs:subPropertyOf ;
+  owl:annotatedTarget  itsrdf:taConfidence ;
+  rdfs:comment "As itsrdf:taConfidence poses a common confidence measure, it implies :taIdentConf." ] a owl:Axiom .
+
+nif:taClassConf rdfs:subPropertyOf itsrdf:taConfidence .
+[ owl:annotatedSource nif:taClassConf ;
+  owl:annotatedProperty rdfs:subPropertyOf ;
+  owl:annotatedTarget itsrdf:taConfidence ;
+  rdfs:comment "As itsrdf:taConfidence poses a common confidence measure, it implies :taClassConf." ] a owl:Axiom .
+
+nif:termInfoConf
+    a owl:DatatypeProperty ;
+    rdfs:label "terminology information reference confidence (companion property)"@en ;
+    rdfs:domain nif:Annotation ;
+    rdfs:range xsd:decimal ;
+    rdfs:subPropertyOf nif:confidenceCompanion .
+
+nif:termInfoProv
+    a owl:ObjectProperty ;
+    rdfs:label "terminology information reference provenance (companion property)"@en ;
+    rdfs:domain nif:Annotation ;
+    rdfs:range [ a owl:Class;
+        owl:unionOf (prov:Activity prov:Agent ) ] ;
+    rdfs:subPropertyOf nif:provenanceCompanion .
+
+
+####################################################
+# Declaration of Corresponding Companion Properties
+####################################################
+
 nif:oliaLink nif:confidenceProperty nif:oliaConf ;
     nif:provenanceProperty nif:oliaProv .
 
@@ -945,37 +1053,3 @@ itsrdf:taClassRef nif:confidenceProperty nif:taClassConf ;
 
 itsrdf:termInfoRef nif:confidenceProperty nif:termInfoConf ;
     nif:provenanceProperty nif:termInfoProv .
-
-####################################################################################
-# Provenance and Confidence Companion Properties for external annotation vocabulary
-####################################################################################
-
-nif:taIdentConf
-    a owl:DatatypeProperty ;
-    rdfs:label "text analysis identity reference confidence (companion property)"@en ;
-    rdfs:domain nif:Annotation ;
-    rdfs:range xsd:decimal ;
-    rdfs:subPropertyOf nif:confidenceCompanion .
-
-nif:taIdentProv
-    a owl:ObjectProperty ;
-    rdfs:label "text analysis identity reference provenance (companion property)"@en ;
-    rdfs:domain nif:Annotation ;
-    rdfs:range [ a owl:Class;
-        owl:unionOf (prov:Activity prov:Agent ) ] ;
-    rdfs:subPropertyOf nif:provenanceCompanion .
-
-nif:termInfoConf
-    a owl:DatatypeProperty ;
-    rdfs:label "terminology information reference confidence (companion property)"@en ;
-    rdfs:domain nif:Annotation ;
-    rdfs:range xsd:decimal ;
-    rdfs:subPropertyOf nif:confidenceCompanion .
-
-nif:termInfoProv
-    a owl:ObjectProperty ;
-    rdfs:label "terminology information reference provenance (companion property)"@en ;
-    rdfs:domain nif:Annotation ;
-    rdfs:range [ a owl:Class;
-        owl:unionOf (prov:Activity prov:Agent ) ] ;
-    rdfs:subPropertyOf nif:provenanceCompanion .
