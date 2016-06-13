@@ -866,12 +866,12 @@ Taking semantics of itsrdf:termConfidence into regard individually, one could se
 nif:termOccurrenceProv
     a owl:ObjectProperty ;
     rdfs:label """term occurrence provenance (companion property)
-This is property specialises itsrdf:termAnnotatorRef with regard to domain and range."""@en ;
+This is property specialises itsrdf:termAnnotatorsRef with regard to domain and range."""@en ;
     rdfs:domain nif:Annotation ;
     rdfs:range [ a owl:Class;
         owl:unionOf (prov:Activity prov:Agent ) ] ;
     rdfs:subPropertyOf nif:provenanceCompanion ;
-    rdfs:subPropertyOf itsrdf:termAnnotatorRef .
+    rdfs:subPropertyOf itsrdf:termAnnotatorsRef .
 
 nif:oliaConf
     a owl:DatatypeProperty ;
@@ -975,12 +975,12 @@ This property is closely related to itstdf:taConfidence, but only refers to the 
 nif:taIdentProv
     a owl:ObjectProperty ;
     rdfs:label """text analysis identity reference provenance (companion property)
-This property is closely related to itstdf:taAnnotatorRef, but only refers to the provenance of the link to a concrete entity."""@en ;
+This property is closely related to itstdf:taAnnotatorsRef, but only refers to the provenance of the link to a concrete entity."""@en ;
     rdfs:domain nif:Annotation ;
     rdfs:range [ a owl:Class;
         owl:unionOf (prov:Activity prov:Agent ) ] ;
     rdfs:subPropertyOf nif:provenanceCompanion ;
-    rdfs:seeAlso itsrdf:taAnnotatorRef .
+    rdfs:seeAlso itsrdf:taAnnotatorsRef .
 
 nif:taClassConf
     a owl:DatatypeProperty ;
@@ -994,12 +994,12 @@ This property is closely related to itstdf:taConfidence, but only refers to the 
 nif:taClassProv
     a owl:ObjectProperty ;
     rdfs:label """text analysis entity type reference provenance (companion property)
-This property is closely related to itstdf:taAnnotatorRef, but only refers to the provenance of the categorisation into an entity type."""@en ;
+This property is closely related to itstdf:taAnnotatorsRef, but only refers to the provenance of the categorisation into an entity type."""@en ;
     rdfs:domain nif:Annotation ;
     rdfs:range [ a owl:Class;
         owl:unionOf (prov:Activity prov:Agent ) ] ;
     rdfs:subPropertyOf nif:provenanceCompanion ;
-    rdfs:seeAlso itsrdf:taAnnotatorRef .
+    rdfs:seeAlso itsrdf:taAnnotatorsRef .
 
 nif:taIdentConf rdfs:subPropertyOf  itsrdf:taConfidence .
 [ owl:annotatedSource nif:taIdentConf ;
