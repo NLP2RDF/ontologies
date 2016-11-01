@@ -1,9 +1,14 @@
-All ontologies used in NIF 2.0 (NIF-Core + vocabulary modules + helper ontologies )
+All ontologies used in NIF 2.1 (NIF-Core + vocabulary modules + helper ontologies )
 ==========
-## What is NIF and NIF 2.0?
-The NLP Interchange Format (NIF) is an RDF/OWL-based format that aims to achieve interoperability between Natural Language Processing (NLP) tools, language resources and annotations. 
-NIF consists of specifications, ontologies and software, which are combined under the version identifier "2.0", but in fact are versioned individually. 
+## What is NIF?
+The NLP Interchange Format (NIF) is an RDF/OWL-based format that aims to achieve interoperability between Natural Language Processing (NLP) tools, language resources and annotations.
+NIF consists of specifications, ontologies and software.
+
+## What is NIF 2.0?
 NIF 2.0 is a major, not backward-compatible improvement upon the previous version NIF 1.0.  
+
+## What is NIF 2.1?
+NIF 2.1 is a minor, backward-compatible revision of extension of NIF 2.0.  
 
 ## Versioning, License and Persistence 
 is documented here: http://persistence.uni-leipzig.org/nlp2rdf/specification/version.html
