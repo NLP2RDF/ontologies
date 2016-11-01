@@ -465,25 +465,88 @@ nif:Phrase
     rdfs:label "Phrase"@en ;
     rdfs:comment """A nif:Phrase can be a nif:String, that is a chunk of several words or a word itself (e.g. a NounPhrase as a Named Entity). The term is underspecified and can be compatible with many defintitions of phrase. Please subClass it to specify the meaning (e.g. for Chunking or Phrase Structure Grammar). Example: ((My dog)(also)(likes)(eating (sausage)))"""@en ;
     rdfs:subClassOf nif:Structure .
+
 nif:Sentence
     a owl:Class ;
     rdfs:label "Sentence"@en ;
     rdfs:comment """A sentence."""@en ;
     rdfs:subClassOf nif:Structure .
+
 nif:Paragraph
     a owl:Class ;
     rdfs:label "Paragraph"@en ;
     rdfs:comment """A paragraph."""@en ;
     rdfs:subClassOf nif:Structure .
+
 nif:Title
     a owl:Class ;
     rdfs:label "Title"@en ;
     rdfs:comment """A title within a text."""@en ;
     rdfs:subClassOf nif:Structure .
 
-###############
+nif:Section
+    a owl:Class ;
+    rdfs:label "Section"@en ;
+    rdfs:comment """A section (subsumes all text constituents superordinate to paragraphs, e.g. also chapters)."""@en ;
+    rdfs:subClassOf nif:Structure .
+
+nif:start
+    a owl:ObjectProperty ;
+    a owl:FunctionalProperty ;
+    rdfs:comment """This property defines the start of sequenctial links for nif:Structures to traverse a nif:Context using nif:next"""@en ;
+    rdfs:domain nif:Context ;
+    rdfs:range nif:Structure ;
+    rdfs:seeAlso nif:next .
+
+nif:next
+    a owl:ObjectProperty ;
+    a owl:FunctionalProperty, owl:InverseFunctionalProperty ;
+    owl:inverseOf nif:previous ;
+    rdfs:comment """This property (together with nif:previous) can be used to link sequentially nif:Structure resources according to a 'natural' succession (e.g. document order). It can not be assumed that no gaps or whitespaces linked structure elements occur, i.e. string adjacency is not mandatory."""@en ;
+    rdfs:domain nif:Structure ;
+    rdfs:range nif:Structure .
+
+nif:previous
+    a owl:ObjectProperty ;
+    a owl:FunctionalProperty, owl:InverseFunctionalProperty ;
+    owl:inverseOf nif:next ;
+    rdfs:comment "see nif:next"@en ;
+    rdfs:seeAlso nif:next ;
+    rdfs:domain nif:Structure ;
+    rdfs:range nif:Structure .
+
+nif:hasSection
+    a owl:ObjectProperty ;
+    rdfs:label "has paragraph"@en ;
+    rdfs:comment """This property links a nif:Context to a section it contains or sections to contained sub-sections."""@en ;
+    rdfs:domain [ a owl:Class ;
+        owl:unionOf (nif:Context nif:Section) ] ;
+    rdfs:range nif:Section .
+
+nif:firstSection
+    a owl:ObjectProperty ;
+    a owl:FunctionalProperty ;
+    rdfs:label "has first paragraph"@en ;
+    rdfs:comment """This property links a nif:Context to its first section or a section to it's first sub-section ."""@en ;
+    rdfs:domain [ a owl:Class;
+        owl:unionOf (nif:Context nif:Section) ] ;
+    rdfs:range nif:Section ;
+    rdfs:subPropertyOf nif:hasSection .
+
+nif:lastSection
+    a owl:ObjectProperty ;
+    a owl:FunctionalProperty ;
+    rdfs:label "has last paragraph"@en ;
+    rdfs:comment """This property links a nif:Context to its last section or a section to it's last sub-section ."""@en ;
+    rdfs:domain  [ a owl:Class;
+        owl:unionOf (nif:Context nif:Section) ] ;
+    rdfs:range nif:Section ;
+    rdfs:subPropertyOf nif:hasSection .
+
+
+################
 # String level
-###############
+################
 
 nif:subString
     a owl:ObjectProperty ;
@@ -522,15 +585,141 @@ nif:superStringTrans
     rdfs:domain nif:String ;
     rdfs:range nif:String .
 
-###############
+#################
+# Section level
+#################
+
+nif:nextSection
+    a owl:ObjectProperty ;
+    a owl:FunctionalProperty ;
+    rdfs:comment """This property (together with nif:previousSection and their transitive extensions) can be used to make nif:Sections traversable, it can not be assumed that no gaps or whitespaces between sentences or words exist, i.e. string adjacency is not mandatory."""@en ;
+    rdfs:domain nif:Section ;
+    rdfs:range nif:Section ;
+    owl:inverseOf nif:previousSection ;
+    rdfs:subPropertyOf nif:nextSectionTrans .
+
+nif:nextSectionTrans
+    a owl:ObjectProperty ;
+    a owl:TransitiveProperty ;
+    rdfs:comment "see nif:nextSection"@en ;
+    rdfs:seeAlso nif:nextSection ;
+    rdfs:domain nif:Section ;
+    rdfs:range nif:Section .
+
+nif:previousSection
+    a owl:ObjectProperty ;
+    a owl:FunctionalProperty ;
+    rdfs:comment "see nif:nextSection"@en ;
+    rdf:seeAlso nif:nextSection ;
+    rdfs:domain nif:Section ;
+    rdfs:range nif:Section ;
+    rdfs:subPropertyOf nif:previousSectionTrans .
+
+nif:previousSectionTrans
+    a owl:ObjectProperty ;
+    a owl:TransitiveProperty ;
+    rdfs:comment "see nif:nextSection"@en ;
+    rdfs:seeAlso nif:nextSection ;
+    rdfs:domain nif:Section ;
+    rdfs:range nif:Section .
+
+nif:hasParagraph
+    a owl:ObjectProperty ;
+    rdfs:label "has paragraph"@en ;
+    rdfs:comment "This property links sections to their paragraphs."@en ;
+    rdfs:domain nif:Section ;
+    rdfs:range nif:Paragraph .
+
+nif:firstParagraph
+    a owl:ObjectProperty ;
+    a owl:FunctionalProperty ;
+    rdfs:label "has first paragraph"@en ;
+    rdfs:comment """This property links sections to their first paragraph."""@en ;
+    rdfs:domain nif:Section ;
+    rdfs:range nif:Paragraph ;
+    rdfs:subPropertyOf nif:hasParagraph .
+
+nif:lastParagraph
+    a owl:ObjectProperty ;
+    a owl:FunctionalProperty ;
+    rdfs:label "has last paragraph"@en ;
+    rdfs:comment """This property links sections to their last paragraph."""@en ;
+    rdfs:domain nif:Section ;
+    rdfs:range nif:Paragraph ;
+    rdfs:subPropertyOf nif:hasParagraph .
+
+###################
+# Paragraph level
+###################
+
+nif:nextParagraph
+    a owl:ObjectProperty ;
+    a owl:FunctionalProperty ;
+
+    rdfs:comment """This property (together with nif:previousParagraph and their transitive extensions) can be used to nif:Paragraphs traversable, it can not be assumed that no gaps or whitespaces between sentences or words exist, i.e. string adjacency is not mandatory."""@en ;
+    rdfs:domain nif:Paragraph ;
+    rdfs:range nif:Paragraph ;
+    owl:inverseOf nif:previousParagraph ;
+    rdfs:subPropertyOf nif:nextParagraphTrans .
+
+nif:nextParagraphTrans
+    a owl:ObjectProperty ;
+    a owl:TransitiveProperty ;
+    rdfs:comment "see nif:nextParagraph"@en ;
+    rdfs:seeAlso nif:nextParagraph ;
+    rdfs:domain nif:Paragraph ;
+    rdfs:range nif:Paragraph .
+
+nif:previousParagraph
+    a owl:ObjectProperty ;
+    a owl:FunctionalProperty ;
+    rdfs:comment "see nif:nextParagraph"@en ;
+    rdf:seeAlso nif:nextParagraph ;
+    rdfs:domain nif:Paragraph ;
+    rdfs:range nif:Paragraph ;
+    rdfs:subPropertyOf nif:previousParagraphTrans .
+
+nif:previousParagraphTrans
+    a owl:ObjectProperty ;
+    a owl:TransitiveProperty ;
+    rdfs:comment "see nif:nextParagraph"@en ;
+    rdfs:seeAlso nif:nextParagraph ;
+    rdfs:domain nif:Paragraph ;
+    rdfs:range nif:Paragraph .
+
+nif:hasSentence
+    a owl:ObjectProperty ;
+    rdfs:label "contains sentence"@en ;
+    rdfs:comment "This property links paragraphs to their sentences."@en ;
+    rdfs:domain nif:Paragraph ;
+    rdfs:range nif:Sentence .
+
+nif:firstSentence
+    a owl:ObjectProperty ;
+    a owl:FunctionalProperty ;
+    rdfs:label "has first sentence"@en ;
+    rdfs:comment """This property links paragraphs to their first sentence."""@en ;
+    rdfs:domain nif:Paragraph ;
+    rdfs:range nif:Sentence ;
+    rdfs:subPropertyOf nif:hasSentence .
+
+nif:lastSentence
+    a owl:ObjectProperty ;
+    a owl:FunctionalProperty ;
+    rdfs:label "has last sentence"@en ;
+    rdfs:comment """This property links paragraphs to their last sentence."""@en ;
+    rdfs:domain nif:Paragraph ;
+    rdfs:range nif:Sentence ;
+    rdfs:subPropertyOf nif:hasSentence .
+
+##################
 # Sentence level
-###############
+##################
 
 nif:nextSentence
     a owl:ObjectProperty ;
     a owl:FunctionalProperty ;
-
-    rdfs:comment """This property (and nif:previousSentence, nif:nextWord, nif:previousWord and their transitive extension) can be used to make resources of nif:Sentence and nif:Word traversable, it can not be assumed that no gaps or whitespaces between sentences or words exist, i.e. string adjacency is not mandatory. The transitivity axioms are included in nif-core-inf.ttl and need to be included separately to keep a low reasoning profile. They are modeled after skos:broader and skos:broaderTransitive"""@en ;
+    rdfs:comment """This property (in conjunction with nif:previousSentence and their transitive extensions) can be used to make resources of nif:Sentence traversable. It can not be assumed that no gaps or whitespaces between sentences exist, i.e. string adjacency is not mandatory."""@en ;
     rdfs:domain nif:Sentence ;
     rdfs:range nif:Sentence ;
     owl:inverseOf nif:previousSentence ;
@@ -599,7 +788,7 @@ nif:sentence
 nif:nextWord
     a owl:ObjectProperty ;
     a owl:FunctionalProperty ;
-    rdfs:comment "see nif:nextSentence"@en ;
+    rdfs:comment """This property (in conjunction with nif:previousWord  and their transitive extensions) can be used to make resources of nif:Word traversable. It can not be assumed that no gaps or whitespaces between words exist, i.e. string adjacency is not mandatory.see """@en ;
     rdfs:seeAlso nif:nextSentence ;
     rdfs:domain nif:Word ;
     rdfs:range nif:Word ;
